@@ -1,0 +1,249 @@
+{
+  "_note": "唯一內容來源（繁體）。修改後執行 npm run prepare 重新生成簡體、字幕、字型及旁白稿。時間單位：秒。original = 客戶原稿；narration = 經事實護欄修訂後採用的版本。 2026-10-17 用戶決定：S1 用原稿；S3/S5 修訂；取消 TC53 對比，S6 改為 TC501 相機規格。",
+  "fps": 30,
+  "durationSec": 62,
+  "scenes": [
+    {
+      "id": "s1",
+      "name": "痛點",
+      "start": 0,
+      "end": 8,
+      "original": "貨架上、包裹上、標籤上，到處都是條碼。傳統做法，只能一個一個掃。",
+      "narration": "貨架上、包裹上、標籤上，到處都是條碼。傳統做法，只能一個一個掃。",
+      "sources": [
+        "(情境描述，非產品規格)"
+      ],
+      "subs": [
+        {
+          "start": 0.5,
+          "end": 3.3,
+          "text": "貨架上、包裹上、標籤上，"
+        },
+        {
+          "start": 3.3,
+          "end": 5.0,
+          "text": "到處都是條碼。"
+        },
+        {
+          "start": 5.0,
+          "end": 7.7,
+          "text": "傳統做法，只能一個一個掃。"
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "name": "登場",
+      "start": 8,
+      "end": 16,
+      "original": "現在，用 Zebra TC501 拍一下就好。",
+      "narration": "現在，用 Zebra TC501 拍一下就好。",
+      "sources": [
+        "https://techdocs.zebra.com/ai-datacapture/4-0/model/barcode-localizer/"
+      ],
+      "subs": [
+        {
+          "start": 9.0,
+          "end": 11.2,
+          "text": "現在，用 Zebra TC501"
+        },
+        {
+          "start": 11.2,
+          "end": 13.0,
+          "text": "拍一下就好。"
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "name": "一次框選",
+      "start": 16,
+      "end": 28,
+      "original": "AI 條碼解碼器自動找出畫面中所有一維和二維條碼，逐一框選，同時解碼。",
+      "narration": "AI 條碼解碼器自動找出畫面中的一維和二維條碼，逐一框選，同時解碼。",
+      "sources": [
+        "https://techdocs.zebra.com/ai-datacapture/4-0/model/barcode-localizer/",
+        "https://techdocs.zebra.com/ai-datacapture/3-1/entity/"
+      ],
+      "subs": [
+        {
+          "start": 16.5,
+          "end": 18.3,
+          "text": "AI 條碼解碼器"
+        },
+        {
+          "start": 18.3,
+          "end": 22.0,
+          "text": "自動找出畫面中的一維和二維條碼，"
+        },
+        {
+          "start": 22.0,
+          "end": 24.6,
+          "text": "逐一框選，同時解碼。"
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "name": "移動追蹤",
+      "start": 28,
+      "end": 38,
+      "original": "鏡頭移動，框選即時跟隨，結果馬上列出。",
+      "narration": "鏡頭移動，框選即時跟隨，結果馬上列出。",
+      "sources": [
+        "https://techdocs.zebra.com/ai-datacapture/4-0/about/",
+        "https://techdocs.zebra.com/ai-datacapture/latest/camerax/"
+      ],
+      "subs": [
+        {
+          "start": 28.5,
+          "end": 31.5,
+          "text": "鏡頭移動，框選即時跟隨，"
+        },
+        {
+          "start": 31.5,
+          "end": 33.5,
+          "text": "結果馬上列出。"
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "name": "應用場景",
+      "start": 38,
+      "end": 48,
+      "original": "盤點時一眼掌握數量；找放錯位置的商品，畫面直接標示出來。",
+      "narration": "盤點時一眼掌握數量；配合 App，放錯位置的商品也能直接在畫面標示。",
+      "sources": [
+        "https://techdocs.zebra.com/ai-datacapture/4-0/model/barcode-localizer/",
+        "(「放錯位置」判斷屬 App 端邏輯，非 Barcode Decoder 內建功能)"
+      ],
+      "subs": [
+        {
+          "start": 38.5,
+          "end": 41.0,
+          "text": "盤點時一眼掌握數量；"
+        },
+        {
+          "start": 42.5,
+          "end": 43.6,
+          "text": "配合 App，"
+        },
+        {
+          "start": 43.6,
+          "end": 47.3,
+          "text": "放錯位置的商品也能直接在畫面標示。"
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "name": "相機規格",
+      "start": 48,
+      "end": 56,
+      "original": "TC53 和 TC501 都支援 AI 條碼解碼。TC501 配備五千萬像素主相機，畫面細節更多。",
+      "narration": "TC501 配備五千萬像素主相機，並可選配一千三百萬像素超廣角後鏡頭。",
+      "sources": [
+        "https://www.zebra.com/content/dam/zebra_dam/en/spec-sheets/tc501-spec-sheet-en-us.pdf"
+      ],
+      "subs": [
+        {
+          "start": 48.4,
+          "end": 51.6,
+          "text": "TC501 配備五千萬像素主相機，"
+        },
+        {
+          "start": 51.6,
+          "end": 55.4,
+          "text": "並可選配一千三百萬像素超廣角後鏡頭。"
+        }
+      ],
+      "original_v1": "TC53 和 TC501 都支援 AI 條碼解碼。TC501 配備五千萬像素主相機，畫面細節更多。"
+    },
+    {
+      "id": "s7",
+      "name": "結尾",
+      "start": 56,
+      "end": 62,
+      "original": "Zebra TC501，讓 AI 走到第一線。",
+      "narration": "Zebra TC501，讓 AI 走到第一線。",
+      "sources": [
+        "(品牌標語，非事實陳述)"
+      ],
+      "subs": [
+        {
+          "start": 56.6,
+          "end": 58.0,
+          "text": "Zebra TC501，"
+        },
+        {
+          "start": 58.0,
+          "end": 60.3,
+          "text": "讓 AI 走到第一線。"
+        }
+      ]
+    }
+  ],
+  "ui": {
+    "demoBadge": "示意畫面",
+    "s1Counter": "已掃描",
+    "s3Detected": "偵測到 {n} 個條碼",
+    "s4ListTitle": "解碼結果",
+    "s4ListNote": "虛構示範內容",
+    "s5CountTitle": "盤點計數",
+    "s5Parcel": "包裹",
+    "s5Product": "商品",
+    "s5Tag": "貨架價簽",
+    "s5Total": "合計",
+    "s5Misplaced": "放錯位置",
+    "s5AppNote": "由 App 比對後標示",
+    "s6Source": "規格來源：Zebra TC501 官方規格表",
+    "s7Title": "Zebra TC501",
+    "s7Subtitle": "AI 條碼解碼器",
+    "s7Disclaimer": "部分畫面由 AI 生成",
+    "logoMissing": "官方標誌待補",
+    "s6Model": "TC501",
+    "s6Main": "50MP",
+    "s6MainLabel": "主相機",
+    "s6Wide": "13MP",
+    "s6WideLabel": "可選超廣角後鏡頭",
+    "s2Viewfinder": "AI 條碼解碼"
+  },
+  "demoResults": [
+    {
+      "type": "1D",
+      "symbology": "EAN-13",
+      "value": "2000000000015"
+    },
+    {
+      "type": "QR",
+      "symbology": "QR Code",
+      "value": "PKG-DEMO-0381"
+    },
+    {
+      "type": "DM",
+      "symbology": "Data Matrix",
+      "value": "LOC-A03-S2-07"
+    },
+    {
+      "type": "1D",
+      "symbology": "EAN-8",
+      "value": "20000011"
+    },
+    {
+      "type": "1D",
+      "symbology": "UPC-A",
+      "value": "200000000035"
+    },
+    {
+      "type": "QR",
+      "symbology": "QR Code",
+      "value": "PKG-DEMO-0412"
+    },
+    {
+      "type": "DM",
+      "symbology": "Data Matrix",
+      "value": "LOC-A03-S1-02"
+    }
+  ]
+}

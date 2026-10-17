@@ -1,0 +1,381 @@
+{
+  "fps": 30,
+  "durationSec": 62,
+  "demoResults": [
+    {
+      "type": "1D",
+      "symbology": "EAN-13",
+      "value": "2000000000015"
+    },
+    {
+      "type": "QR",
+      "symbology": "QR Code",
+      "value": "PKG-DEMO-0381"
+    },
+    {
+      "type": "DM",
+      "symbology": "Data Matrix",
+      "value": "LOC-A03-S2-07"
+    },
+    {
+      "type": "1D",
+      "symbology": "EAN-8",
+      "value": "20000011"
+    },
+    {
+      "type": "1D",
+      "symbology": "UPC-A",
+      "value": "200000000035"
+    },
+    {
+      "type": "QR",
+      "symbology": "QR Code",
+      "value": "PKG-DEMO-0412"
+    },
+    {
+      "type": "DM",
+      "symbology": "Data Matrix",
+      "value": "LOC-A03-S1-02"
+    }
+  ],
+  "hant": {
+    "scenes": [
+      {
+        "id": "s1",
+        "start": 0,
+        "end": 8,
+        "narration": "貨架上、包裹上、標籤上，到處都是條碼。傳統做法，只能一個一個掃。",
+        "subs": [
+          {
+            "start": 0.5,
+            "end": 3.3,
+            "text": "貨架上、包裹上、標籤上，"
+          },
+          {
+            "start": 3.3,
+            "end": 5,
+            "text": "到處都是條碼。"
+          },
+          {
+            "start": 5,
+            "end": 7.7,
+            "text": "傳統做法，只能一個一個掃。"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "start": 8,
+        "end": 16,
+        "narration": "現在，用 Zebra TC501 拍一下就好。",
+        "subs": [
+          {
+            "start": 9,
+            "end": 11.2,
+            "text": "現在，用 Zebra TC501"
+          },
+          {
+            "start": 11.2,
+            "end": 13,
+            "text": "拍一下就好。"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "start": 16,
+        "end": 28,
+        "narration": "AI 條碼解碼器自動找出畫面中的一維和二維條碼，逐一框選，同時解碼。",
+        "subs": [
+          {
+            "start": 16.5,
+            "end": 18.3,
+            "text": "AI 條碼解碼器"
+          },
+          {
+            "start": 18.3,
+            "end": 22,
+            "text": "自動找出畫面中的一維和二維條碼，"
+          },
+          {
+            "start": 22,
+            "end": 24.6,
+            "text": "逐一框選，同時解碼。"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "start": 28,
+        "end": 38,
+        "narration": "鏡頭移動，框選即時跟隨，結果馬上列出。",
+        "subs": [
+          {
+            "start": 28.5,
+            "end": 31.5,
+            "text": "鏡頭移動，框選即時跟隨，"
+          },
+          {
+            "start": 31.5,
+            "end": 33.5,
+            "text": "結果馬上列出。"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "start": 38,
+        "end": 48,
+        "narration": "盤點時一眼掌握數量；配合 App，放錯位置的商品也能直接在畫面標示。",
+        "subs": [
+          {
+            "start": 38.5,
+            "end": 41,
+            "text": "盤點時一眼掌握數量；"
+          },
+          {
+            "start": 42.5,
+            "end": 43.6,
+            "text": "配合 App，"
+          },
+          {
+            "start": 43.6,
+            "end": 47.3,
+            "text": "放錯位置的商品也能直接在畫面標示。"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "start": 48,
+        "end": 56,
+        "narration": "TC501 配備五千萬像素主相機，並可選配一千三百萬像素超廣角後鏡頭。",
+        "subs": [
+          {
+            "start": 48.4,
+            "end": 51.6,
+            "text": "TC501 配備五千萬像素主相機，"
+          },
+          {
+            "start": 51.6,
+            "end": 55.4,
+            "text": "並可選配一千三百萬像素超廣角後鏡頭。"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "start": 56,
+        "end": 62,
+        "narration": "Zebra TC501，讓 AI 走到第一線。",
+        "subs": [
+          {
+            "start": 56.6,
+            "end": 58,
+            "text": "Zebra TC501，"
+          },
+          {
+            "start": 58,
+            "end": 60.3,
+            "text": "讓 AI 走到第一線。"
+          }
+        ]
+      }
+    ],
+    "ui": {
+      "demoBadge": "示意畫面",
+      "s1Counter": "已掃描",
+      "s3Detected": "偵測到 {n} 個條碼",
+      "s4ListTitle": "解碼結果",
+      "s4ListNote": "虛構示範內容",
+      "s5CountTitle": "盤點計數",
+      "s5Parcel": "包裹",
+      "s5Product": "商品",
+      "s5Tag": "貨架價簽",
+      "s5Total": "合計",
+      "s5Misplaced": "放錯位置",
+      "s5AppNote": "由 App 比對後標示",
+      "s6Source": "規格來源：Zebra TC501 官方規格表",
+      "s7Title": "Zebra TC501",
+      "s7Subtitle": "AI 條碼解碼器",
+      "s7Disclaimer": "部分畫面由 AI 生成",
+      "logoMissing": "官方標誌待補",
+      "s6Model": "TC501",
+      "s6Main": "50MP",
+      "s6MainLabel": "主相機",
+      "s6Wide": "13MP",
+      "s6WideLabel": "可選超廣角後鏡頭",
+      "s2Viewfinder": "AI 條碼解碼"
+    }
+  },
+  "hans": {
+    "scenes": [
+      {
+        "id": "s1",
+        "start": 0,
+        "end": 8,
+        "narration": "货架上、包裹上、标签上，到处都是条码。传统做法，只能一个一个扫。",
+        "subs": [
+          {
+            "start": 0.5,
+            "end": 3.3,
+            "text": "货架上、包裹上、标签上，"
+          },
+          {
+            "start": 3.3,
+            "end": 5,
+            "text": "到处都是条码。"
+          },
+          {
+            "start": 5,
+            "end": 7.7,
+            "text": "传统做法，只能一个一个扫。"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "start": 8,
+        "end": 16,
+        "narration": "现在，用 Zebra TC501 拍一下就好。",
+        "subs": [
+          {
+            "start": 9,
+            "end": 11.2,
+            "text": "现在，用 Zebra TC501"
+          },
+          {
+            "start": 11.2,
+            "end": 13,
+            "text": "拍一下就好。"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "start": 16,
+        "end": 28,
+        "narration": "AI 条码解码器自动找出画面中的一维和二维条码，逐一框选，同时解码。",
+        "subs": [
+          {
+            "start": 16.5,
+            "end": 18.3,
+            "text": "AI 条码解码器"
+          },
+          {
+            "start": 18.3,
+            "end": 22,
+            "text": "自动找出画面中的一维和二维条码，"
+          },
+          {
+            "start": 22,
+            "end": 24.6,
+            "text": "逐一框选，同时解码。"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "start": 28,
+        "end": 38,
+        "narration": "镜头移动，框选即时跟随，结果马上列出。",
+        "subs": [
+          {
+            "start": 28.5,
+            "end": 31.5,
+            "text": "镜头移动，框选即时跟随，"
+          },
+          {
+            "start": 31.5,
+            "end": 33.5,
+            "text": "结果马上列出。"
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "start": 38,
+        "end": 48,
+        "narration": "盘点时一眼掌握数量；配合 App，放错位置的商品也能直接在画面标示。",
+        "subs": [
+          {
+            "start": 38.5,
+            "end": 41,
+            "text": "盘点时一眼掌握数量；"
+          },
+          {
+            "start": 42.5,
+            "end": 43.6,
+            "text": "配合 App，"
+          },
+          {
+            "start": 43.6,
+            "end": 47.3,
+            "text": "放错位置的商品也能直接在画面标示。"
+          }
+        ]
+      },
+      {
+        "id": "s6",
+        "start": 48,
+        "end": 56,
+        "narration": "TC501 配备五千万像素主相机，并可选配一千三百万像素超广角后镜头。",
+        "subs": [
+          {
+            "start": 48.4,
+            "end": 51.6,
+            "text": "TC501 配备五千万像素主相机，"
+          },
+          {
+            "start": 51.6,
+            "end": 55.4,
+            "text": "并可选配一千三百万像素超广角后镜头。"
+          }
+        ]
+      },
+      {
+        "id": "s7",
+        "start": 56,
+        "end": 62,
+        "narration": "Zebra TC501，让 AI 走到第一线。",
+        "subs": [
+          {
+            "start": 56.6,
+            "end": 58,
+            "text": "Zebra TC501，"
+          },
+          {
+            "start": 58,
+            "end": 60.3,
+            "text": "让 AI 走到第一线。"
+          }
+        ]
+      }
+    ],
+    "ui": {
+      "demoBadge": "示意画面",
+      "s1Counter": "已扫描",
+      "s3Detected": "侦测到 {n} 个条码",
+      "s4ListTitle": "解码结果",
+      "s4ListNote": "虚构示范内容",
+      "s5CountTitle": "盘点计数",
+      "s5Parcel": "包裹",
+      "s5Product": "商品",
+      "s5Tag": "货架价签",
+      "s5Total": "合计",
+      "s5Misplaced": "放错位置",
+      "s5AppNote": "由 App 比对后标示",
+      "s6Source": "规格来源：Zebra TC501 官方规格表",
+      "s7Title": "Zebra TC501",
+      "s7Subtitle": "AI 条码解码器",
+      "s7Disclaimer": "部分画面由 AI 生成",
+      "logoMissing": "官方标志待补",
+      "s6Model": "TC501",
+      "s6Main": "50MP",
+      "s6MainLabel": "主相机",
+      "s6Wide": "13MP",
+      "s6WideLabel": "可选超广角后镜头",
+      "s2Viewfinder": "AI 条码解码"
+    }
+  }
+}

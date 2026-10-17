@@ -1,0 +1,121 @@
+{
+  "_status": "DRAFT — zebra.com 與 techdocs.zebra.com 被本雲端環境網絡政策封鎖（HTTP 403 / ENOTFOUND），未能讀取首頁、TC501 頁、AI 軟件頁的 HTML/CSS。以下所有值均標記 unverified；candidate 欄位只來自搜尋引擎對官方品牌指引 PDF 的摘要，未親自打開 PDF 核對。",
+  "_researched_at": "2026-10-17",
+  "colors": {
+    "primary": {
+      "value": "unverified",
+      "candidate": "#000000 (Black) / #FFFFFF (White) — 官方顏色指引稱黑白為 primary colors",
+      "source": "https://www.zebra.com/content/dam/zebra_dam/en/guide/corporate/brand-guide-colors-en-us.pdf",
+      "evidence": "search snippet only"
+    },
+    "accent": {
+      "value": "unverified",
+      "candidate": "Zebra Blue #0073E6 (RGB 0,115,230)",
+      "source": "https://www.zebra.com/content/dam/zebra_dam/en/guide/corporate/brand-guide-colors-en-us.pdf",
+      "evidence": "search snippet only；摘要稱該表格抽取文字有亂碼，hex 必須打開 PDF 核對"
+    },
+    "secondary": {
+      "value": "unverified",
+      "candidate": null,
+      "rejected": [
+        {
+          "value": "#FFD200",
+          "reason": "舊版合作夥伴指引 flipbook，可能已過時",
+          "source": "https://fliphtml5.com/jzda/xedr/Zebra_Brand_Guidelines_eBook/"
+        },
+        {
+          "value": "#1A73E8",
+          "reason": "Brandfetch 第三方，數值與 Google Blue 相同，不可信",
+          "source": "https://brandfetch.com/symbol.com"
+        }
+      ]
+    },
+    "warning_highlight": {
+      "value": "unverified",
+      "note": "S5「放錯位置」用的黃色需另行確認品牌指引是否有指定警示色"
+    }
+  },
+  "typography": {
+    "primary_typeface": {
+      "value": "unverified",
+      "candidate": "Proxima Nova（官方字體指引：supers 使用 Proxima Nova）",
+      "source": "http://www.zebra.com/content/dam/zebra_new_ia/en-us/corporate-and-brand/brand/guide/brand-guide-typography-en-us.pdf",
+      "evidence": "search snippet only",
+      "license_note": "Proxima Nova 為商業字體（Mark Simonson / Adobe Fonts），渲染需有授權字體檔"
+    },
+    "fallback_typeface": {
+      "value": "unverified",
+      "candidate": "Arial（官方指引稱為內部及後備字體）",
+      "source": "http://www.zebra.com/content/dam/zebra_new_ia/en-us/corporate-and-brand/brand/guide/brand-guide-typography-en-us.pdf"
+    },
+    "cjk_typeface": {
+      "value": "unverified",
+      "note": "官方指引未見中文字體規定；需你方指定（例如思源黑體 / Noto Sans CJK，開源可商用）"
+    }
+  },
+  "buttons": {
+    "value": "unverified",
+    "note": "需讀取 zebra.com CSS，被封鎖"
+  },
+  "headings": {
+    "value": "unverified",
+    "note": "需讀取 zebra.com CSS，被封鎖"
+  },
+  "video_guide": {
+    "value": "unverified",
+    "source": "https://www.zebra.com/content/dam/zebra_new_ia/en-us/corporate-and-brand/brand/guide/brand-guide-video-en-us.pdf",
+    "note": "官方有影片品牌指引 PDF（字幕/supers/標誌用法），強烈建議下載核對"
+  },
+  "logo": {
+    "value": "unverified",
+    "source": "https://www.zebra.com/content/dam/zebra_dam/en/guide/corporate/brand-guide-logo-en-us.pdf",
+    "note": "標誌檔案未下載；需你提供官方 SVG"
+  },
+  "render": {
+    "_note": "影片實際使用的值。全部為 unverified 候選值或替代品，待核實後只需改這裏。",
+    "colors": {
+      "primary": {
+        "value": "#0073E6",
+        "status": "unverified",
+        "from": "colors.accent.candidate (Zebra Blue)",
+        "use": "邊界框描邊、強調色"
+      },
+      "primaryFillAlpha": {
+        "value": 0.18,
+        "status": "design choice"
+      },
+      "ink": {
+        "value": "#000000",
+        "status": "unverified",
+        "from": "colors.primary.candidate"
+      },
+      "paper": {
+        "value": "#FFFFFF",
+        "status": "unverified",
+        "from": "colors.primary.candidate"
+      },
+      "warn": {
+        "value": "#FFC400",
+        "status": "design choice — 非品牌色，分鏡指定「黃色」放錯位置標示"
+      },
+      "placeholder": {
+        "value": "#4A4A4A",
+        "status": "design choice — AI 片段占位灰"
+      }
+    },
+    "fonts": {
+      "hant": {
+        "value": "Noto Sans TC",
+        "status": "substitute — Proxima Nova 無授權字體檔；Noto 為 SIL OFL 開源字體"
+      },
+      "hans": {
+        "value": "Noto Sans SC",
+        "status": "substitute"
+      },
+      "latinFallback": {
+        "value": "Arial, Liberation Sans",
+        "status": "unverified — 官方指引候選後備字體 Arial"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "tc501-tmp",
+  "name": "tc501-ep01-barcode",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "Zebra TC501 AI 條碼解碼器 60 秒解說片 EP01",
   "repository": {},
   "license": "UNLICENSED",
   "engines": {
@@ -9,7 +9,11 @@
   },
   "private": true,
   "dependencies": {
+    "@fontsource/noto-sans-sc": "^5.3.1",
+    "@fontsource/noto-sans-tc": "^5.3.1",
     "@remotion/cli": "4.0.536",
+    "@remotion/fonts": "^4.0.536",
+    "opencc-js": "^1.4.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.536"
@@ -23,10 +27,14 @@
     "typescript": "5.9.3"
   },
   "scripts": {
-    "dev": "remotion studio",
+    "dev": "node scripts/prepare.mjs && remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "prep": "node scripts/prepare.mjs",
+    "tts": "node scripts/tts-azure.mjs",
+    "render": "node scripts/prepare.mjs && remotion render TC501-EP01 out/tc501-ep01-barcode.mp4",
+    "render:hans": "node scripts/prepare.mjs && remotion render TC501-EP01-Hans out/tc501-ep01-barcode-hans.mp4"
   },
   "allowScripts": {
     "esbuild": false
