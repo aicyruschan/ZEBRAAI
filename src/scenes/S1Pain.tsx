@@ -1,15 +1,14 @@
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { DemoBadge } from "../components/DemoBadge";
-import { Sfx } from "../components/Sfx";
 import { Panel } from "../components/Panel";
+import { PalletWorld } from "../components/PalletWorld";
 import { ScannerGun } from "../components/Scanner";
-import { ShelfWorld } from "../components/ShelfWorld";
+import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
-import { codeCenter, codeSizeOf, items, toScreen, type Camera } from "../data/shelf";
+import { CLOSE, codes, FULL, toView } from "../data/pallet";
 import type { SceneProps } from "./types";
 
-export const CLOSE: Camera = { cx: 800, cy: 520, scale: 1.7 };
-const TARGETS = ["B2", "B3", "B4", "A4"].map((id) => items.find((i) => i.id === id)!);
+const TARGETS = ["c4-sku", "c5-sku", "c8-sku", "c9-sku"].map((id) => codes.find((k) => k.id === id)!);
 const FIRST = 0.8;
 const EVERY = 1.9;
 const MUZZLE_OFFSET: [number, number] = [210, 110];
@@ -17,9 +16,9 @@ export const GUN_SCALE = 1.4;
 
 // 掃描槍狀態：在目標之間移動，槍口相對目標固定偏移
 export const gunState = (t: number) => {
-  const pts = TARGETS.map((it) => toScreen(CLOSE, ...codeCenter(it)));
+  const pts = TARGETS.map((k) => toView(CLOSE, FULL, k.x + k.w / 2, k.y + k.h / 2));
   let i = 0;
-  for (let k = 0; k < TARGETS.length; k++) if (t >= FIRST + k * EVERY - 0.7) i = k;
+  for (let n = 0; n < TARGETS.length; n++) if (t >= FIRST + n * EVERY - 0.7) i = n;
   const prev = pts[Math.max(0, i - 1)];
   const move = interpolate(t, [FIRST + i * EVERY - 0.7, FIRST + i * EVERY - 0.1], [0, 1], {
     extrapolateLeft: "clamp",
@@ -35,7 +34,7 @@ export const gunState = (t: number) => {
   return { tx, ty, mx, my, angle, laser };
 };
 
-// S1 痛點：舊式掃描槍逐一掃描，計數緩慢增加
+// S1 痛點：舊式掃描槍逐箱逐個條碼掃描，計數緩慢增加
 export const S1Pain: React.FC<SceneProps> = ({ c, ff }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -45,11 +44,12 @@ export const S1Pain: React.FC<SceneProps> = ({ c, ff }) => {
   const pulse = interpolate(sinceTick, [0, 8], [1.12, 1], { extrapolateRight: "clamp" });
   const g = gunState(t);
   const target = g.laser >= 0 ? TARGETS[g.laser] : null;
-  const [cw, ch] = target ? codeSizeOf(target.code).map((v) => v * CLOSE.scale) : [0, 0];
-  const sweep = target ? ((t - (FIRST + g.laser * EVERY)) / 0.9) * 2 - 1 : 0; // 掃描線上下掃動
+  const cw = target ? target.w * CLOSE.scale : 0;
+  const ch = target ? target.h * CLOSE.scale : 0;
+  const sweep = target ? ((t - (FIRST + g.laser * EVERY)) / 0.9) * 2 - 1 : 0;
   return (
     <AbsoluteFill>
-      <ShelfWorld cam={CLOSE} />
+      <PalletWorld cam={CLOSE} vp={FULL} />
       {target && (
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           <line x1={g.mx} y1={g.my} x2={g.tx} y2={g.ty} stroke="#FF2B2B" strokeWidth={3} opacity={0.35} />

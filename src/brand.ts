@@ -9,6 +9,8 @@ export const colors = {
   ink: r.colors.ink.value,
   paper: r.colors.paper.value,
   warn: r.colors.warn.value,
+  success: r.colors.success.value,
+  successDark: r.colors.successDark.value,
   placeholder: r.colors.placeholder.value,
 };
 

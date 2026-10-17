@@ -1,18 +1,16 @@
 import { AbsoluteFill } from "remotion";
 import { colors } from "../brand";
 
-// 相機觀景框四角，表示「這是 TC501 相機看到的畫面」
-export const Viewfinder: React.FC<{ opacity?: number; inset?: number }> = ({ opacity = 1, inset = 28 }) => {
-  const L = 90;
-  const t = 6;
-  const c = colors.paper;
-  const corner = (style: React.CSSProperties) => <div style={{ position: "absolute", width: L, height: L, ...style }} />;
+// 相機觀景框四角
+export const Viewfinder: React.FC<{ opacity?: number; inset?: number; size?: number; thickness?: number }> = ({ opacity = 1, inset = 28, size = 90, thickness = 6 }) => {
+  const b = `${thickness}px solid ${colors.paper}`;
+  const corner = (style: React.CSSProperties) => <div style={{ position: "absolute", width: size, height: size, ...style }} />;
   return (
     <AbsoluteFill style={{ opacity, pointerEvents: "none" }}>
-      {corner({ left: inset, top: inset, borderLeft: `${t}px solid ${c}`, borderTop: `${t}px solid ${c}` })}
-      {corner({ right: inset, top: inset, borderRight: `${t}px solid ${c}`, borderTop: `${t}px solid ${c}` })}
-      {corner({ left: inset, bottom: inset, borderLeft: `${t}px solid ${c}`, borderBottom: `${t}px solid ${c}` })}
-      {corner({ right: inset, bottom: inset, borderRight: `${t}px solid ${c}`, borderBottom: `${t}px solid ${c}` })}
+      {corner({ left: inset, top: inset, borderLeft: b, borderTop: b })}
+      {corner({ right: inset, top: inset, borderRight: b, borderTop: b })}
+      {corner({ left: inset, bottom: inset, borderLeft: b, borderBottom: b })}
+      {corner({ right: inset, bottom: inset, borderRight: b, borderBottom: b })}
     </AbsoluteFill>
   );
 };

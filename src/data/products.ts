@@ -2,6 +2,7 @@
 export const productBoxes: Record<string, [number, number, number, number]> = {
   "1.jpg": [729, 103, 1169, 1194],
   "2.jpg": [699, 113, 1223, 1196],
+  "2-cutout.png": [699, 113, 1223, 1196], // 2.jpg 去背版（scripts 內 PIL flood fill 生成）
   "3.jpg": [736, 106, 1174, 1201],
   "4.jpg": [743, 107, 1184, 1196],
 };

@@ -48,7 +48,7 @@ export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles }) => {
       ))}
       {media.bgm && <Audio src={staticFile(media.bgm)} volume={bgmVolume} />}
       {media.vo && <Audio src={staticFile(media.vo)} />}
-      {burnSubtitles && <Subtitles subs={subs} fontFamily={ff} />}
+      {burnSubtitles && <Subtitles subs={subs} fontFamily={ff} centerX={(t) => (t >= 9 && t < 48 ? 600 : 960)} />}
     </AbsoluteFill>
   );
 };

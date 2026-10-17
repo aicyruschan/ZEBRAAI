@@ -49,7 +49,6 @@ for (const s of script.scenes) {
   }
 }
 if (!script.ui.demoBadge.includes("示意畫面")) errors.push("ui.demoBadge 必須為「示意畫面」");
-if (!script.ui.s7Disclaimer.includes("部分畫面由 AI 生成")) errors.push("片尾聲明缺失");
 if (errors.length) {
   console.error("✗ 護欄檢查失敗：\n" + errors.map((e) => "  - " + e).join("\n"));
   process.exit(1);
@@ -67,7 +66,7 @@ const hans = convertDeep(hant);
 ensureDir("src/generated");
 fs.writeFileSync(
   p("src/generated/content.json"),
-  JSON.stringify({ fps: script.fps, durationSec: script.durationSec, demoResults: script.demoResults, hant, hans }, null, 2),
+  JSON.stringify({ fps: script.fps, durationSec: script.durationSec, hant, hans }, null, 2),
 );
 
 // ---------- 3. SRT ----------
@@ -125,7 +124,7 @@ fs.writeFileSync(p("src/generated/media.json"), JSON.stringify(media, null, 2));
 // ---------- 6. 字型子集（只複製用到的 unicode 分片） ----------
 const allText = (c) =>
   JSON.stringify([c.ui, c.scenes.map((s) => s.subs.map((x) => x.text))]) +
-  JSON.stringify(script.demoResults) + "0123456789/·：,.()+-";
+  "0123456789/·：,.()+-ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const parseRanges = (str) =>
   str.split(",").map((r) => r.trim().replace(/^U\+/i, "")).map((r) => {
     const [a, b] = r.split("-");

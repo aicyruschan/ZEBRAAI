@@ -103,6 +103,15 @@
       "placeholder": {
         "value": "#4A4A4A",
         "status": "design choice — AI 片段占位灰"
+      },
+      "success": {
+        "value": "#7CD641",
+        "status": "sampled from TC501 official render (side-button accent), not a verified brand colour",
+        "use": "已讀取／收貨單對得上（綠色）"
+      },
+      "successDark": {
+        "value": "#3D7F1E",
+        "status": "design choice — 綠色深色版，用於勾號及標籤"
       }
     },
     "fonts": {

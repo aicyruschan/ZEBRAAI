@@ -1,46 +1,50 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { BarcodeBox } from "../components/BarcodeBox";
+import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
-import { Sfx } from "../components/Sfx";
+import { Device } from "../components/Device";
+import { CodeBox } from "../components/Overlays";
+import { PalletWorld } from "../components/PalletWorld";
 import { Panel } from "../components/Panel";
-import { ShelfWorld } from "../components/ShelfWorld";
-import { Viewfinder } from "../components/Viewfinder";
-import { codeCenter, inView, items, WIDE } from "../data/shelf";
+import { Sfx } from "../components/Sfx";
+import { colors } from "../brand";
+import { codes, FULL, SPLIT } from "../data/pallet";
+import { DEVICE_CX } from "./S2Reveal";
 import type { SceneProps } from "./types";
 
-// 畫面內的條碼，由左至右逐一框選
-const visible = items.filter((it) => inView(WIDE, it)).sort((a, b) => codeCenter(a)[0] - codeCenter(b)[0]);
-const appearSec = (i: number) => 1.0 + i * 0.22;
-const appearAt = (i: number, fps: number) => Math.round(appearSec(i) * fps);
+// 一次對準整堆貨：28 個條碼在約 1.4 秒內幾乎同時被框選（亂序出現，表現「同時讀取」）
+const order = codes.map((_, i) => (i * 11) % codes.length);
+export const readSec = (i: number) => 1.0 + order[i] * 0.05;
 
-// S3 一次框選：邊界框逐一出現，計數至 18
 export const S3Detect: React.FC<SceneProps> = ({ c, ff }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const shown = visible.filter((_, i) => frame >= appearAt(i, fps)).length;
+  const t = frame / fps;
+  const shown = codes.filter((_, i) => t >= readSec(i)).length;
+  const label = c.ui.s3Read.replace("{n}", String(shown));
   return (
     <AbsoluteFill>
-      <ShelfWorld cam={WIDE} />
-      <Viewfinder />
-      {visible.map((it, i) => (
-        <BarcodeBox
-          key={it.id}
-          it={it}
-          cam={WIDE}
-          fontFamily={ff}
-          appear={interpolate(frame - appearAt(i, fps), [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
-        />
-      ))}
+      <PalletWorld cam={SPLIT} vp={FULL} />
+      <Device cx={DEVICE_CX} cy={540} screenOn={1}>
+        {(vp) => (
+          <CameraScreen vp={vp} ff={ff} status={shown ? label : c.ui.s2Status}>
+            {(cam) =>
+              codes.map((k, i) => (
+                <CodeBox key={k.id} code={k} cam={cam} vp={vp} appear={interpolate(t - readSec(i), [0, 0.2], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })} />
+              ))
+            }
+          </CameraScreen>
+        )}
+      </Device>
       {shown > 0 && (
-        <Panel style={{ left: 64, top: 64 }}>
-          <div style={{ fontFamily: ff, fontSize: 40, fontWeight: 700 }}>{c.ui.s3Detected.replace("{n}", String(shown))}</div>
+        <Panel style={{ left: 64, top: 64, borderLeftColor: colors.success }}>
+          <div style={{ fontFamily: ff, fontSize: 40, fontWeight: 700 }}>{label}</div>
         </Panel>
       )}
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
-      {visible.map((it, i) => (
-        <Sfx key={it.id} at={appearSec(i)} name={`tick-${i % 6}`} volume={0.35} />
+      {[0, 4, 8, 12, 16, 20, 24].map((i, k) => (
+        <Sfx key={i} at={1.0 + i * 0.05} name={`tick-${k % 6}`} volume={0.3} />
       ))}
-      <Sfx at={appearSec(visible.length - 1) + 0.3} name="confirm" volume={0.55} />
+      <Sfx at={1.0 + codes.length * 0.05 + 0.2} name="confirm" volume={0.55} />
     </AbsoluteFill>
   );
 };

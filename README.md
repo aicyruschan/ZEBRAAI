@@ -10,9 +10,10 @@
 | `content/script.json` | **唯一內容來源**：旁白、字幕時間、畫面文字、示範結果（繁體） |
 | `brand/brand.json` | 品牌值及來源。影片只讀 `render` 區塊 |
 | `research/facts.md`、`research/selfcheck.md` | 事實清單、渲染前自我檢查 |
-| `src/data/shelf.ts` | 貨架「世界座標」：26 件貨品及條碼位置、鏡頭換算 |
-| `src/components/ShelfWorld.tsx` | 程式繪製的貨架場景 |
-| `src/components/BarcodeBox.tsx` | 邊界框（由世界座標經鏡頭換算，永遠對齊條碼） |
+| `src/data/pallet.ts` | 收貨區「世界座標」：棧板 12 箱、28 個條碼、收貨單、鏡頭換算 |
+| `src/components/PalletWorld.tsx` | 程式繪製的收貨區場景 |
+| `src/components/Device.tsx`、`CameraScreen.tsx` | TC501 官方渲染圖＋螢幕內的 App 示意畫面 |
+| `src/components/Overlays.tsx` | 綠色條碼框（已讀取）、整箱勾號（與收貨單對得上） |
 | `src/scenes/S1Pain … S7Outro.tsx` | 每個場景一個組件 |
 | `assets/products/tc501/` | TC501 官方渲染圖（S2、S6、S7 使用） |
 | `assets/brand/logo.png` | Zebra 官方標誌（用戶提供，已轉透明背景；也可換成 `logo.svg`） |
@@ -37,11 +38,9 @@ npm run render:hans   # 簡體版
 > 雲端容器渲染時要加 `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`，本機不需要。
 
 ## 改畫面
-- **貨品陳設**：編輯 `src/data/shelf.ts` 的 `items`。廣角鏡頭 `WIDE` 下可見的條碼數會自動成為 S3 的「偵測到 N 個條碼」，請同步確認旁白。
-- **鏡頭運動**：
-  - S1 特寫：`CLOSE`（`S1Pain.tsx`）
-  - S4 平移終點：`PAN_END`（`S4Track.tsx`）
-- **放錯位置的商品**：`MISPLACED_ID`。
+- **貨物及收貨單**：編輯 `src/data/pallet.ts`（`COLS`、`TIERS`、`ORDER`）。條碼數和箱數會自動反映在畫面計數上。
+- **鏡頭**：`CLOSE`（S1 特寫）、`SPLIT`（S2–S5 左側實景）、`screenCam`（TC501 螢幕內畫面）。
+- **TC501 去背圖**：`assets/products/tc501/2-cutout.png` 由 `2.jpg` 以 flood fill 去白底生成。
 
 ## 音樂及音效
 - 全部以 numpy/scipy 程式合成，**沒有第三方素材，不涉版權**。

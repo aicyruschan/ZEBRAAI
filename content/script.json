@@ -1,5 +1,5 @@
 {
-  "_note": "唯一內容來源（繁體）。修改後執行 npm run prepare 重新生成簡體、字幕、字型及旁白稿。時間單位：秒。original = 客戶原稿；narration = 經事實護欄修訂後採用的版本。 2026-10-17 用戶決定：S1 用原稿；S3/S5 修訂；取消 TC53 對比，S6 改為 TC501 相機規格。",
+  "_note": "唯一內容來源（繁體）。修改後執行 npm run prepare 重新生成簡體、字幕、字型及旁白稿。時間單位：秒。original = 客戶原稿；narration = 經事實護欄修訂後採用的版本。 2026-10-17 用戶決定：S1 用原稿；S3/S5 修訂；取消 TC53 對比，S6 改為 TC501 相機規格。 2026-10-17 用戶決定：改為棧板「一堆貨同時讀取＋收貨單核對」示範，綠色＝已讀取／對得上；刪去片尾 AI 聲明。",
   "fps": 30,
   "durationSec": 62,
   "scenes": [
@@ -56,7 +56,7 @@
     },
     {
       "id": "s3",
-      "name": "一次框選",
+      "name": "同時讀取",
       "start": 16,
       "end": 28,
       "original": "AI 條碼解碼器自動找出畫面中所有一維和二維條碼，逐一框選，同時解碼。",
@@ -109,32 +109,33 @@
     },
     {
       "id": "s5",
-      "name": "應用場景",
+      "name": "收貨核對",
       "start": 38,
       "end": 48,
       "original": "盤點時一眼掌握數量；找放錯位置的商品，畫面直接標示出來。",
-      "narration": "盤點時一眼掌握數量；配合 App，放錯位置的商品也能直接在畫面標示。",
+      "narration": "配合 App 與收貨單比對，對得上的貨物即時變綠，收貨一目了然。",
       "sources": [
         "https://techdocs.zebra.com/ai-datacapture/4-0/model/barcode-localizer/",
-        "(「放錯位置」判斷屬 App 端邏輯，非 Barcode Decoder 內建功能)"
+        "(「與收貨單比對」屬 App 端邏輯；官方 Showcase「AI Pallet Checker (Beta)」有箱級庫存核對示範：https://techdocs.zebra.com/showcase-app/latest/usage-ai/)"
       ],
       "subs": [
         {
           "start": 38.5,
-          "end": 41.0,
-          "text": "盤點時一眼掌握數量；"
+          "end": 41.6,
+          "text": "配合 App 與收貨單比對，"
         },
         {
-          "start": 42.5,
-          "end": 43.6,
-          "text": "配合 App，"
+          "start": 41.6,
+          "end": 44.6,
+          "text": "對得上的貨物即時變綠，"
         },
         {
-          "start": 43.6,
-          "end": 47.3,
-          "text": "放錯位置的商品也能直接在畫面標示。"
+          "start": 44.6,
+          "end": 46.8,
+          "text": "收貨一目了然。"
         }
-      ]
+      ],
+      "original_v2": "盤點時一眼掌握數量；配合 App，放錯位置的商品也能直接在畫面標示。"
     },
     {
       "id": "s6",
@@ -187,63 +188,27 @@
   "ui": {
     "demoBadge": "示意畫面",
     "s1Counter": "已掃描",
-    "s3Detected": "偵測到 {n} 個條碼",
     "s4ListTitle": "解碼結果",
     "s4ListNote": "虛構示範內容",
-    "s5CountTitle": "盤點計數",
-    "s5Parcel": "包裹",
-    "s5Product": "商品",
-    "s5Tag": "貨架價簽",
-    "s5Total": "合計",
-    "s5Misplaced": "放錯位置",
-    "s5AppNote": "由 App 比對後標示",
     "s6Source": "規格來源：Zebra TC501 官方規格表",
     "s7Title": "Zebra TC501",
     "s7Subtitle": "AI 條碼解碼器",
-    "s7Disclaimer": "部分畫面由 AI 生成",
     "logoMissing": "官方標誌待補",
     "s6Model": "TC501",
     "s6Main": "50MP",
     "s6MainLabel": "主相機",
     "s6Wide": "13MP",
     "s6WideLabel": "可選超廣角後鏡頭",
-    "s2Viewfinder": "AI 條碼解碼"
-  },
-  "demoResults": [
-    {
-      "type": "1D",
-      "symbology": "EAN-13",
-      "value": "2000000000015"
-    },
-    {
-      "type": "QR",
-      "symbology": "QR Code",
-      "value": "PKG-DEMO-0381"
-    },
-    {
-      "type": "DM",
-      "symbology": "Data Matrix",
-      "value": "LOC-A03-S2-07"
-    },
-    {
-      "type": "1D",
-      "symbology": "EAN-8",
-      "value": "20000011"
-    },
-    {
-      "type": "1D",
-      "symbology": "UPC-A",
-      "value": "200000000035"
-    },
-    {
-      "type": "QR",
-      "symbology": "QR Code",
-      "value": "PKG-DEMO-0412"
-    },
-    {
-      "type": "DM",
-      "symbology": "Data Matrix",
-      "value": "LOC-A03-S1-02"
-    }
-  ]
+    "s2Status": "AI 條碼解碼",
+    "s3Read": "已讀取 {n} 個條碼",
+    "s4Box": "第 {n} 箱",
+    "s4Sku": "SKU",
+    "s4Qty": "數量",
+    "s5OrderTitle": "收貨單",
+    "s5OrderNo": "PO-DEMO-1017",
+    "s5Expected": "應收",
+    "s5Received": "已核對",
+    "s5Done": "已核對 {n} / {total} 箱",
+    "s5Note": "由 App 與收貨單比對"
+  }
 }

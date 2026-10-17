@@ -45,7 +45,6 @@ export const S7Outro: React.FC<SceneProps> = ({ c, ff }) => {
           )}
         </div>
       </div>
-      <div style={{ position: "absolute", zIndex: 2, right: 40, bottom: 20, fontFamily: ff, fontSize: 20, color: "#666" }}>{c.ui.s7Disclaimer}</div>
       <Sfx at={0.4} name="chime" volume={0.6} />
     </AbsoluteFill>
   );

@@ -1,78 +1,81 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { BarcodeBox } from "../components/BarcodeBox";
+import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
-import { Sfx } from "../components/Sfx";
+import { Device } from "../components/Device";
+import { CartonBox, CodeBox } from "../components/Overlays";
+import { PalletWorld } from "../components/PalletWorld";
 import { Panel } from "../components/Panel";
-import { ShelfWorld } from "../components/ShelfWorld";
-import { Viewfinder } from "../components/Viewfinder";
+import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
-import { inView, items, MISPLACED_ID, type Kind } from "../data/shelf";
-import { PAN_END } from "./S4Track";
+import { cartons, codes, FULL, ORDER, SPLIT } from "../data/pallet";
+import { DEVICE_CX } from "./S2Reveal";
 import type { SceneProps } from "./types";
 
-const cam = PAN_END;
-const visible = items.filter((it) => inView(cam, it));
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+// 由上而下、由左至右逐箱與收貨單比對
+const matchOrder = [...cartons].sort((a, b) => a.y - b.y || a.x - b.x);
+const matchSec = (i: number) => 1.0 + i * 0.35;
 
-// S5 應用場景：前半段盤點計數，後半段一個商品框轉黃並標示「放錯位置」
+// S5 收貨核對：螢幕上逐箱變綠（與收貨單對得上），左側收貨單同步打勾
 export const S5UseCase: React.FC<SceneProps> = ({ c, ff }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const half = 5 * fps;
-  const countUp = interpolate(frame, [0.5 * fps, 3 * fps], [0, 1], clamp);
-  const warnIn = interpolate(frame, [half, half + 10], [0, 1], clamp);
-  const countPanel = interpolate(frame, [half - 10, half + 5], [1, 0], clamp);
-  const n = (k: Kind) => Math.round(visible.filter((b) => b.kind === k).length * countUp);
-  const rows: [string, number][] = [
-    [c.ui.s5Parcel, n("parcel")],
-    [c.ui.s5Product, n("product")],
-    [c.ui.s5Tag, n("tag")],
-  ];
+  const t = frame / fps;
+  const back = interpolate(t, [0, 0.4], [0, 1], clamp);
+  const matched = matchOrder.filter((_, i) => t >= matchSec(i));
+  const status = c.ui.s5Done.replace("{n}", String(matched.length)).replace("{total}", String(cartons.length));
   return (
     <AbsoluteFill>
-      <ShelfWorld cam={cam} />
-      <Viewfinder />
-      {visible.map((it) => {
-        const isWarn = it.id === MISPLACED_ID && warnIn > 0;
-        return (
-          <BarcodeBox
-            key={it.id}
-            it={it}
-            cam={cam}
-            fontFamily={ff}
-            appear={1}
-            color={isWarn ? colors.warn : colors.primary}
-            dim={it.id === MISPLACED_ID ? 1 : interpolate(warnIn, [0, 1], [1, 0.35])}
-            caption={isWarn ? c.ui.s5Misplaced : undefined}
-          />
-        );
-      })}
-      {countPanel > 0 && (
-        <Panel style={{ left: 64, top: 64, width: 380, opacity: countPanel }}>
-          <div style={{ fontFamily: ff, fontSize: 34, fontWeight: 700, marginBottom: 10 }}>{c.ui.s5CountTitle}</div>
-          {rows.map(([label, v]) => (
-            <div key={label} style={{ display: "flex", justifyContent: "space-between", fontFamily: ff, fontSize: 30, padding: "4px 0" }}>
-              <span style={{ opacity: 0.8 }}>{label}</span>
-              <span style={{ fontWeight: 700 }}>{v}</span>
+      <PalletWorld cam={SPLIT} vp={FULL} />
+      <AbsoluteFill style={{ background: `rgba(0,0,0,${0.45 * back})` }} />
+      <Device cx={DEVICE_CX} cy={540} screenOn={1}>
+        {(vp) => (
+          <CameraScreen vp={vp} ff={ff} status={status}>
+            {(cam) => (
+              <>
+                {codes.map((k) => (
+                  <CodeBox key={k.id} code={k} cam={cam} vp={vp} appear={1} />
+                ))}
+                {matchOrder.map((k, i) => (
+                  <CartonBox key={k.n} carton={k} cam={cam} vp={vp} appear={interpolate(t - matchSec(i), [0, 0.2], [0, 1], clamp)} />
+                ))}
+              </>
+            )}
+          </CameraScreen>
+        )}
+      </Device>
+      <Panel style={{ left: 110, top: 150, width: 720, padding: "28px 34px", opacity: back, borderLeftColor: colors.success }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontFamily: ff }}>
+          <span style={{ fontSize: 42, fontWeight: 700 }}>{c.ui.s5OrderTitle}</span>
+          <span style={{ fontSize: 24, opacity: 0.7 }}>{c.ui.s5OrderNo}</span>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 160px", fontFamily: ff, fontSize: 24, opacity: 0.65, margin: "20px 0 6px" }}>
+          <span>{c.ui.s4Sku}</span>
+          <span>{c.ui.s5Expected}</span>
+          <span>{c.ui.s5Received}</span>
+        </div>
+        {ORDER.map((o) => {
+          const expected = cartons.filter((k) => k.sku === o.sku).length;
+          const got = matched.filter((k) => k.sku === o.sku).length;
+          const done = got === expected;
+          return (
+            <div key={o.sku} style={{ display: "grid", gridTemplateColumns: "1fr 120px 160px", alignItems: "center", fontFamily: ff, fontSize: 32, padding: "12px 0", borderTop: "1px solid rgba(255,255,255,0.15)" }}>
+              <span style={{ fontWeight: 700 }}>{o.sku}</span>
+              <span>{expected}</span>
+              <span style={{ fontWeight: 700, color: done ? colors.success : colors.paper }}>
+                {got} / {expected} {done ? "✓" : ""}
+              </span>
             </div>
-          ))}
-          <div style={{ display: "flex", justifyContent: "space-between", fontFamily: ff, fontSize: 34, fontWeight: 700, borderTop: "1px solid rgba(255,255,255,0.3)", marginTop: 8, paddingTop: 8 }}>
-            <span>{c.ui.s5Total}</span>
-            <span>{rows.reduce((a, [, v]) => a + v, 0)}</span>
-          </div>
-        </Panel>
-      )}
-      {warnIn > 0 && (
-        <Panel style={{ left: 64, top: 64, opacity: warnIn, borderLeftColor: colors.warn }}>
-          <div style={{ fontFamily: ff, fontSize: 40, fontWeight: 700, color: colors.warn }}>{c.ui.s5Misplaced}</div>
-          <div style={{ fontFamily: ff, fontSize: 24, opacity: 0.8 }}>{c.ui.s5AppNote}</div>
-        </Panel>
-      )}
+          );
+        })}
+        <div style={{ fontFamily: ff, fontSize: 36, fontWeight: 700, marginTop: 18, color: matched.length === cartons.length ? colors.success : colors.paper }}>{status}</div>
+        <div style={{ fontFamily: ff, fontSize: 20, opacity: 0.7, marginTop: 6 }}>{c.ui.s5Note}</div>
+      </Panel>
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
-      {[0, 1, 2, 3, 4, 5].map((k) => (
-        <Sfx key={k} at={0.5 + k * 0.45} name={`tick-${k}`} volume={0.3} />
+      {matchOrder.map((_, i) => (
+        <Sfx key={i} at={matchSec(i)} name={`tick-${i % 6}`} volume={0.28} />
       ))}
-      <Sfx at={5} name="alert" volume={0.6} />
+      <Sfx at={matchSec(matchOrder.length - 1) + 0.35} name="confirm" volume={0.6} />
     </AbsoluteFill>
   );
 };

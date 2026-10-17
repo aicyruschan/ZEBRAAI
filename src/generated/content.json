@@ -1,43 +1,6 @@
 {
   "fps": 30,
   "durationSec": 62,
-  "demoResults": [
-    {
-      "type": "1D",
-      "symbology": "EAN-13",
-      "value": "2000000000015"
-    },
-    {
-      "type": "QR",
-      "symbology": "QR Code",
-      "value": "PKG-DEMO-0381"
-    },
-    {
-      "type": "DM",
-      "symbology": "Data Matrix",
-      "value": "LOC-A03-S2-07"
-    },
-    {
-      "type": "1D",
-      "symbology": "EAN-8",
-      "value": "20000011"
-    },
-    {
-      "type": "1D",
-      "symbology": "UPC-A",
-      "value": "200000000035"
-    },
-    {
-      "type": "QR",
-      "symbology": "QR Code",
-      "value": "PKG-DEMO-0412"
-    },
-    {
-      "type": "DM",
-      "symbology": "Data Matrix",
-      "value": "LOC-A03-S1-02"
-    }
-  ],
   "hant": {
     "scenes": [
       {
@@ -126,22 +89,22 @@
         "id": "s5",
         "start": 38,
         "end": 48,
-        "narration": "盤點時一眼掌握數量；配合 App，放錯位置的商品也能直接在畫面標示。",
+        "narration": "配合 App 與收貨單比對，對得上的貨物即時變綠，收貨一目了然。",
         "subs": [
           {
             "start": 38.5,
-            "end": 41,
-            "text": "盤點時一眼掌握數量；"
+            "end": 41.6,
+            "text": "配合 App 與收貨單比對，"
           },
           {
-            "start": 42.5,
-            "end": 43.6,
-            "text": "配合 App，"
+            "start": 41.6,
+            "end": 44.6,
+            "text": "對得上的貨物即時變綠，"
           },
           {
-            "start": 43.6,
-            "end": 47.3,
-            "text": "放錯位置的商品也能直接在畫面標示。"
+            "start": 44.6,
+            "end": 46.8,
+            "text": "收貨一目了然。"
           }
         ]
       },
@@ -185,27 +148,28 @@
     "ui": {
       "demoBadge": "示意畫面",
       "s1Counter": "已掃描",
-      "s3Detected": "偵測到 {n} 個條碼",
       "s4ListTitle": "解碼結果",
       "s4ListNote": "虛構示範內容",
-      "s5CountTitle": "盤點計數",
-      "s5Parcel": "包裹",
-      "s5Product": "商品",
-      "s5Tag": "貨架價簽",
-      "s5Total": "合計",
-      "s5Misplaced": "放錯位置",
-      "s5AppNote": "由 App 比對後標示",
       "s6Source": "規格來源：Zebra TC501 官方規格表",
       "s7Title": "Zebra TC501",
       "s7Subtitle": "AI 條碼解碼器",
-      "s7Disclaimer": "部分畫面由 AI 生成",
       "logoMissing": "官方標誌待補",
       "s6Model": "TC501",
       "s6Main": "50MP",
       "s6MainLabel": "主相機",
       "s6Wide": "13MP",
       "s6WideLabel": "可選超廣角後鏡頭",
-      "s2Viewfinder": "AI 條碼解碼"
+      "s2Status": "AI 條碼解碼",
+      "s3Read": "已讀取 {n} 個條碼",
+      "s4Box": "第 {n} 箱",
+      "s4Sku": "SKU",
+      "s4Qty": "數量",
+      "s5OrderTitle": "收貨單",
+      "s5OrderNo": "PO-DEMO-1017",
+      "s5Expected": "應收",
+      "s5Received": "已核對",
+      "s5Done": "已核對 {n} / {total} 箱",
+      "s5Note": "由 App 與收貨單比對"
     }
   },
   "hans": {
@@ -296,22 +260,22 @@
         "id": "s5",
         "start": 38,
         "end": 48,
-        "narration": "盘点时一眼掌握数量；配合 App，放错位置的商品也能直接在画面标示。",
+        "narration": "配合 App 与收货单比对，对得上的货物即时变绿，收货一目了然。",
         "subs": [
           {
             "start": 38.5,
-            "end": 41,
-            "text": "盘点时一眼掌握数量；"
+            "end": 41.6,
+            "text": "配合 App 与收货单比对，"
           },
           {
-            "start": 42.5,
-            "end": 43.6,
-            "text": "配合 App，"
+            "start": 41.6,
+            "end": 44.6,
+            "text": "对得上的货物即时变绿，"
           },
           {
-            "start": 43.6,
-            "end": 47.3,
-            "text": "放错位置的商品也能直接在画面标示。"
+            "start": 44.6,
+            "end": 46.8,
+            "text": "收货一目了然。"
           }
         ]
       },
@@ -355,27 +319,28 @@
     "ui": {
       "demoBadge": "示意画面",
       "s1Counter": "已扫描",
-      "s3Detected": "侦测到 {n} 个条码",
       "s4ListTitle": "解码结果",
       "s4ListNote": "虚构示范内容",
-      "s5CountTitle": "盘点计数",
-      "s5Parcel": "包裹",
-      "s5Product": "商品",
-      "s5Tag": "货架价签",
-      "s5Total": "合计",
-      "s5Misplaced": "放错位置",
-      "s5AppNote": "由 App 比对后标示",
       "s6Source": "规格来源：Zebra TC501 官方规格表",
       "s7Title": "Zebra TC501",
       "s7Subtitle": "AI 条码解码器",
-      "s7Disclaimer": "部分画面由 AI 生成",
       "logoMissing": "官方标志待补",
       "s6Model": "TC501",
       "s6Main": "50MP",
       "s6MainLabel": "主相机",
       "s6Wide": "13MP",
       "s6WideLabel": "可选超广角后镜头",
-      "s2Viewfinder": "AI 条码解码"
+      "s2Status": "AI 条码解码",
+      "s3Read": "已读取 {n} 个条码",
+      "s4Box": "第 {n} 箱",
+      "s4Sku": "SKU",
+      "s4Qty": "数量",
+      "s5OrderTitle": "收货单",
+      "s5OrderNo": "PO-DEMO-1017",
+      "s5Expected": "应收",
+      "s5Received": "已核对",
+      "s5Done": "已核对 {n} / {total} 箱",
+      "s5Note": "由 App 与收货单比对"
     }
   }
 }
