@@ -1,4 +1,4 @@
-import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useVideoConfig } from "remotion";
 import "./fonts";
 import { fontFamily, type Variant } from "./brand";
 import { contentFor, media, scene, type SceneId } from "./content";
@@ -24,9 +24,21 @@ const SCENES: [SceneId, React.FC<SceneProps>][] = [
   ["s7", S7Outro],
 ];
 
+// 背景音樂音量：無旁白時 0.75（全片約 -16 LUFS）；有旁白時，旁白區段壓到 0.3（前後 0.25 秒漸變）
+const BGM_LEVEL = 0.75;
+const BGM_DUCKED = 0.3;
+
 export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles }) => {
   const c = contentFor(variant);
   const ff = fontFamily(variant);
+  const { fps } = useVideoConfig();
+  const subs = c.scenes.flatMap((s) => s.subs);
+  const bgmVolume = (f: number) => {
+    if (!media.vo) return BGM_LEVEL;
+    const t = f / fps;
+    const near = Math.max(0, ...subs.map((s) => interpolate(t, [s.start - 0.25, s.start, s.end, s.end + 0.25], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })));
+    return BGM_LEVEL + (BGM_DUCKED - BGM_LEVEL) * near;
+  };
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       {SCENES.map(([id, Comp]) => (
@@ -34,8 +46,9 @@ export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles }) => {
           <Comp c={c} ff={ff} />
         </Sequence>
       ))}
+      {media.bgm && <Audio src={staticFile(media.bgm)} volume={bgmVolume} />}
       {media.vo && <Audio src={staticFile(media.vo)} />}
-      {burnSubtitles && <Subtitles subs={c.scenes.flatMap((s) => s.subs)} fontFamily={ff} />}
+      {burnSubtitles && <Subtitles subs={subs} fontFamily={ff} />}
     </AbsoluteFill>
   );
 };

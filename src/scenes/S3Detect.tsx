@@ -1,6 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { BarcodeBox } from "../components/BarcodeBox";
 import { DemoBadge } from "../components/DemoBadge";
+import { Sfx } from "../components/Sfx";
 import { Panel } from "../components/Panel";
 import { ShelfWorld } from "../components/ShelfWorld";
 import { Viewfinder } from "../components/Viewfinder";
@@ -9,7 +10,8 @@ import type { SceneProps } from "./types";
 
 // 畫面內的條碼，由左至右逐一框選
 const visible = items.filter((it) => inView(WIDE, it)).sort((a, b) => codeCenter(a)[0] - codeCenter(b)[0]);
-const appearAt = (i: number, fps: number) => Math.round((1.0 + i * 0.22) * fps);
+const appearSec = (i: number) => 1.0 + i * 0.22;
+const appearAt = (i: number, fps: number) => Math.round(appearSec(i) * fps);
 
 // S3 一次框選：邊界框逐一出現，計數至 18
 export const S3Detect: React.FC<SceneProps> = ({ c, ff }) => {
@@ -35,6 +37,10 @@ export const S3Detect: React.FC<SceneProps> = ({ c, ff }) => {
         </Panel>
       )}
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
+      {visible.map((it, i) => (
+        <Sfx key={it.id} at={appearSec(i)} name={`tick-${i % 6}`} volume={0.35} />
+      ))}
+      <Sfx at={appearSec(visible.length - 1) + 0.3} name="confirm" volume={0.55} />
     </AbsoluteFill>
   );
 };

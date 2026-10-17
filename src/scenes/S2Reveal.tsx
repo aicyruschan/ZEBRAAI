@@ -1,5 +1,6 @@
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { DemoBadge } from "../components/DemoBadge";
+import { Sfx } from "../components/Sfx";
 import { ProductImage } from "../components/ProductImage";
 import { ScannerGun } from "../components/Scanner";
 import { ShelfWorld } from "../components/ShelfWorld";
@@ -84,6 +85,12 @@ export const S2Reveal: React.FC<SceneProps> = ({ c, ff }) => {
           </div>
         </div>
       )}
+      <Sfx at={0.5} name="whoosh-down" volume={0.45} />
+      <Sfx at={2.2} name="whoosh" volume={0.5} />
+      <Sfx at={3.8} name="whoosh-down" volume={0.35} />
+      <Sfx at={4.8} name="ui-on" volume={0.6} />
+      <Sfx at={6.0} name="whoosh" volume={0.55} />
+      <Sfx at={7.5} name="impact" volume={0.5} />
       {screenOn > 0 && (
         <AbsoluteFill style={{ opacity: screenOn }}>
           <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />

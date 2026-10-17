@@ -67,9 +67,11 @@
     "note": "官方有影片品牌指引 PDF（字幕/supers/標誌用法），強烈建議下載核對"
   },
   "logo": {
-    "value": "unverified",
-    "source": "https://www.zebra.com/content/dam/zebra_dam/en/guide/corporate/brand-guide-logo-en-us.pdf",
-    "note": "標誌檔案未下載；需你提供官方 SVG"
+    "value": "assets/brand/logo.png",
+    "status": "user-supplied official logo (2026-10-17)；已裁白邊、白底轉透明",
+    "source": "用戶提供",
+    "clearspace": "unverified — 需按官方標誌指引 PDF 核對留白及最小尺寸",
+    "guide": "https://www.zebra.com/content/dam/zebra_dam/en/guide/corporate/brand-guide-logo-en-us.pdf"
   },
   "render": {
     "_note": "影片實際使用的值。全部為 unverified 候選值或替代品，待核實後只需改這裏。",

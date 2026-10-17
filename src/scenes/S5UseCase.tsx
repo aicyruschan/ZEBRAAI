@@ -1,6 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { BarcodeBox } from "../components/BarcodeBox";
 import { DemoBadge } from "../components/DemoBadge";
+import { Sfx } from "../components/Sfx";
 import { Panel } from "../components/Panel";
 import { ShelfWorld } from "../components/ShelfWorld";
 import { Viewfinder } from "../components/Viewfinder";
@@ -68,6 +69,10 @@ export const S5UseCase: React.FC<SceneProps> = ({ c, ff }) => {
         </Panel>
       )}
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
+      {[0, 1, 2, 3, 4, 5].map((k) => (
+        <Sfx key={k} at={0.5 + k * 0.45} name={`tick-${k}`} volume={0.3} />
+      ))}
+      <Sfx at={5} name="alert" volume={0.6} />
     </AbsoluteFill>
   );
 };

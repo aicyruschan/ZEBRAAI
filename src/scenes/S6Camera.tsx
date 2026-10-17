@@ -1,5 +1,6 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { ProductImage } from "../components/ProductImage";
+import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
 import { media } from "../content";
 import { BACK_CAMERA_MODULE, productBoxes } from "../data/products";
@@ -44,6 +45,10 @@ export const S6Camera: React.FC<SceneProps> = ({ c, ff }) => {
         </div>
       </div>
       <div style={{ position: "absolute", zIndex: 2, right: 40, bottom: 20, fontFamily: ff, fontSize: 18, color: "#666" }}>{c.ui.s6Source}</div>
+      <Sfx at={0} name="whoosh" volume={0.4} />
+      <Sfx at={0.8} name="whoosh-down" volume={0.25} />
+      <Sfx at={1.2} name="pop" volume={0.5} />
+      <Sfx at={3.3} name="pop" volume={0.45} />
     </AbsoluteFill>
   );
 };

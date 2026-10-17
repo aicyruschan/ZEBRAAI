@@ -1,5 +1,6 @@
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { ProductImage } from "../components/ProductImage";
+import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
 import { media } from "../content";
 import type { SceneProps } from "./types";
@@ -36,7 +37,7 @@ export const S7Outro: React.FC<SceneProps> = ({ c, ff }) => {
         <div style={{ fontFamily: ff, fontSize: 64, fontWeight: 700, color: colors.primary }}>{c.ui.s7Subtitle}</div>
         <div style={{ marginTop: 60, height: 90, display: "flex", alignItems: "center" }}>
           {media.logo ? (
-            <Img src={staticFile(media.logo)} style={{ height: 80 }} />
+            <Img src={staticFile(media.logo)} style={{ height: 96 }} />
           ) : (
             <div style={{ width: 300, height: 80, border: `2px dashed ${colors.placeholder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: ff, fontSize: 22, color: colors.placeholder }}>
               {c.ui.logoMissing}
@@ -45,6 +46,7 @@ export const S7Outro: React.FC<SceneProps> = ({ c, ff }) => {
         </div>
       </div>
       <div style={{ position: "absolute", zIndex: 2, right: 40, bottom: 20, fontFamily: ff, fontSize: 20, color: "#666" }}>{c.ui.s7Disclaimer}</div>
+      <Sfx at={0.4} name="chime" volume={0.6} />
     </AbsoluteFill>
   );
 };

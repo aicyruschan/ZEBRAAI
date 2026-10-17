@@ -15,7 +15,9 @@
 | `src/components/BarcodeBox.tsx` | 邊界框（由世界座標經鏡頭換算，永遠對齊條碼） |
 | `src/scenes/S1Pain … S7Outro.tsx` | 每個場景一個組件 |
 | `assets/products/tc501/` | TC501 官方渲染圖（S2、S6、S7 使用） |
-| `assets/brand/logo.svg` | 官方標誌（放入後自動取代占位框） |
+| `assets/brand/logo.png` | Zebra 官方標誌（用戶提供，已轉透明背景；也可換成 `logo.svg`） |
+| `audio/music/bgm.wav`、`audio/sfx/` | 程式合成的背景音樂及音效（`scripts/make-audio.py`） |
+| `src/components/Sfx.tsx` | 音效組件；各場景用自己的動畫計時觸發，確保音畫同步 |
 | `subs/`、`audio/script.txt` | 雙字幕、TTS 旁白稿（自動生成） |
 
 ## 常用指令
@@ -40,6 +42,20 @@ npm run render:hans   # 簡體版
   - S1 特寫：`CLOSE`（`S1Pain.tsx`）
   - S4 平移終點：`PAN_END`（`S4Track.tsx`）
 - **放錯位置的商品**：`MISPLACED_ID`。
+
+## 音樂及音效
+- 全部以 numpy/scipy 程式合成，**沒有第三方素材，不涉版權**。
+- BGM 為 120 BPM、A 小調（Am–F–C–G）。每小節 2 秒，場景切換點都落在小節線上。
+- 段落安排：
+  - S1：低調墊音
+  - S2：漸強升音
+  - S3–S5：主段落
+  - S6：去掉底鼓
+  - S7：C 大調收結並淡出
+- 重新生成：`python3 -I scripts/make-audio.py && npm run prep`（需要 `pip install numpy scipy`）。
+- 音量在 `src/Video.tsx`：`BGM_LEVEL`（無旁白時 0.75，全片約 -16 LUFS）、`BGM_DUCKED`（有 `audio/vo.wav` 時，旁白區段自動壓到 0.3）。
+- 各音效的音量在對應場景的 `<Sfx volume>` 調整。
+- 想改用商用曲庫音樂：把 `audio/music/bgm.wav` 換成授權音樂即可（長度 62 秒）。
 
 ## 修改旁白
 1. 修改 `content/script.json` 的 `narration` 和 `subs`（兩者拼合後必須一致）。

@@ -1,5 +1,6 @@
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { DemoBadge } from "../components/DemoBadge";
+import { Sfx } from "../components/Sfx";
 import { Panel } from "../components/Panel";
 import { ScannerGun } from "../components/Scanner";
 import { ShelfWorld } from "../components/ShelfWorld";
@@ -63,6 +64,9 @@ export const S1Pain: React.FC<SceneProps> = ({ c, ff }) => {
         </div>
       </Panel>
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
+      {TARGETS.map((_, k) => (
+        <Sfx key={k} at={FIRST + k * EVERY} name="beep" volume={0.55} />
+      ))}
     </AbsoluteFill>
   );
 };

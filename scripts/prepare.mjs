@@ -109,9 +109,16 @@ const img = /\.(jpe?g|png|webp)$/i;
 const media = {
   vo,
   tc501: copyDir("assets/products/tc501", "public/products/tc501", img),
-  logo: fs.existsSync(p("assets/brand/logo.svg"))
-    ? (ensureDir("public/brand"), fs.copyFileSync(p("assets/brand/logo.svg"), p("public/brand/logo.svg")), "brand/logo.svg")
-    : null,
+  logo: (() => {
+    const f = ["logo.svg", "logo.png"].find((n) => fs.existsSync(p("assets/brand", n)));
+    if (!f) return null;
+    ensureDir("public/brand");
+    fs.copyFileSync(p("assets/brand", f), p("public/brand", f));
+    return `brand/${f}`;
+  })(),
+  // 合成音樂及音效（scripts/make-audio.py 生成）
+  bgm: copyDir("audio/music", "public/audio/music", /\.wav$/).find((f) => f.endsWith("bgm.wav")) ?? null,
+  sfx: copyDir("audio/sfx", "public/audio/sfx", /\.wav$/).map((f) => path.basename(f, ".wav")),
 };
 fs.writeFileSync(p("src/generated/media.json"), JSON.stringify(media, null, 2));
 
@@ -147,4 +154,4 @@ for (const [variant, pkg, family] of [["hant", "noto-sans-tc", "Noto Sans TC"], 
 fs.writeFileSync(p("src/generated/fonts.json"), JSON.stringify(fonts, null, 2));
 
 console.log(`✓ 已生成：subs/zh-Hant.srt、subs/zh-Hans.srt、audio/script.txt、${fonts.length} 個字型分片`);
-console.log(`  旁白：${vo ? "✓" : "靜音占位"}；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);
+console.log(`  旁白：${vo ? "✓" : "靜音占位"}；背景音樂：${media.bgm ? "✓" : "無"}；音效 ${media.sfx.length} 個；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);

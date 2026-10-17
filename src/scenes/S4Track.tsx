@@ -1,6 +1,7 @@
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { BarcodeBox } from "../components/BarcodeBox";
 import { DemoBadge } from "../components/DemoBadge";
+import { Sfx } from "../components/Sfx";
 import { Panel } from "../components/Panel";
 import { ShelfWorld } from "../components/ShelfWorld";
 import { Viewfinder } from "../components/Viewfinder";
@@ -18,7 +19,8 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff }) => {
   const camAt = (f: number) =>
     lerpCam(WIDE, PAN_END, interpolate(f, [0, durationInFrames - fps], [0, 1], { easing: Easing.inOut(Easing.sin), extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
   const cam = camAt(frame);
-  const rowAt = (i: number) => Math.round((1.0 + i * 0.9) * fps);
+  const rowSec = (i: number) => 1.0 + i * 0.9;
+  const rowAt = (i: number) => Math.round(rowSec(i) * fps);
   return (
     <AbsoluteFill>
       <ShelfWorld cam={cam} />
@@ -47,6 +49,9 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff }) => {
         })}
       </Panel>
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
+      {demoResults.map((_, i) => (
+        <Sfx key={i} at={rowSec(i)} name="pop" volume={0.4} />
+      ))}
     </AbsoluteFill>
   );
 };

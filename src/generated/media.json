@@ -6,5 +6,23 @@
     "products/tc501/3.jpg",
     "products/tc501/4.jpg"
   ],
-  "logo": null
+  "logo": "brand/logo.png",
+  "bgm": "audio/music/bgm.wav",
+  "sfx": [
+    "alert",
+    "beep",
+    "chime",
+    "confirm",
+    "impact",
+    "pop",
+    "tick-0",
+    "tick-1",
+    "tick-2",
+    "tick-3",
+    "tick-4",
+    "tick-5",
+    "ui-on",
+    "whoosh-down",
+    "whoosh"
+  ]
 }
