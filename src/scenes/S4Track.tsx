@@ -4,6 +4,7 @@ import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
 import { CodeBox } from "../components/Overlays";
 import { PalletWorld } from "../components/PalletWorld";
+import { RealClip } from "../components/RealClip";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
 import { cartons, codes, FULL, screenCam, SPLIT, type Viewport } from "../data/pallet";
@@ -14,7 +15,7 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const LIST_AT = 4.8; // 螢幕切換到結果清單
 
 // S4 移動追蹤：手持設備移動，螢幕上的框跟隨；隨後列出每箱的解碼結果（虛構示範）
-export const S4Track: React.FC<SceneProps> = ({ c, ff }) => {
+export const S4Track: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -23,7 +24,7 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff }) => {
   const status = c.ui.s3Read.replace("{n}", String(codes.length));
   return (
     <AbsoluteFill>
-      <PalletWorld cam={SPLIT} vp={FULL} />
+      {real ? <RealClip id="r4" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={SPLIT} vp={FULL} />}
       <Device cx={DEVICE_CX + drift * -24} cy={540 + drift * 10} screenOn={1} style={{ transform: `rotate(${drift * -2}deg)` }}>
         {(vp) => {
           const base = screenCam(vp);

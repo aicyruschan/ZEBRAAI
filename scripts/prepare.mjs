@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import * as OpenCC from "opencc-js";
+import { execFileSync } from "node:child_process";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const p = (...s) => path.join(root, ...s);
@@ -118,6 +119,18 @@ const media = {
   // 合成音樂及音效（scripts/make-audio.py 生成）
   bgm: copyDir("audio/music", "public/audio/music", /\.wav$/).find((f) => f.endsWith("bgm.wav")) ?? null,
   sfx: copyDir("audio/sfx", "public/audio/sfx", /\.wav$/).map((f) => path.basename(f, ".wav")),
+  // Kling 寫實片段（寫實版用）：assets/clips/r1.mp4 … r5.mp4；長度供片段短於場景時放慢播放
+  clips: Object.fromEntries(
+    copyDir("assets/clips", "public/clips", /^r[1-5]\.mp4$/).map((f) => {
+      let sec = null;
+      try {
+        sec = parseFloat(String(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", p("public", f)])));
+      } catch {
+        // 沒有 ffprobe：按原速播放
+      }
+      return [path.basename(f, ".mp4"), { src: f, sec }];
+    }),
+  ),
 };
 fs.writeFileSync(p("src/generated/media.json"), JSON.stringify(media, null, 2));
 
@@ -153,4 +166,4 @@ for (const [variant, pkg, family] of [["hant", "noto-sans-tc", "Noto Sans TC"], 
 fs.writeFileSync(p("src/generated/fonts.json"), JSON.stringify(fonts, null, 2));
 
 console.log(`✓ 已生成：subs/zh-Hant.srt、subs/zh-Hans.srt、audio/script.txt、${fonts.length} 個字型分片`);
-console.log(`  旁白：${vo ? "✓" : "靜音占位"}；背景音樂：${media.bgm ? "✓" : "無"}；音效 ${media.sfx.length} 個；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);
+console.log(`  旁白：${vo ? "✓" : "靜音占位"}；背景音樂：${media.bgm ? "✓" : "無"}；音效 ${media.sfx.length} 個；Kling 片段 ${Object.keys(media.clips).length}/5；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);

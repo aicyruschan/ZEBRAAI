@@ -12,7 +12,8 @@ import { S6Camera } from "./scenes/S6Camera";
 import { S7Outro } from "./scenes/S7Outro";
 import type { SceneProps } from "./scenes/types";
 
-export type VideoProps = { variant: Variant; burnSubtitles: boolean };
+// real：寫實版（S1–S5 背景用 Kling 片段，片尾加「部分畫面由 AI 生成」）
+export type VideoProps = { variant: Variant; burnSubtitles: boolean; real: boolean };
 
 const SCENES: [SceneId, React.FC<SceneProps>][] = [
   ["s1", S1Pain],
@@ -28,7 +29,7 @@ const SCENES: [SceneId, React.FC<SceneProps>][] = [
 const BGM_LEVEL = 0.75;
 const BGM_DUCKED = 0.3;
 
-export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles }) => {
+export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles, real }) => {
   const c = contentFor(variant);
   const ff = fontFamily(variant);
   const { fps } = useVideoConfig();
@@ -43,7 +44,7 @@ export const Video: React.FC<VideoProps> = ({ variant, burnSubtitles }) => {
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       {SCENES.map(([id, Comp]) => (
         <Sequence key={id} name={id.toUpperCase()} {...scene(id)}>
-          <Comp c={c} ff={ff} />
+          <Comp c={c} ff={ff} real={real} />
         </Sequence>
       ))}
       {media.bgm && <Audio src={staticFile(media.bgm)} volume={bgmVolume} />}

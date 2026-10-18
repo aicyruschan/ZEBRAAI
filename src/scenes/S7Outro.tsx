@@ -8,7 +8,7 @@ import type { SceneProps } from "./types";
 // 以多角度官方渲染圖交替模擬旋轉：背面 → 左前 → 正面 → 右前
 const ORDER = ["1.jpg", "4.jpg", "2.jpg", "3.jpg"];
 
-export const S7Outro: React.FC<SceneProps> = ({ c, ff }) => {
+export const S7Outro: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
   const shots = ORDER.map((n) => media.tc501.find((f) => f.endsWith(n))).filter((f): f is string => Boolean(f));
@@ -45,6 +45,7 @@ export const S7Outro: React.FC<SceneProps> = ({ c, ff }) => {
           )}
         </div>
       </div>
+      {real && <div style={{ position: "absolute", zIndex: 2, right: 40, bottom: 20, fontFamily: ff, fontSize: 20, color: "#666" }}>{c.ui.aiDisclaimer}</div>}
       <Sfx at={0.4} name="chime" volume={0.6} />
     </AbsoluteFill>
   );

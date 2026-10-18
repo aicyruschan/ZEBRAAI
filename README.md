@@ -37,6 +37,18 @@ npm run render:hans   # 簡體版
 
 > 雲端容器渲染時要加 `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`，本機不需要。
 
+## 寫實版（Kling）
+- Composition：`TC501-EP01-Real`（繁）、`TC501-EP01-Real-Hans`（簡）。
+- 與動態圖形版共用旁白、字幕、TC501 螢幕示意、收貨單、S6、S7 和音樂。分別在於：
+  - S1–S5 背景改用 Kling 片段
+  - 片尾加「部分畫面由 AI 生成」
+- 步驟：
+  1. 按 `prompts/kling-real.md` 生成 R1–R5，存為 `assets/clips/r1.mp4` … `r5.mp4`
+  2. 執行 `npm run render:real`
+
+  缺少的片段顯示灰色占位。片段比場景短時會自動放慢播放（需要 ffprobe）。
+- 片段會被靜音，聲音由合成 BGM 和音效負責。
+
 ## 改畫面
 - **貨物及收貨單**：編輯 `src/data/pallet.ts`（`COLS`、`TIERS`、`ORDER`）。條碼數和箱數會自動反映在畫面計數上。
 - **鏡頭**：`CLOSE`（S1 特寫）、`SPLIT`（S2–S5 左側實景）、`screenCam`（TC501 螢幕內畫面）。

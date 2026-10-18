@@ -3,6 +3,7 @@ import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
 import { PalletWorld } from "../components/PalletWorld";
+import { RealClip } from "../components/RealClip";
 import { ScannerGun } from "../components/Scanner";
 import { Sfx } from "../components/Sfx";
 import { CLOSE, FULL, lerpCam, SPLIT } from "../data/pallet";
@@ -14,7 +15,7 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const ease = Easing.inOut(Easing.cubic);
 
 // S2 登場：掃描槍退場、鏡頭後退；TC501 從右側升起，螢幕亮起顯示相機畫面
-export const S2Reveal: React.FC<SceneProps> = ({ c, ff }) => {
+export const S2Reveal: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -25,8 +26,8 @@ export const S2Reveal: React.FC<SceneProps> = ({ c, ff }) => {
   const screenOn = at(4.0, 4.6);
   return (
     <AbsoluteFill>
-      <PalletWorld cam={cam} vp={FULL} />
-      {gunOut < 1 && <ScannerGun x={g.mx + gunOut * 700} y={g.my + gunOut * 700} angle={g.angle} scale={GUN_SCALE} />}
+      {real ? <RealClip id="r2" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={cam} vp={FULL} />}
+      {!real && gunOut < 1 && <ScannerGun x={g.mx + gunOut * 700} y={g.my + gunOut * 700} angle={g.angle} scale={GUN_SCALE} />}
       <Device cx={DEVICE_CX} cy={540 + at(2.2, 3.6, 1000, 0)} screenOn={screenOn}>
         {(vp) => <CameraScreen vp={vp} ff={ff} status={c.ui.s2Status} />}
       </Device>

@@ -2,6 +2,7 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } fr
 import { DemoBadge } from "../components/DemoBadge";
 import { Panel } from "../components/Panel";
 import { PalletWorld } from "../components/PalletWorld";
+import { RealClip } from "../components/RealClip";
 import { ScannerGun } from "../components/Scanner";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
@@ -35,7 +36,7 @@ export const gunState = (t: number) => {
 };
 
 // S1 痛點：舊式掃描槍逐箱逐個條碼掃描，計數緩慢增加
-export const S1Pain: React.FC<SceneProps> = ({ c, ff }) => {
+export const S1Pain: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -49,14 +50,14 @@ export const S1Pain: React.FC<SceneProps> = ({ c, ff }) => {
   const sweep = target ? ((t - (FIRST + g.laser * EVERY)) / 0.9) * 2 - 1 : 0;
   return (
     <AbsoluteFill>
-      <PalletWorld cam={CLOSE} vp={FULL} />
-      {target && (
+      {real ? <RealClip id="r1" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={CLOSE} vp={FULL} />}
+      {!real && target && (
         <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
           <line x1={g.mx} y1={g.my} x2={g.tx} y2={g.ty} stroke="#FF2B2B" strokeWidth={3} opacity={0.35} />
           <line x1={g.tx - cw / 2 - 20} x2={g.tx + cw / 2 + 20} y1={g.ty + sweep * ch * 0.3} y2={g.ty + sweep * ch * 0.3} stroke="#FF2B2B" strokeWidth={5} style={{ filter: "drop-shadow(0 0 6px #FF2B2B)" }} />
         </svg>
       )}
-      <ScannerGun x={g.mx} y={g.my} angle={g.angle} scale={GUN_SCALE} />
+      {!real && <ScannerGun x={g.mx} y={g.my} angle={g.angle} scale={GUN_SCALE} />}
       <Panel style={{ left: 64, top: 64 }}>
         <div style={{ fontFamily: ff, fontSize: 30, opacity: 0.8 }}>{c.ui.s1Counter}</div>
         <div style={{ fontFamily: ff, fontSize: 96, fontWeight: 700, lineHeight: 1.05, transform: `scale(${pulse})`, transformOrigin: "left center", color: count ? colors.paper : "rgba(255,255,255,0.4)" }}>

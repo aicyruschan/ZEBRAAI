@@ -34,7 +34,9 @@
     "prep": "node scripts/prepare.mjs",
     "tts": "node scripts/tts-azure.mjs",
     "render": "node scripts/prepare.mjs && remotion render TC501-EP01 out/tc501-ep01-barcode.mp4",
-    "render:hans": "node scripts/prepare.mjs && remotion render TC501-EP01-Hans out/tc501-ep01-barcode-hans.mp4"
+    "render:hans": "node scripts/prepare.mjs && remotion render TC501-EP01-Hans out/tc501-ep01-barcode-hans.mp4",
+    "render:real": "node scripts/prepare.mjs && remotion render TC501-EP01-Real out/tc501-ep01-barcode-real.mp4",
+    "render:real-hans": "node scripts/prepare.mjs && remotion render TC501-EP01-Real-Hans out/tc501-ep01-barcode-real-hans.mp4"
   },
   "allowScripts": {
     "esbuild": false

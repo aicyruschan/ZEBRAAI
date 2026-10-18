@@ -4,6 +4,7 @@ import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
 import { CartonBox, CodeBox } from "../components/Overlays";
 import { PalletWorld } from "../components/PalletWorld";
+import { RealClip } from "../components/RealClip";
 import { Panel } from "../components/Panel";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
@@ -17,7 +18,7 @@ const matchOrder = [...cartons].sort((a, b) => a.y - b.y || a.x - b.x);
 const matchSec = (i: number) => 1.0 + i * 0.35;
 
 // S5 收貨核對：螢幕上逐箱變綠（與收貨單對得上），左側收貨單同步打勾
-export const S5UseCase: React.FC<SceneProps> = ({ c, ff }) => {
+export const S5UseCase: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
@@ -26,7 +27,7 @@ export const S5UseCase: React.FC<SceneProps> = ({ c, ff }) => {
   const status = c.ui.s5Done.replace("{n}", String(matched.length)).replace("{total}", String(cartons.length));
   return (
     <AbsoluteFill>
-      <PalletWorld cam={SPLIT} vp={FULL} />
+      {real ? <RealClip id="r5" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={SPLIT} vp={FULL} />}
       <AbsoluteFill style={{ background: `rgba(0,0,0,${0.45 * back})` }} />
       <Device cx={DEVICE_CX} cy={540} screenOn={1}>
         {(vp) => (
