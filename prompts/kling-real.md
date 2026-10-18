@@ -2,13 +2,13 @@
 
 > 寫實版 Composition：`TC501-EP01-Real`（繁）、`TC501-EP01-Real-Hans`（簡）。
 > 生成後存為 `assets/clips/r1.mp4` … `r5.mp4`，然後執行 `npm run prep && npm run render:real`。缺少的片段會顯示灰色占位。
-> **批量生成**：`KLING_API_KEY=... node scripts/kling-generate.mjs`。設定在 `prompts/kling-shots.json`，那是唯一來源，本檔只作說明。腳本會：
+> **批量生成**：`KLING_API_KEY=... npm run kling`（可加 `-- --only r3`）。設定在 `prompts/kling-shots.json`，那是唯一來源，本檔只作說明。腳本會：
 > 1. 逐段生成 R1–R5
 > 2. 用上一段最後一幀作下一段起始幀
 > 3. 下載到 `assets/clips/`
 > 4. 自動追蹤 R3–R5 的標籤
 >
-> 本環境目前被網絡政策封鎖 Kling。要放行的網域：`api-singapore.klingai.com`、`kling.ai`（官方文件），以及影片下載的 CDN 網域（首次回應後才知道）。腳本未實測。
+> 已放行 `api-singapore.klingai.com`、`kling.ai`。請求格式已用零餘額帳戶驗證（2026-10-18）。影片下載網域可能是 `*.klingai.com` 的子網域，首次成功生成後確認。
 
 ## 生成設定（依 Kling 3.0 公開資料，**請以 Kling 官方文件為準**）
 - 比例 16:9；mode 選 pro（或 4K）；每段長度見下表。Kling 3.0 單段可生成 3–15 秒（第三方指南，未經官方核實）。
@@ -39,7 +39,7 @@
 ```
 後期在 12 秒左右，畫面右側會疊入 TC501 螢幕示意。
 
-## R3 同時讀取（12 秒 → `assets/clips/r3.mp4`）
+## R3 同時讀取（10 秒 → `assets/clips/r3.mp4`；場景 12 秒，播放時自動放慢至約 0.83 倍）
 ```
 側後方越肩鏡頭，人物和棧板在畫面左側三分之二，雙手穩定持 @TC501 對準整個棧板，螢幕背向鏡頭；畫面右側三分之一是虛化的貨架遠景，保持簡潔。鏡頭穩定，輕微推近。 + 共用設定
 ```
