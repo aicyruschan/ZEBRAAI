@@ -48,7 +48,8 @@ npm run render:hans   # 簡體版
 
   缺少的片段顯示灰色占位。片段比場景短時會自動放慢播放（需要 ffprobe）。
 - 片段會被靜音，聲音由合成 BGM 和音效負責。
-- **批量生成**：`KLING_API_KEY=... node scripts/kling-generate.mjs`（`--dry-run` 只輸出請求，`--only r3` 只生成一段）。設定在 `prompts/kling-shots.json`。
+- **批量生成**：`KLING_API_KEY=... npm run kling -- --only r3`（不加 `--only` 即生成全部；`--dry-run` 只輸出請求）。設定在 `prompts/kling-shots.json`。npm script 已加 `NODE_USE_ENV_PROXY=1`，讓 Node fetch 經雲端環境的代理連線。
+- **API 格式已驗證**（2026-10-18，零餘額帳戶）：`POST /v1/videos/omni-video`，`model_name: kling-v3-omni`，參考圖用 `image_list[].image_url`（base64）。
 - **螢幕實景**：`python3 -I scripts/track-labels.py assets/clips/r3.mp4 …` 用 OpenCV 追蹤白色收貨標籤，輸出 `rN.labels.json`。
   - 寫實版的 TC501 螢幕會顯示同一段片段的直向裁切，綠框按追蹤結果貼在標籤上
   - 開發測試用 Composition：`Dev-TrackerTest`

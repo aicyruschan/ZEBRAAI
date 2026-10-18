@@ -5,10 +5,10 @@
 //   KLING_API_KEY=... node scripts/kling-generate.mjs --only r3  # 只生成一段
 //   node scripts/kling-generate.mjs --dry-run                    # 不連網，只輸出請求內容到 prompts/kling-requests/
 //
-// ⚠ 未實測：本環境的網絡政策封鎖 Kling，官方文件也讀不到。端點及請求格式依搜尋所得
-//   （Singapore 端點、Bearer API key、Omni 用 contents 陣列），第一次連通後必須對照
-//   https://kling.ai/document-api 修正 buildBody() 及 pickVideoUrl()。
-//   金鑰只從環境變數讀取，不寫入任何檔案或日誌。
+// 請求格式已於 2026-10-18 以零餘額帳戶驗證：以下欄位全部通過參數檢查，只因「Account balance not enough」
+// （code 1102）被拒，即格式正確且未扣費。查詢端點以不存在的 task id 驗證（code 1201 Task not found）。
+// 尚未驗證：成功後的回應結構（pickTaskId／pickVideoUrl 用寬鬆比對）、<<<image_N>>> 在 prompt 中的引用效果。
+// 金鑰只從環境變數讀取，不寫入任何檔案或日誌。
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
@@ -21,8 +21,8 @@ const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
 const allowMissingRefs = args.includes("--allow-missing-refs");
 
 const BASE = process.env.KLING_BASE ?? "https://api-singapore.klingai.com";
-const CREATE_PATH = process.env.KLING_CREATE_PATH ?? "/omni-video/kling-3.0-omni";
-const QUERY_PATH = process.env.KLING_QUERY_PATH ?? "/tasks/{id}";
+const CREATE_PATH = process.env.KLING_CREATE_PATH ?? "/v1/videos/omni-video";
+const QUERY_PATH = process.env.KLING_QUERY_PATH ?? "/v1/videos/omni-video/{id}";
 const KEY = process.env.KLING_API_KEY;
 if (!dryRun && !KEY) {
   console.error("未設定 KLING_API_KEY（只從環境變數讀取）。可先用 --dry-run 檢查請求內容。");
@@ -40,20 +40,37 @@ const resolveRefs = (refs) =>
   });
 const b64 = (file) => fs.readFileSync(file).toString("base64");
 
-// ---- 請求格式（待官方文件確認）--------------------------------------------
+// ---- 請求格式（已驗證欄位：model_name、prompt、negative_prompt、aspect_ratio、duration、mode、sound、image_list[].image_url／type）
+// 參考圖縮至長邊 1280 再以 base64 傳送；prompt 前面加上 <<<image_N>>> 對照說明
+const shrink = (file) => {
+  const out = p("assets/clips/kling-log", `ref-${path.basename(path.dirname(file))}-${path.basename(file)}`);
+  execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-vf", "scale='min(1280,iw)':-2", "-q:v", "3", out]);
+  return out;
+};
+const refLabel = (file) => {
+  const dir = path.basename(path.dirname(file));
+  return cfg.ref_labels?.[dir] ?? dir;
+};
 function buildBody(shot, refFiles, startImage) {
-  const contents = [{ type: "text", text: `${shot.prompt}\n${cfg.shared}` }];
-  for (const f of refFiles) contents.push({ type: "image", role: "reference", image: b64(f) });
-  if (startImage) contents.push({ type: "image", role: "first_frame", image: b64(startImage) });
-  return {
+  const image_list = [];
+  const notes = [];
+  if (startImage) image_list.push({ image_url: b64(startImage), type: "first_frame" });
+  for (const f of refFiles) {
+    image_list.push({ image_url: b64(shrink(f)) });
+    notes.push(`<<<image_${image_list.length}>>> 為${refLabel(f)}的官方產品圖`);
+  }
+  const prompt = [notes.join("；"), shot.prompt, cfg.shared].filter(Boolean).join("\n");
+  const body = {
     model_name: cfg.model,
-    contents,
+    prompt,
     negative_prompt: cfg.negative_prompt,
-    duration: String(shot.duration),
     aspect_ratio: cfg.aspect_ratio,
+    duration: String(shot.duration),
     mode: cfg.mode,
     sound: cfg.sound ? "on" : "off",
   };
+  if (image_list.length) body.image_list = image_list;
+  return body;
 }
 const pickTaskId = (j) => j?.data?.task_id ?? j?.task_id ?? j?.id;
 const pickStatus = (j) => j?.data?.task_status ?? j?.status ?? j?.data?.status;
@@ -85,7 +102,10 @@ async function api(method, url, body) {
   } catch {
     json = { raw: text };
   }
-  if (!res.ok) throw new Error(`${method} ${url} → HTTP ${res.status}\n${text.slice(0, 800)}`);
+  if (!res.ok || (json.code !== undefined && json.code !== 0)) {
+    const hint = json.code === 1102 ? "（帳戶餘額不足：請先購買 API 資源包）" : "";
+    throw new Error(`${method} ${url} → HTTP ${res.status} code ${json.code ?? "?"}${hint}\n${text.slice(0, 800)}`);
+  }
   return json;
 }
 
@@ -113,7 +133,7 @@ for (const shot of cfg.shots) {
   if (dryRun) {
     const outDir = p("prompts/kling-requests");
     fs.mkdirSync(outDir, { recursive: true });
-    const preview = JSON.parse(JSON.stringify(body, (k, v) => (k === "image" && typeof v === "string" ? `<base64 ${v.length} 字元>` : v)));
+    const preview = JSON.parse(JSON.stringify(body, (k, v) => (k === "image_url" && typeof v === "string" ? `<base64 ${v.length} 字元>` : v)));
     fs.writeFileSync(path.join(outDir, `${shot.id}.json`), JSON.stringify({ url: BASE + CREATE_PATH, body: preview }, null, 2));
     console.log(`• ${shot.id}：參考圖 ${refFiles.length} 張${startImage ? "＋起始幀" : ""}（dry-run，未連網）`);
     continue;

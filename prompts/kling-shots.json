@@ -1,6 +1,6 @@
 {
   "_note": "Kling 批量生成設定（scripts/kling-generate.mjs 讀取）。prompt 末尾會自動附上 shared。refs 為參考圖（相對專案根目錄）。 Omni 參考圖上限據第三方資料為 7 張（未核實），R2 已控制在 4 張＋起始幀。",
-  "model": "kling-3.0-omni",
+  "model": "kling-v3-omni",
   "aspect_ratio": "16:9",
   "mode": "pro",
   "sound": false,
@@ -57,5 +57,9 @@
       "start_from_previous": true,
       "prompt": "同一棧板，固定鏡頭，棧板佔畫面高度約九成。人物低頭看 TC501 螢幕（螢幕背向鏡頭），然後滿意地點頭，放下設備。人物在畫面左側三分之二，右側保持簡潔。"
     }
-  ]
+  ],
+  "ref_labels": {
+    "tc22": "Zebra TC22 手持設備",
+    "tc501": "Zebra TC501 手持設備"
+  }
 }
