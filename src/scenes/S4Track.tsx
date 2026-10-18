@@ -2,12 +2,13 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } fr
 import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
-import { CodeBox } from "../components/Overlays";
+import { CodeBox, LabelBox } from "../components/Overlays";
 import { PalletWorld } from "../components/PalletWorld";
 import { RealClip } from "../components/RealClip";
+import { RealScreen, hasRealScreen, trackedCount } from "../components/RealScreen";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
-import { cartons, codes, FULL, screenCam, SPLIT, type Viewport } from "../data/pallet";
+import { cartons, codes, demoItems, FULL, screenCam, SPLIT, type Viewport } from "../data/pallet";
 import { DEVICE_CX } from "./S2Reveal";
 import type { SceneProps } from "./types";
 
@@ -21,20 +22,30 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff, real }) => {
   const t = frame / fps;
   const drift = interpolate(t, [0, 2.2, 4.4], [0, 1, 0], { ...clamp, easing: Easing.inOut(Easing.sin) });
   const list = interpolate(t, [LIST_AT, LIST_AT + 0.4], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const status = c.ui.s3Read.replace("{n}", String(codes.length));
+  const useReal = real && hasRealScreen("r4");
+  const status = c.ui.s3Read.replace("{n}", String(useReal ? trackedCount("r4") : codes.length));
+  // 寫實版：片段本身已有運鏡，設備不再額外晃動
+  const sway = useReal ? 0 : drift;
+  const items = useReal ? demoItems(trackedCount("r4")) : cartons;
   return (
     <AbsoluteFill>
       {real ? <RealClip id="r4" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={SPLIT} vp={FULL} />}
-      <Device cx={DEVICE_CX + drift * -24} cy={540 + drift * 10} screenOn={1} style={{ transform: `rotate(${drift * -2}deg)` }}>
+      <Device cx={DEVICE_CX + sway * -24} cy={540 + sway * 10} screenOn={1} style={{ transform: `rotate(${sway * -2}deg)` }}>
         {(vp) => {
           const base = screenCam(vp);
           const cam = { cx: base.cx + drift * 70, cy: base.cy - drift * 20, scale: base.scale * (1 + drift * 0.08) };
           return (
             <>
-              <CameraScreen vp={vp} ff={ff} status={status} cam={cam}>
-                {(k) => codes.map((code) => <CodeBox key={code.id} code={code} cam={k} vp={vp} appear={1} />)}
-              </CameraScreen>
-              {list > 0 && <ResultList vp={vp} ff={ff} c={c} t={t - LIST_AT} progress={list} />}
+              {useReal ? (
+                <RealScreen id="r4" vp={vp} ff={ff} status={status}>
+                  {(rects) => rects.map((r) => <LabelBox key={r.id} r={r} appear={1} />)}
+                </RealScreen>
+              ) : (
+                <CameraScreen vp={vp} ff={ff} status={status} cam={cam}>
+                  {(k) => codes.map((code) => <CodeBox key={code.id} code={code} cam={k} vp={vp} appear={1} />)}
+                </CameraScreen>
+              )}
+              {list > 0 && <ResultList vp={vp} ff={ff} c={c} t={t - LIST_AT} progress={list} items={items} />}
             </>
           );
         }}
@@ -49,11 +60,11 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff, real }) => {
 };
 
 // 結果清單：每箱一張卡（SKU、數量），逐張出現並向上捲動
-const ResultList: React.FC<{ vp: Viewport; ff: string; c: SceneProps["c"]; t: number; progress: number }> = ({ vp, ff, c, t, progress }) => {
+const ResultList: React.FC<{ vp: Viewport; ff: string; c: SceneProps["c"]; t: number; progress: number; items: { n: number; sku: string; qty: number }[] }> = ({ vp, ff, c, t, progress, items }) => {
   const cardH = 66;
   const gap = 8;
   const top = 74;
-  const total = cartons.length * (cardH + gap);
+  const total = items.length * (cardH + gap);
   const scroll = interpolate(t, [2.8, 4.6], [0, Math.max(0, total - (vp.h - top - 20))], { ...clamp, easing: Easing.inOut(Easing.cubic) });
   return (
     <div style={{ position: "absolute", inset: 0, background: "#F2F4F5", transform: `translateY(${(1 - progress) * 40}px)`, opacity: progress, fontFamily: ff }}>
@@ -62,7 +73,7 @@ const ResultList: React.FC<{ vp: Viewport; ff: string; c: SceneProps["c"]; t: nu
         <span style={{ fontSize: 14, opacity: 0.85 }}>{c.ui.s4ListNote}</span>
       </div>
       <div style={{ position: "absolute", left: 12, right: 12, top: top - scroll }}>
-        {[...cartons].sort((a, b) => a.n - b.n).map((k, i) => {
+        {[...items].sort((a, b) => a.n - b.n).map((k, i) => {
           const a = interpolate(t, [0.3 + i * 0.12, 0.5 + i * 0.12], [0, 1], clamp);
           return (
             <div key={k.n} style={{ height: cardH, marginBottom: gap, background: "#FFF", borderRadius: 10, boxShadow: "0 2px 6px rgba(0,0,0,0.12)", display: "flex", justifyContent: "space-between", overflow: "hidden", opacity: a, transform: `translateX(${(1 - a) * 20}px)` }}>

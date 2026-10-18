@@ -36,13 +36,17 @@ for (let tier = 0; tier < TIERS; tier++) {
     const x = PALLET.x + col * (CW + 9) + (CW - w) / 2 + jitter[n - 1];
     const y = PALLET.y - (tier + 1) * (CH + 2) + (CH - h);
     const o = ORDER[(n - 1) % ORDER.length];
-    const label = { x: x + w * 0.16, y: y + h * 0.2, w: 158, h: 118 };
+    const label = { x: x + w * 0.07, y: y + h * 0.2, w: 158, h: 118 };
     cartons.push({ n, x, y, w, h, sku: o.sku, qty: o.perBox, label });
     codes.push({ id: `c${n}-sku`, carton: n, role: "sku", type: "1D", x: label.x + 14, y: label.y + 26, w: 130, h: 34 });
     codes.push({ id: `c${n}-qty`, carton: n, role: "qty", type: "1D", x: label.x + 14, y: label.y + 76, w: 86, h: 28 });
-    if (n % 3 === 2) codes.push({ id: `c${n}-ship`, carton: n, role: "ship", type: "QR", x: x + w - 62, y: y + h - 70, w: 48, h: 48 });
+    if (n % 3 === 2) codes.push({ id: `c${n}-ship`, carton: n, role: "ship", type: "QR", x: x + w - 52, y: y + h - 56, w: 40, h: 40 });
   }
 }
+
+// 示範清單：n 箱，SKU 按收貨單循環分配（與 cartons 的分配規則一致）
+export const demoItems = (n: number) =>
+  Array.from({ length: n }, (_, i) => ({ n: i + 1, sku: ORDER[i % ORDER.length].sku, qty: ORDER[i % ORDER.length].perBox }));
 
 export type Camera = { cx: number; cy: number; scale: number };
 export type Viewport = { w: number; h: number };

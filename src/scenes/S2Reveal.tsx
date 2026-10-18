@@ -4,6 +4,7 @@ import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
 import { PalletWorld } from "../components/PalletWorld";
 import { RealClip } from "../components/RealClip";
+import { RealScreen, hasRealScreen } from "../components/RealScreen";
 import { ScannerGun } from "../components/Scanner";
 import { Sfx } from "../components/Sfx";
 import { CLOSE, FULL, lerpCam, SPLIT } from "../data/pallet";
@@ -29,7 +30,7 @@ export const S2Reveal: React.FC<SceneProps> = ({ c, ff, real }) => {
       {real ? <RealClip id="r2" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={cam} vp={FULL} />}
       {!real && gunOut < 1 && <ScannerGun x={g.mx + gunOut * 700} y={g.my + gunOut * 700} angle={g.angle} scale={GUN_SCALE} />}
       <Device cx={DEVICE_CX} cy={540 + at(2.2, 3.6, 1000, 0)} screenOn={screenOn}>
-        {(vp) => <CameraScreen vp={vp} ff={ff} status={c.ui.s2Status} />}
+        {(vp) => (real && hasRealScreen("r2") ? <RealScreen id="r2" vp={vp} ff={ff} status={c.ui.s2Status} /> : <CameraScreen vp={vp} ff={ff} status={c.ui.s2Status} />)}
       </Device>
       {screenOn > 0 && (
         <AbsoluteFill style={{ opacity: screenOn }}>

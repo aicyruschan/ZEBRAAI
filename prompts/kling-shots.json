@@ -1,0 +1,45 @@
+{
+  "_note": "Kling 批量生成設定（scripts/kling-generate.mjs 讀取）。prompt 末尾會自動附上 shared。refs 為參考圖（相對專案根目錄）。",
+  "model": "kling-3.0-omni",
+  "aspect_ratio": "16:9",
+  "mode": "pro",
+  "sound": false,
+  "negative_prompt": "可讀文字, 字幕, 浮水印, 品牌標誌, 變形的手, 多餘手指, 扭曲的設備, 螢幕朝向鏡頭, 雷射照射人眼, 人物看鏡頭",
+  "shared": "寫實企業宣傳片風格，現代化倉庫收貨區，地面有黃色安全線，背景有整齊的金屬貨架。一個黑色塑膠棧板上整齊疊放 12 個紙箱（3 列 × 4 層），每個紙箱正面貼有白色收貨標籤，標籤上只有條碼圖案，沒有可讀文字，標籤與紙箱上其他貼紙之間留有空隙。LED 照明加自然光，色調乾淨。人物：30 歲左右亞洲工作人員，深灰色工作服，乾淨俐落。電影感淺景深，穩定器運鏡，16:9。不要人聲對白，不要背景音樂，畫面中不要出現任何可讀文字或品牌標誌。",
+  "shots": [
+    {
+      "id": "r1",
+      "duration": 8,
+      "refs": ["assets/products/tc22"],
+      "prompt": "中景側拍。工作人員站在棧板前，手持 Zebra TC22 手持設備（參考圖），用它的掃描引擎按側鍵逐一對準每個紙箱的條碼標籤，每次只讀一個，紅色瞄準光一次只照一個標籤；掃完一箱就彎腰、轉身換下一箱，動作重複，略顯疲累。"
+    },
+    {
+      "id": "r2",
+      "duration": 8,
+      "refs": ["assets/products/tc22", "assets/products/tc501/2.jpg", "assets/products/tc501/1.jpg"],
+      "start_from_previous": true,
+      "prompt": "工作人員把 TC22 放到身旁推車上，拿起 Zebra TC501（參考圖），退後兩步，雙手舉起設備，背面鏡頭對準整個棧板，表情輕鬆。人物和棧板在畫面左側三分之二。"
+    },
+    {
+      "id": "r3",
+      "duration": 12,
+      "refs": ["assets/products/tc501/2.jpg", "assets/products/tc501/1.jpg"],
+      "start_from_previous": true,
+      "prompt": "側後方越肩鏡頭，人物和棧板在畫面左側三分之二，棧板佔畫面高度約九成；雙手穩定持 TC501 對準整個棧板，螢幕背向鏡頭；畫面右側三分之一是虛化的貨架遠景，保持簡潔。鏡頭穩定，輕微推近。"
+    },
+    {
+      "id": "r4",
+      "duration": 10,
+      "refs": ["assets/products/tc501/2.jpg", "assets/products/tc501/1.jpg"],
+      "start_from_previous": true,
+      "prompt": "與上一個鏡頭相同構圖，棧板佔畫面高度約九成。人物手持 TC501，由左至右緩慢小幅移動，像在掃視整個棧板；螢幕背向鏡頭，畫面右側三分之一保持簡潔。"
+    },
+    {
+      "id": "r5",
+      "duration": 10,
+      "refs": ["assets/products/tc501/2.jpg", "assets/products/tc501/1.jpg"],
+      "start_from_previous": true,
+      "prompt": "同一棧板，固定鏡頭，棧板佔畫面高度約九成。人物低頭看 TC501 螢幕（螢幕背向鏡頭），然後滿意地點頭，放下設備。人物在畫面左側三分之二，右側保持簡潔。"
+    }
+  ]
+}

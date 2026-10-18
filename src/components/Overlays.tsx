@@ -58,3 +58,20 @@ export const CartonBox: React.FC<{ carton: Carton; cam: Camera; vp: Viewport; ap
     </div>
   );
 };
+
+// 寫實版：按追蹤到的標籤位置畫綠框；checked 時加填充及勾號（與收貨單對得上）
+export const LabelBox: React.FC<{ r: { x: number; y: number; w: number; h: number }; appear: number; checked?: number }> = ({ r, appear, checked = 0 }) => {
+  const d = Math.min(r.w, r.h) * 0.55;
+  return (
+    <div style={{ position: "absolute", left: r.x - 3, top: r.y - 3, width: r.w + 6, height: r.h + 6, opacity: appear, transform: `scale(${1.3 - 0.3 * appear})` }}>
+      <div style={{ position: "absolute", inset: 0, border: `2px solid ${colors.success}`, background: rgba(colors.success, 0.25 + 0.25 * checked), borderRadius: 3, boxSizing: "border-box" }} />
+      {checked > 0 && (
+        <div style={{ position: "absolute", left: (r.w + 6) / 2 - d / 2, top: (r.h + 6) / 2 - d / 2, width: d, height: d, borderRadius: "50%", background: colors.successDark, opacity: checked, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg width={d * 0.6} height={d * 0.6} viewBox="0 0 24 24">
+            <path d="M4 12.5 L10 18 L20 6" fill="none" stroke="#FFF" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      )}
+    </div>
+  );
+};

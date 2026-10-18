@@ -133,6 +133,13 @@ const media = {
   ),
 };
 fs.writeFileSync(p("src/generated/media.json"), JSON.stringify(media, null, 2));
+// 標籤追蹤結果（scripts/track-labels.py 生成）：寫實版 TC501 螢幕上的綠框位置
+const labels = Object.fromEntries(
+  Object.keys(media.clips)
+    .filter((id) => fs.existsSync(p("assets/clips", `${id}.labels.json`)))
+    .map((id) => [id, JSON.parse(fs.readFileSync(p("assets/clips", `${id}.labels.json`), "utf8"))]),
+);
+fs.writeFileSync(p("src/generated/labels.json"), JSON.stringify(labels));
 
 // ---------- 6. 字型子集（只複製用到的 unicode 分片） ----------
 const allText = (c) =>
@@ -166,4 +173,4 @@ for (const [variant, pkg, family] of [["hant", "noto-sans-tc", "Noto Sans TC"], 
 fs.writeFileSync(p("src/generated/fonts.json"), JSON.stringify(fonts, null, 2));
 
 console.log(`✓ 已生成：subs/zh-Hant.srt、subs/zh-Hans.srt、audio/script.txt、${fonts.length} 個字型分片`);
-console.log(`  旁白：${vo ? "✓" : "靜音占位"}；背景音樂：${media.bgm ? "✓" : "無"}；音效 ${media.sfx.length} 個；Kling 片段 ${Object.keys(media.clips).length}/5；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);
+console.log(`  旁白：${vo ? "✓" : "靜音占位"}；背景音樂：${media.bgm ? "✓" : "無"}；音效 ${media.sfx.length} 個；Kling 片段 ${Object.keys(media.clips).length}/5（已追蹤 ${Object.keys(labels).length}）；TC501 圖 ${media.tc501.length} 張；標誌：${media.logo ? "✓" : "占位"}`);

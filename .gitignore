@@ -6,3 +6,5 @@ public/brand
 public/audio
 *.bundle
 public/clips
+assets/clips/kling-log
+prompts/kling-requests

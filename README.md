@@ -48,6 +48,10 @@ npm run render:hans   # 簡體版
 
   缺少的片段顯示灰色占位。片段比場景短時會自動放慢播放（需要 ffprobe）。
 - 片段會被靜音，聲音由合成 BGM 和音效負責。
+- **批量生成**：`KLING_API_KEY=... node scripts/kling-generate.mjs`（`--dry-run` 只輸出請求，`--only r3` 只生成一段）。設定在 `prompts/kling-shots.json`。
+- **螢幕實景**：`python3 -I scripts/track-labels.py assets/clips/r3.mp4 …` 用 OpenCV 追蹤白色收貨標籤，輸出 `rN.labels.json`。
+  - 寫實版的 TC501 螢幕會顯示同一段片段的直向裁切，綠框按追蹤結果貼在標籤上
+  - 開發測試用 Composition：`Dev-TrackerTest`
 
 ## 改畫面
 - **貨物及收貨單**：編輯 `src/data/pallet.ts`（`COLS`、`TIERS`、`ORDER`）。條碼數和箱數會自動反映在畫面計數上。

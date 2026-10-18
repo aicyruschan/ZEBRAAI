@@ -12,6 +12,13 @@
 | 邊界框樣式 | ⚠ 按用戶新要求調整 | 改為綠色（取自 TC501 機身強調色 #7CD641）：外框＝已讀取，填充＋勾號＝與收貨單對得上。TC501 螢幕上框太小，沒有逐框標 1D/QR |
 | 色彩、字型取自 brand.json | ✅（值未核實） | 全部來自 `brand.render`，值本身是 unverified |
 
+## A2. 寫實版（Kling）額外核對
+| 項目 | 結果 | 說明 |
+|---|---|---|
+| 片尾「部分畫面由 AI 生成」 | ✅ | 寫實版自動加回（動態圖形版沒有） |
+| R1 出現 TC22 | ⚠ 用戶決定 | TC22 於 2023-06 推出（https://www.businesswire.com/news/home/20230627912225/en/ ）；DataWedge MultiBarcode 可一次讀多碼（https://techdocs.zebra.com/datawedge/latest/guide/about/ ）。旁白及字幕沒有說 TC22「舊」或「做不到」 |
+| TC501 螢幕實景綠框 | ✅ 示意 | 由 OpenCV 追蹤白色標籤自動對位（scripts/track-labels.py），仍標「示意畫面」；AI 生成的條碼不可解碼 |
+
 ## B. 每句旁白的官方來源
 | 場景 | 旁白（修訂版） | 來源 | 核實等級 |
 |---|---|---|---|
