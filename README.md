@@ -37,13 +37,19 @@ npm run render:hans   # 簡體版
 
 > 雲端容器渲染時要加 `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`，本機不需要。
 
-## 寫實版（Kling）
+## 寫實版（AI 寫實片段：Veo 或 Kling）
+- **建議流程：Gemini／Veo 手動生成**
+  1. 按 `prompts/veo.md` 逐段生成 R1–R5（每段 8 秒，英文 Prompt 已整塊寫好）
+  2. 下載後存為 `assets/clips/r1.mp4` … `r5.mp4`
+  3. 執行 `python3 -I scripts/track-labels.py assets/clips/r3.mp4 assets/clips/r4.mp4 assets/clips/r5.mp4 && npm run render:real`
+- **Kling API 自動生成（備用）**：見下文，需要 API 資源包。
+
 - Composition：`TC501-EP01-Real`（繁）、`TC501-EP01-Real-Hans`（簡）。
 - 與動態圖形版共用旁白、字幕、TC501 螢幕示意、收貨單、S6、S7 和音樂。分別在於：
   - S1–S5 背景改用 Kling 片段
   - 片尾加「部分畫面由 AI 生成」
 - 步驟：
-  1. 按 `prompts/kling-real.md` 生成 R1–R5，存為 `assets/clips/r1.mp4` … `r5.mp4`
+  1. 按 `prompts/veo.md`（或 `prompts/kling-real.md`）生成 R1–R5，存為 `assets/clips/r1.mp4` … `r5.mp4`
   2. 執行 `npm run render:real`
 
   缺少的片段顯示灰色占位。片段比場景短時會自動放慢播放（需要 ffprobe）。

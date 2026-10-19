@@ -210,8 +210,8 @@
     "s5Received": "已核對",
     "s5Done": "已核對 {n} / {total} 箱",
     "s5Note": "由 App 與收貨單比對",
-    "realPlaceholder": "Kling 寫實片段占位",
-    "realHint": "Prompt 見 prompts/kling-real.md",
+    "realPlaceholder": "AI 寫實片段占位",
+    "realHint": "Prompt 見 prompts/veo.md",
     "aiDisclaimer": "部分畫面由 AI 生成"
   }
 }

@@ -170,8 +170,8 @@
       "s5Received": "已核對",
       "s5Done": "已核對 {n} / {total} 箱",
       "s5Note": "由 App 與收貨單比對",
-      "realPlaceholder": "Kling 寫實片段占位",
-      "realHint": "Prompt 見 prompts/kling-real.md",
+      "realPlaceholder": "AI 寫實片段占位",
+      "realHint": "Prompt 見 prompts/veo.md",
       "aiDisclaimer": "部分畫面由 AI 生成"
     }
   },
@@ -344,8 +344,8 @@
       "s5Received": "已核对",
       "s5Done": "已核对 {n} / {total} 箱",
       "s5Note": "由 App 与收货单比对",
-      "realPlaceholder": "Kling 写实片段占位",
-      "realHint": "Prompt 见 prompts/kling-real.md",
+      "realPlaceholder": "AI 写实片段占位",
+      "realHint": "Prompt 见 prompts/veo.md",
       "aiDisclaimer": "部分画面由 AI 生成"
     }
   }
