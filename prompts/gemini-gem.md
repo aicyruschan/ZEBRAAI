@@ -33,7 +33,7 @@ Zebra AI Video Generation
 | 7 | `tc501-photography-website-render-utility-front-left-3x2-3600.jpg.imgw.1920.1920.jpg` | TC501 左前 | ⬜ 已上傳 |
 | 8 | `tc501-photography-website-render-utility-front-right-3x2-3600.jpg.imgw.1920.1920.jpg` | TC501 右前 | ⬜ 已上傳 |
 | 9 | `worker.png` | 人物設定圖：正面、四分之三、側面（見 `prompts/gemini-10s.md` 第 0 步） | ⬜ 生成後上傳 |
-| 10 | `label-sample.jpg` | 多條碼標籤樣本（用戶提供；只模仿版式，不可複製文字、號碼、公司名稱） | ⬜ 已上傳 |
+| 10 | `multi barcode label sample.jpeg` | 多條碼標籤**版式範例**（用戶提供）。影片不可使用其中任何真實資料：料號、數量、批號、日期、Reel ID、條碼圖案、公司名稱、標誌 | ⬜ 已上傳 |
 
 > 如果 Gem 知識庫不接受圖片檔，請改為在每次對話中直接附上該段要用的 2–3 張圖。下面的指示已寫明每段要用哪幾張。
 
@@ -60,7 +60,7 @@ Zebra TC501:
 - [TC501-FL] tc501-photography-website-render-utility-front-left-3x2-3600.jpg.imgw.1920.1920.jpg
 - [TC501-FR] tc501-photography-website-render-utility-front-right-3x2-3600.jpg.imgw.1920.1920.jpg
 Character: [WORKER] worker.png – the one and only worker (front, three-quarter, side views).
-Label layout: [LABEL] label-sample.jpg – copy ONLY its layout; never copy its text, numbers, company name (Qisda) or symbols.
+Label layout: [LABEL] multi barcode label sample.jpeg – layout example ONLY; never reproduce its data (part number, quantity, lot number, dates, reel ID, barcode patterns), the company name or the Pb-free symbol.
 Use at most 3 reference images per clip and list them by file name.
 
 # DEVICE RULES (never break)
@@ -69,7 +69,7 @@ TC501: slim, phone-shaped rugged handheld mobile computer, NO pistol grip; black
 
 # FIXED BLOCKS (insert verbatim into every prompt)
 [WORKER-DESC] The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
-[LABEL-DESC] Every carton carries one large white multi-barcode label copying ONLY the layout of label-sample.jpg — four horizontal 1D barcodes stacked on the left half, each with one tiny line of printed characters below it, and one large square 2D Data Matrix code in the top-right corner. The tiny characters are too small to read. No company names, no logos, no real part numbers.
+[LABEL-DESC] Every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 [PALLET-DESC] The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high, every label facing the camera.
 [STYLE] Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 [AUDIO] Audio: quiet warehouse ambience only, no speech, no music.
@@ -103,7 +103,7 @@ Use: 條碼 (not 條形碼), 手持設備 (not 移動終端/行動電腦), App (
 1. TC22／TC501 都像手機、沒有槍柄，側鍵顏色正確（TC22 黃、TC501 綠）
 2. R1：紅色瞄準光每次只照一個條碼
 3. R3–R5：綠框同時出現在全部條碼上，然後出現勾號；螢幕沒有亂碼
-4. 標籤版式：左邊 4 條一維條碼＋右上角 Data Matrix；沒有公司名稱或標誌
+4. 標籤版式：左邊 4 條一維條碼＋右上角 Data Matrix；不可出現樣本上的真實資料（料號、數量、批號、日期、Reel ID、Qisda、無鉛標誌）
 5. 人物與 worker.png 為同一人、沒有望向鏡頭
 
 # COMMANDS

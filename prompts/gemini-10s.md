@@ -30,10 +30,15 @@ Style: photorealistic, sharp focus, true-to-life colours, 16:9 landscape image, 
 Avoid: text, labels, watermarks, logos, extra people, different outfits between views, cartoon or illustration style, distorted hands, extra fingers.
 ```
 
-## 第 0.5 步（建議）：把樣本標籤上傳到 Gem
-把你那張多條碼標籤的照片存為 **`label-sample.jpg`**，上傳到 Gem 的知識檔案或對話中。R1、R3–R5 都會參考它的版式。
+## 第 0.5 步：上傳標籤樣本 `multi barcode label sample.jpeg`
+上傳到 Gem 的知識檔案，檔名保持不變。R1–R5 都會引用它。
 
-> ⚠ 樣本標籤上有第三方公司 Qisda 的名稱、真實料號和批號。Prompt 已要求**只模仿版式**，不可複製任何文字、號碼或標誌。
+**這張圖只用來說明「多條碼標籤長甚麼樣子」**，影片中**不可出現**樣本上的真實資料。以下內容全部不准複製：
+- 料號、數量、批號、日期、Reel ID
+- 條碼本身的圖案
+- Qisda 公司名稱和無鉛標誌
+
+每段 Prompt 已寫明：只沿用版式（頂部一行說明文字、左邊 4 條一維條碼、右上角 Data Matrix），所有文字一律是看不清的通用字樣，條碼是新的通用圖案。
 
 ---
 
@@ -44,13 +49,13 @@ Device rules — never break them:
 1. Zebra TC22 = a slim, phone-shaped rugged handheld mobile computer with NO pistol grip, NO handle and NO trigger. Black body, touchscreen on the front, yellow scan button on the side, scan window on the top edge. It is held flat in one hand like a phone; the top edge points at the barcode and a thin red aiming line comes out of the top edge. It reads ONE barcode at a time.
 2. Zebra TC501 = a slim, phone-shaped rugged handheld mobile computer with NO pistol grip. Black body, green-accented side buttons, ZEBRA wordmark below the screen, rear camera on the back. It is held upright like taking a photo; its rear camera captures every barcode in view at once, and its screen shows the live camera view with a bright green box around every barcode and then a large green check mark.
 3. Match both devices exactly to the uploaded Zebra renders.
-Label rule: every carton carries one multi-barcode label in the layout of label-sample.jpg — copy only the layout, never any text, numbers, company names or logos from it.
+Label rule: "multi barcode label sample.jpeg" is ONLY an example of what a multi-barcode label looks like. Copy its layout (caption line, four stacked 1D barcodes on the left, one Data Matrix top-right). Never reproduce its data — no part number, quantity, lot number, dates, reel ID, company name, symbols or barcode patterns.
 ```
 
 ---
 
 ## R1 痛點：TC22 逐個讀（10 秒）
-**附上參考圖**：`worker.png`、`tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`、`label-sample.jpg`
+**附上參考圖**：`worker.png`、`tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`、`multi barcode label sample.jpeg`
 （如果只可附 3 張：用 TC22 正面圖，因為它最能說明「沒有槍柄、像手機」的外形）
 ```
 Generate a 10-second 16:9 video clip.
@@ -62,7 +67,7 @@ Action, timed — he must read the barcodes on ONE label strictly one at a time:
 4–6 s: third barcode only, press again.
 6–8 s: fourth barcode only, press again, then he aims at the square 2D code alone; he looks slightly tired.
 8–10 s: he lowers the device and turns to the next carton's label.
-The label: one large white multi-barcode label on the carton, copying ONLY the layout of label-sample.jpg — four horizontal 1D barcodes stacked on the left half, each with one tiny line of printed characters below it, and one large square 2D Data Matrix code in the top-right corner. The tiny printed characters are too small to read. No company names, no logos, no real part numbers.
+The label: One large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high, every carton with one such label facing the camera.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -81,7 +86,7 @@ Action, timed:
 3–6 s: he picks up the TC501 from the cart and takes two steps back from the pallet.
 6–8 s: he raises the TC501 upright with both hands like taking a photo, its rear camera facing the cartons, relaxed and confident.
 8–10 s: he holds it steady, aimed at the cartons.
-The labels: every carton carries one large white multi-barcode label copying ONLY the layout of label-sample.jpg — four stacked 1D barcodes on the left and one large square Data Matrix code top-right, tiny unreadable characters, no names or logos.
+The labels: every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high, every label facing the camera.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -90,7 +95,7 @@ Avoid: pistol-grip scanner, gun-shaped scanner, handle, trigger, readable text, 
 ```
 
 ## R3 同時讀取：TC501 一次過讀完（10 秒）⭐ 建議先生成這段
-**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`label-sample.jpg`
+**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`multi barcode label sample.jpeg`
 ```
 Generate a 10-second 16:9 video clip.
 Over-the-shoulder shot from behind the worker's right shoulder, very slow push-in toward the device screen. Both the TC501 screen and the real cartons behind it are visible and in focus.
@@ -101,7 +106,7 @@ Action, timed:
 3–4 s: at the same instant, a bright green rectangle appears around EVERY barcode on EVERY label in view — all four 1D barcodes and the square 2D code on each label, all together, not one by one.
 4–6 s: a large green check mark appears on each label on the screen.
 6–10 s: he keeps holding steady; the green boxes and check marks stay locked on the barcodes.
-The labels: large white multi-barcode labels copying ONLY the layout of label-sample.jpg — four stacked 1D barcodes on the left and one large square Data Matrix code top-right, tiny unreadable characters, no names or logos.
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -110,7 +115,7 @@ Avoid: red laser line, pistol-grip scanner, boxes appearing one at a time, reada
 ```
 
 ## R4 移動追蹤：綠框跟隨（10 秒）
-**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`label-sample.jpg`
+**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`multi barcode label sample.jpeg`
 ```
 Generate a 10-second 16:9 video clip.
 Over-the-shoulder shot from behind the worker's right shoulder; the camera follows with a gentle, slow pan. The TC501 screen and the real cartons are both visible.
@@ -120,7 +125,7 @@ Action, timed:
 0–2 s: he holds the device on the left column of cartons; all their labels already show green boxes and check marks.
 2–8 s: he slowly moves the device from left to right across the pallet in one smooth motion; on the screen the green boxes stay locked onto each barcode as it moves, and every new label entering the view instantly gets green boxes on all its barcodes and then a check mark.
 8–10 s: he holds steady on the right column; every label on screen shows green boxes and a check mark.
-The labels: large white multi-barcode labels copying ONLY the layout of label-sample.jpg — four stacked 1D barcodes on the left and one large square Data Matrix code top-right, tiny unreadable characters, no names or logos.
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -129,7 +134,7 @@ Avoid: red laser line, pistol-grip scanner, readable text on screen or labels, c
 ```
 
 ## R5 收貨核對：整個棧板打勾（10 秒）
-**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`label-sample.jpg`
+**附上參考圖**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`multi barcode label sample.jpeg`
 ```
 Generate a 10-second 16:9 video clip.
 Over-the-shoulder shot from behind the worker's right shoulder, then a slow pull-back to a medium shot; locked-off feel, very little movement.
@@ -140,7 +145,7 @@ Action, timed:
 4–6 s: he looks at the screen and gives a small, satisfied nod.
 6–8 s: he slowly lowers the device to his side.
 8–10 s: he looks calmly at the pallet, standing still.
-The labels: large white multi-barcode labels copying ONLY the layout of label-sample.jpg — four stacked 1D barcodes on the left and one large square Data Matrix code top-right, tiny unreadable characters, no names or logos.
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -154,7 +159,7 @@ Avoid: red laser line, pistol-grip scanner, readable text on screen or labels, c
 1. **設備外形**：TC22 和 TC501 都像手機、**沒有槍柄**；側鍵顏色正確（TC22 黃色、TC501 綠色）
 2. **R1**：紅色瞄準光每次只照**一個**條碼
 3. **R3–R5**：綠框**同時**出現在全部條碼上，然後出現勾號；螢幕上沒有亂碼文字
-4. **標籤**：左邊 4 條一維條碼加右上角 Data Matrix；沒有 Qisda 或其他公司名稱、標誌
+4. **標籤**：左邊 4 條一維條碼加右上角 Data Matrix。**不可出現樣本上的任何真實資料**：料號 7D.22814.09B、數量 3000、批號、日期、Reel ID、Qisda、無鉛標誌。如果看到這些字樣，就要重新生成
 5. **人物**：與 `worker.png` 是同一人，沒有望向鏡頭
 
 合格後下載，命名為 `r1.mp4` … `r5.mp4`，上傳給我。
