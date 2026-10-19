@@ -1,15 +1,19 @@
 {
   "vo": null,
   "tc501": [
+    "products/tc501/1-cutout.png",
     "products/tc501/1.jpg",
     "products/tc501/2-cutout.png",
     "products/tc501/2.jpg",
+    "products/tc501/3-cutout.png",
     "products/tc501/3.jpg",
+    "products/tc501/4-cutout.png",
     "products/tc501/4.jpg"
   ],
   "tc22": [
     "products/tc22/1-back-cutout.png",
     "products/tc22/1-back.jpg",
+    "products/tc22/2-front-cutout.png",
     "products/tc22/2-front.jpg",
     "products/tc22/3-front-right.jpg",
     "products/tc22/4-front-left.jpg"

@@ -5,15 +5,20 @@ export const productBoxes: Record<string, [number, number, number, number]> = {
   "2-cutout.png": [699, 113, 1223, 1196], // 2.jpg 去背版（scripts 內 PIL flood fill 生成）
   "3.jpg": [736, 106, 1174, 1201],
   "4.jpg": [743, 107, 1184, 1196],
+  // 去背版（背景改為有顏色時使用）
+  "1-cutout.png": [729, 103, 1169, 1194],
+  "3-cutout.png": [736, 106, 1174, 1201],
+  "4-cutout.png": [743, 107, 1184, 1196],
 };
 export const SOURCE_SIZE: [number, number] = [1920, 1280];
 
-// TC22（TC22／TC27 共用官方渲染圖）背面去背版：機身範圍、機頂中點（掃描窗）、機身自帶傾斜角
-export const TC22_BACK = {
-  file: "1-back-cutout.png",
-  box: [610, 67, 1237, 1194] as [number, number, number, number],
-  top: [868, 77] as [number, number],
-  tiltDeg: -8.9,
+// TC22（TC22／TC27 共用官方渲染圖）正面去背版：機身範圍、機頂中點（掃描窗）、螢幕、左側黃色掃描鍵（PIL 量度）
+export const TC22_FRONT = {
+  file: "2-front-cutout.png",
+  box: [698, 80, 1221, 1193] as [number, number, number, number],
+  top: [959, 80] as [number, number],
+  screen: [730, 172, 1190, 1094] as [number, number, number, number],
+  leftButton: [702, 446, 541] as [number, number, number], // x、y 起、y 止
 };
 
 // 2.jpg（正面）螢幕可視範圍

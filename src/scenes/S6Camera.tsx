@@ -1,4 +1,5 @@
 import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { HeroBackdrop } from "../components/HeroBackdrop";
 import { ProductImage } from "../components/ProductImage";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
@@ -14,7 +15,7 @@ export const S6Camera: React.FC<SceneProps> = ({ c, ff }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const at = (s: number, d = 12) => interpolate(frame, [s * fps, s * fps + d], [0, 1], clamp);
-  const back = media.tc501.find((f) => f.endsWith("1.jpg")) ?? media.tc501[0];
+  const back = media.tc501.find((f) => f.endsWith("1-cutout.png")) ?? media.tc501.find((f) => f.endsWith("1.jpg"));
   const [dx0, dy0, , dy1] = productBoxes["1.jpg"];
   const k = H / (dy1 - dy0);
   const [mx0, my0, mx1, my1] = BACK_CAMERA_MODULE;
@@ -25,7 +26,8 @@ export const S6Camera: React.FC<SceneProps> = ({ c, ff }) => {
   const textLeft = 1000;
   const draw = at(0.8, 15);
   return (
-    <AbsoluteFill style={{ backgroundColor: colors.paper }}>
+    <AbsoluteFill>
+      <HeroBackdrop focusX={devLeft + ((productBoxes["1.jpg"][2] - dx0) * k) / 2} focusY={devTop + H * 0.45} floorY={devTop + H - 6} />
       {back && (
         <div style={{ position: "absolute", left: devLeft, top: devTop, opacity: at(0), transform: `translateY(${(1 - at(0)) * 30}px)` }}>
           <ProductImage src={back} height={H} />

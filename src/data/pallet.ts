@@ -84,7 +84,7 @@ export const lerpCam = (a: Camera, b: Camera, t: number): Camera => ({
 // S1 特寫：對準 TARGET_CARTON 的標籤，標籤偏左上，右下留位置給 TC22
 export const TARGET_CARTON = 5;
 const tl = cartons[TARGET_CARTON - 1].label;
-export const CLOSE: Camera = { cx: tl.x + tl.w / 2 + 130, cy: tl.y + tl.h / 2 + 70, scale: 2.4 };
+export const CLOSE: Camera = { cx: tl.x + tl.w / 2 + 60, cy: tl.y + tl.h / 2 + 90, scale: 2.2 };
 export const SPLIT: Camera = { cx: 1320, cy: 540, scale: 1 }; // S2–S5 左側實景（棧板在畫面左半）
 // TC501 螢幕內的相機畫面：讓整個棧板塞滿螢幕寬度
 export const screenCam = (vp: Viewport): Camera => ({ cx: PALLET.x + PALLET.w / 2, cy: 545, scale: vp.w / 860 });

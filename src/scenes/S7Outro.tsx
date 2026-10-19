@@ -1,4 +1,5 @@
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { HeroBackdrop } from "../components/HeroBackdrop";
 import { ProductImage } from "../components/ProductImage";
 import { Sfx } from "../components/Sfx";
 import { colors } from "../brand";
@@ -6,7 +7,7 @@ import { media } from "../content";
 import type { SceneProps } from "./types";
 
 // 以多角度官方渲染圖交替模擬旋轉：背面 → 左前 → 正面 → 右前
-const ORDER = ["1.jpg", "4.jpg", "2.jpg", "3.jpg"];
+const ORDER = ["1-cutout.png", "4-cutout.png", "2-cutout.png", "3-cutout.png"]; // 去背版，配合舞台背景
 
 export const S7Outro: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
@@ -14,16 +15,18 @@ export const S7Outro: React.FC<SceneProps> = ({ c, ff, real }) => {
   const shots = ORDER.map((n) => media.tc501.find((f) => f.endsWith(n))).filter((f): f is string => Boolean(f));
   const seg = (3.6 * fps) / Math.max(1, shots.length - 1);
   const xf = 10; // 交叉淡化幀數
-  const pos = Math.min(frame / seg, shots.length - 1);
   const zoom = interpolate(frame, [0, durationInFrames], [0.96, 1.04]);
   const textIn = interpolate(frame, [0.4 * fps, 0.4 * fps + 15], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
-    <AbsoluteFill style={{ backgroundColor: colors.paper }}>
+    <AbsoluteFill>
+      <HeroBackdrop focusX={540} focusY={500} floorY={895} />
       <div style={{ position: "absolute", left: 300, top: 120, width: 480, height: 800, transform: `scale(${zoom})` }}>
         {shots.map((s, i) => {
-          const d = Math.abs(pos - i);
-          const opacity = interpolate(d * seg, [0, xf], [1, 0], { extrapolateRight: "clamp" });
-          const squash = interpolate(d * seg, [0, xf], [1, 0.9], { extrapolateRight: "clamp" });
+          // 每個角度停留一段，結尾 xf 幀與下一個角度交叉淡化（任何時刻至少有一個角度完全可見）
+          const fadeIn = i === 0 ? 1 : interpolate(frame, [i * seg - xf, i * seg], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          const fadeOut = i === shots.length - 1 ? 1 : interpolate(frame, [(i + 1) * seg - xf, (i + 1) * seg], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+          const opacity = Math.min(fadeIn, fadeOut);
+          const squash = 0.9 + 0.1 * opacity;
           return (
             <div key={s} style={{ position: "absolute", inset: 0, display: "flex", justifyContent: "center", alignItems: "center", opacity, transform: `scaleX(${squash})` }}>
               <ProductImage src={s} height={760} />

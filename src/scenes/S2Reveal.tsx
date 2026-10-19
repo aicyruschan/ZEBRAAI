@@ -28,7 +28,7 @@ export const S2Reveal: React.FC<SceneProps> = ({ c, ff, real }) => {
   return (
     <AbsoluteFill>
       {real ? <RealClip id="r2" label={c.ui.realPlaceholder} hint={c.ui.realHint} ff={ff} /> : <PalletWorld cam={cam} vp={FULL} />}
-      {!real && gunOut < 1 && <TC22Device x={g.mx + gunOut * 700} y={g.my + gunOut * 900} angle={g.angle} height={TC22_H} />}
+      {!real && gunOut < 1 && <TC22Device x={g.mx + gunOut * 700} y={g.my + gunOut * 900} angle={g.angle} height={TC22_H} press={0} reads={5} total={5} flash={0} />}
       <Device cx={DEVICE_CX} cy={540 + at(2.2, 3.6, 1000, 0)} screenOn={screenOn}>
         {(vp) => (real && hasRealScreen("r2") ? <RealScreen id="r2" vp={vp} ff={ff} status={c.ui.s2Status} /> : <CameraScreen vp={vp} ff={ff} status={c.ui.s2Status} />)}
       </Device>

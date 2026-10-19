@@ -14,7 +14,8 @@
 | `src/components/PalletWorld.tsx` | 程式繪製的收貨區場景 |
 | `src/components/Device.tsx`、`CameraScreen.tsx` | TC501 官方渲染圖＋螢幕內的 App 示意畫面 |
 | `src/components/Overlays.tsx` | 綠色條碼框（已讀取）、標籤勾號（整張標籤讀完）、整箱勾號（與收貨單對得上） |
-| `src/components/TC22Device.tsx` | S1 的 TC22（官方背面渲染圖去背，機頂掃描窗對準條碼） |
+| `src/components/TC22Device.tsx` | S1 的 TC22（官方正面渲染圖去背＋右手握持，拇指按黃色掃描鍵，螢幕為掃描 App 示意） |
+| `src/components/HeroBackdrop.tsx` | S6、S7 的產品舞台背景 |
 | `src/scenes/S1Pain … S7Outro.tsx` | 每個場景一個組件 |
 | `assets/products/tc501/` | TC501 官方渲染圖（S2、S6、S7 使用） |
 | `assets/brand/logo.png` | Zebra 官方標誌（用戶提供，已轉透明背景；也可換成 `logo.svg`） |

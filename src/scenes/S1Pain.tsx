@@ -15,10 +15,14 @@ const NEXT = codes.find((k) => k.id === `c${TARGET_CARTON + 1}-b1`)!;
 const PATH = [...READS, NEXT];
 const FIRST = 0.8;
 const EVERY = 1.35;
-const TOP_OFFSET: [number, number] = [170, 240]; // 機頂掃描窗相對目標條碼的位置（畫面像素）
-export const TC22_H = 540;
+const TOP_OFFSET: [number, number] = [120, 250]; // 機頂掃描窗相對目標條碼的位置（畫面像素）
+export const TC22_H = 470;
 
 const at = (i: number) => FIRST + i * EVERY;
+
+// 拇指按鍵：每次讀取前 0.1 秒按下，0.25 秒後放開
+export const pressAt = (t: number) =>
+  Math.max(0, ...READS.map((_, i) => interpolate(t - at(i), [-0.12, -0.02, 0.2, 0.3], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })));
 
 // TC22 狀態：機頂位置、朝向、正在讀的條碼
 export const deviceState = (t: number) => {
@@ -36,7 +40,7 @@ export const deviceState = (t: number) => {
   return { tx, ty, mx, my, angle, reading };
 };
 
-// S1 痛點：TC22 對準同一張多條碼標籤，一個條碼讀一次
+// S1 痛點：右手握 TC22（官方正面圖），對準同一張多條碼標籤，每讀一個條碼拇指按一下黃色掃描鍵
 export const S1Pain: React.FC<SceneProps> = ({ c, ff, real }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -58,7 +62,18 @@ export const S1Pain: React.FC<SceneProps> = ({ c, ff, real }) => {
           <line x1={g.tx - cw / 2 - 14} x2={g.tx + cw / 2 + 14} y1={g.ty + sweep * ch * 0.3} y2={g.ty + sweep * ch * 0.3} stroke="#FF2B2B" strokeWidth={5} style={{ filter: "drop-shadow(0 0 6px #FF2B2B)" }} />
         </svg>
       )}
-      {!real && <TC22Device x={g.mx} y={g.my} angle={g.angle} height={TC22_H} />}
+      {!real && (
+        <TC22Device
+          x={g.mx}
+          y={g.my}
+          angle={g.angle}
+          height={TC22_H}
+          press={pressAt(t)}
+          reads={count}
+          total={READS.length}
+          flash={interpolate(t - last, [0, 0.08, 0.35], [0, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })}
+        />
+      )}
       <Panel style={{ left: 64, top: 64 }}>
         <div style={{ fontFamily: ff, fontSize: 30, opacity: 0.8 }}>{c.ui.s1Counter}</div>
         <div style={{ fontFamily: ff, fontSize: 96, fontWeight: 700, lineHeight: 1.05, transform: `scale(${pulse})`, transformOrigin: "left center", color: count ? colors.paper : "rgba(255,255,255,0.4)" }}>
