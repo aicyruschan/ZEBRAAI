@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { DemoBadge } from "../components/DemoBadge";
 import { Panel } from "../components/Panel";
@@ -81,8 +82,13 @@ export const S1Pain: React.FC<SceneProps> = ({ c, ff, real }) => {
         </div>
       </Panel>
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
+      {/* 每讀一個條碼：拇指按到底「咔」→ 解碼「嗶」→ 放開「咔」，時間與 pressAt 的動畫一致 */}
       {READS.map((_, k) => (
-        <Sfx key={k} at={at(k)} name="beep" volume={0.55} />
+        <Fragment key={k}>
+          <Sfx at={at(k) - 0.04} name="click" volume={0.7} />
+          <Sfx at={at(k)} name="beep" volume={0.55} />
+          <Sfx at={at(k) + 0.24} name="click-up" volume={0.5} />
+        </Fragment>
       ))}
     </AbsoluteFill>
   );

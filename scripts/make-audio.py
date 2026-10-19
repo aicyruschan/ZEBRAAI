@@ -131,6 +131,26 @@ def sfx_whoosh(sec=0.9, up=True):
     return norm_peak(out * shape, -8)
 
 
+def sfx_click(up=False):
+    r = np.random.default_rng(22 if up else 21)  # 獨立種子，不影響其他音效
+    # 實體按鍵：按下＝短促噪聲瞬態＋低沉機身共鳴；放開＝較輕較高
+    t = t_of(0.05)
+    tr = bp(r.standard_normal(len(t)), 2500 if up else 1800, 7000 if up else 5000) * env(len(t), 0.0005, 0.006)
+    body = np.sin(2 * np.pi * (520 if up else 340) * t) * env(len(t), 0.001, 0.02) * 0.5
+    return norm_peak(tr + body, -14 if up else -9)
+
+
+def sfx_shutter():
+    r = np.random.default_rng(23)
+    # 相機快門：兩下機械聲相隔約 45 ms，帶少量空氣聲
+    out = np.zeros(int(0.2 * SR))
+    for at, g in [(0, 1.0), (0.045, 0.7)]:
+        t = t_of(0.04)
+        x = bp(r.standard_normal(len(t)), 1500, 9000) * env(len(t), 0.0005, 0.012)
+        place(out, x, at, g)
+    return norm_peak(reverb(out, 0.4, 0.12), -8)
+
+
 def sfx_ui_on():
     # 螢幕亮起：兩個上行音
     a = sfx_tick(84)
@@ -286,6 +306,10 @@ def main():
     }
     for i, note in enumerate([72, 74, 76, 79, 81, 84]):
         sfx[f"tick-{i}"] = sfx_tick(note)
+    # 第 5.2 版新增（放在最後，避免改變共用亂數序列而令舊音效變動）
+    sfx["click"] = sfx_click()
+    sfx["click-up"] = sfx_click(up=True)
+    sfx["shutter"] = sfx_shutter()
     for name, x in sfx.items():
         write(os.path.join(ROOT, f"audio/sfx/{name}.wav"), x)
     print(f"✓ audio/music/bgm.wav（{DUR:.0f} 秒）＋ {len(sfx)} 個音效")

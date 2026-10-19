@@ -80,12 +80,28 @@ npm run render:hans   # 簡體版
 - 重新生成：`python3 -I scripts/make-audio.py && npm run prep`（需要 `pip install numpy scipy`）。
 - 音量在 `src/Video.tsx`：`BGM_LEVEL`（無旁白時 0.75，全片約 -16 LUFS）、`BGM_DUCKED`（有 `audio/vo.wav` 時，旁白區段自動壓到 0.3）。
 - 各音效的音量在對應場景的 `<Sfx volume>` 調整。
+- **音效對齊讀碼動作**（時間直接取自動畫常數，改動畫時會自動跟隨）：
+
+  | 場景 | 動作 | 音效 |
+  |---|---|---|
+  | S1 TC22 | 拇指按到底（`at(k) - 0.04`） | `click` |
+  | S1 TC22 | 解碼成功、計數 +1（`at(k)`） | `beep`（共 5 聲，每個條碼一聲） |
+  | S1 TC22 | 拇指放開（`at(k) + 0.24`） | `click-up` |
+  | S3 TC501 | 背面相機拍一下，60 個綠框同時出現（`READ_AT`） | `shutter` → `beep`（只有 1 聲）→ `ui-on` |
+  | S3 TC501 | 每張標籤出勾號（`TICK_AT`） | `confirm` |
+  | S4 / S5 | 清單逐行出現／逐箱與收貨單對得上 | `pop` ／ `tick-0…5`＋`confirm` |
 - 想改用商用曲庫音樂：把 `audio/music/bgm.wav` 換成授權音樂即可（長度 62 秒）。
 
 ## 修改旁白
 1. 修改 `content/script.json` 的 `narration` 和 `subs`（兩者拼合後必須一致）。
-2. 有 Azure 金鑰時：`AZURE_SPEECH_KEY=... AZURE_SPEECH_REGION=eastasia npm run tts`，生成 `audio/vo.wav`。腳本未實測。
-3. 沒有金鑰時：把配音存為 `audio/vo.wav`（62 秒，按 `audio/script.txt` 的開始秒數對齊）。
+2. 生成 `audio/vo.wav`（三選一）：
+   - **離線試聽稿**（目前檔案即由此生成）：`npm run tts:local`。
+     - 用 PyPI 套件 zhtts 內附的 FastSpeech2 模型（標貝女聲），逐句按字幕開始時間放置，太長會自動加快語速。
+     - 英文字用近音字代讀：Zebra → 泽布拉，TC501 → 提西五零一，AI → 诶爱，App → 爱普。只影響讀音，字幕不變。
+     - 安裝步驟見 `scripts/tts-local.py` 檔頭（需要 tensorflow-cpu）。
+     - ⚠ 訓練音庫的授權條款未核實，可能僅限非商業用途。**對外發佈前必須換成下面兩種之一。**
+   - Azure：`AZURE_SPEECH_KEY=... AZURE_SPEECH_REGION=eastasia npm run tts`。腳本未實測。
+   - 真人配音：存為 `audio/vo.wav`（62 秒，按 `audio/script.txt` 的開始秒數對齊）。
 4. `npm run prep && npm run render`。
 
 ## 修改品牌

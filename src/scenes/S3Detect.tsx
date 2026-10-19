@@ -119,7 +119,10 @@ export const S3Detect: React.FC<SceneProps> = ({ c, ff, real }) => {
         </Panel>
       )}
       <DemoBadge text={c.ui.demoBadge} fontFamily={ff} />
-      <Sfx at={READ_AT} name="ui-on" volume={0.6} />
+      {/* TC501 背面相機一次過讀完：快門＋一聲解碼「嗶」（對比 S1 的 TC22 每個條碼一聲） */}
+      <Sfx at={READ_AT - 0.05} name="shutter" volume={0.7} />
+      <Sfx at={READ_AT} name="beep" volume={0.55} />
+      <Sfx at={READ_AT + 0.05} name="ui-on" volume={0.35} />
       <Sfx at={TICK_AT} name="confirm" volume={0.6} />
     </AbsoluteFill>
   );

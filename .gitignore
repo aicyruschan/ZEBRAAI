@@ -10,3 +10,4 @@ assets/clips/kling-log
 prompts/kling-requests
 assets/reference
 out/preview
+.venv-tts
