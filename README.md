@@ -10,10 +10,11 @@
 | `content/script.json` | **唯一內容來源**：旁白、字幕時間、畫面文字、示範結果（繁體） |
 | `brand/brand.json` | 品牌值及來源。影片只讀 `render` 區塊 |
 | `research/facts.md`、`research/selfcheck.md` | 事實清單、渲染前自我檢查 |
-| `src/data/pallet.ts` | 收貨區「世界座標」：棧板 12 箱、28 個條碼、收貨單、鏡頭換算 |
+| `src/data/pallet.ts` | 收貨區「世界座標」：棧板 12 箱、每箱一張多條碼標籤（`LABEL` 版式：4 條一維＋1 個 Data Matrix，共 60 個條碼）、收貨單、鏡頭換算 |
 | `src/components/PalletWorld.tsx` | 程式繪製的收貨區場景 |
 | `src/components/Device.tsx`、`CameraScreen.tsx` | TC501 官方渲染圖＋螢幕內的 App 示意畫面 |
-| `src/components/Overlays.tsx` | 綠色條碼框（已讀取）、整箱勾號（與收貨單對得上） |
+| `src/components/Overlays.tsx` | 綠色條碼框（已讀取）、標籤勾號（整張標籤讀完）、整箱勾號（與收貨單對得上） |
+| `src/components/TC22Device.tsx` | S1 的 TC22（官方背面渲染圖去背，機頂掃描窗對準條碼） |
 | `src/scenes/S1Pain … S7Outro.tsx` | 每個場景一個組件 |
 | `assets/products/tc501/` | TC501 官方渲染圖（S2、S6、S7 使用） |
 | `assets/brand/logo.png` | Zebra 官方標誌（用戶提供，已轉透明背景；也可換成 `logo.svg`） |
@@ -62,7 +63,8 @@ npm run render:hans   # 簡體版
 
 ## 改畫面
 - **貨物及收貨單**：編輯 `src/data/pallet.ts`（`COLS`、`TIERS`、`ORDER`）。條碼數和箱數會自動反映在畫面計數上。
-- **鏡頭**：`CLOSE`（S1 特寫）、`SPLIT`（S2–S5 左側實景）、`screenCam`（TC501 螢幕內畫面）。
+- **讀碼規則**：S1 的 TC22 逐個條碼讀（`S1Pain.tsx` 的 `READS`）；S3 的 TC501 全部條碼同一刻出綠框（`READ_AT`），再出勾號（`TICK_AT`）。
+- **鏡頭**：`CLOSE`（S1 特寫，對準 `TARGET_CARTON` 的標籤）、`SPLIT`（S2–S5 左側實景）、`screenCam`（TC501 螢幕內畫面）。
 - **TC501 去背圖**：`assets/products/tc501/2-cutout.png` 由 `2.jpg` 以 flood fill 去白底生成。
 
 ## 音樂及音效

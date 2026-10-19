@@ -75,3 +75,34 @@ export const LabelBox: React.FC<{ r: { x: number; y: number; w: number; h: numbe
     </div>
   );
 };
+
+// 標籤讀取完成：綠色勾號放在標籤右下角（樣本版式中留空的位置）
+export const LabelTick: React.FC<{ carton: Carton; cam: Camera; vp: Viewport; appear: number }> = ({ carton, cam, vp, appear }) => {
+  const r = 26;
+  const [x, y] = toView(cam, vp, carton.label.x + carton.label.w - 14 - r, carton.label.y + carton.label.h - 14 - r);
+  const d = r * 2 * cam.scale;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x - d / 2,
+        top: y - d / 2,
+        width: d,
+        height: d,
+        borderRadius: "50%",
+        background: colors.successDark,
+        border: `2px solid ${colors.success}`,
+        opacity: appear,
+        transform: `scale(${0.5 + 0.5 * appear})`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxSizing: "border-box",
+      }}
+    >
+      <svg width={d * 0.62} height={d * 0.62} viewBox="0 0 24 24">
+        <path d="M4 12.5 L10 18 L20 6" fill="none" stroke="#FFF" strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
+  );
+};

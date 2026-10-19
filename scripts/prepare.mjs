@@ -109,6 +109,7 @@ const img = /\.(jpe?g|png|webp)$/i;
 const media = {
   vo,
   tc501: copyDir("assets/products/tc501", "public/products/tc501", img),
+  tc22: copyDir("assets/products/tc22", "public/products/tc22", img),
   logo: (() => {
     const f = ["logo.svg", "logo.png"].find((n) => fs.existsSync(p("assets/brand", n)));
     if (!f) return null;

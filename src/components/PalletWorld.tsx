@@ -1,5 +1,5 @@
-import { Bars, QR } from "./codes";
-import { cartons, codes, FLOOR_Y, PALLET, WORLD, type Camera, type Viewport } from "../data/pallet";
+import { Bars, DM } from "./codes";
+import { cartons, codes, FLOOR_Y, LABEL, PALLET, WORLD, type Camera, type Viewport } from "../data/pallet";
 
 // 程式繪製的收貨區：背景貨架、地面、棧板及 12 箱貨。按鏡頭縮放進任意視窗。
 export const PalletWorld: React.FC<{ cam: Camera; vp: Viewport }> = ({ cam, vp }) => (
@@ -24,24 +24,22 @@ export const PalletWorld: React.FC<{ cam: Camera; vp: Viewport }> = ({ cam, vp }
         <div key={c.n}>
           <div style={{ position: "absolute", left: c.x, top: c.y, width: c.w, height: c.h, background: c.n % 2 ? "#BE9361" : "#B3874F", borderRadius: 3, boxShadow: "inset 0 -8px 0 rgba(0,0,0,0.10), inset 0 6px 0 rgba(255,255,255,0.10)" }}>
             <div style={{ position: "absolute", left: 0, right: 0, top: "46%", height: 14, background: "rgba(255,255,255,0.10)" }} />
-            {/* 易碎、向上標誌 */}
-            <div style={{ position: "absolute", right: 14, top: 14, display: "flex", gap: 4 }}>
-              {[0, 1].map((k) => (
-                <div key={k} style={{ width: 18, height: 18, border: "2px solid rgba(40,30,20,0.55)", borderRadius: 2 }} />
-              ))}
-            </div>
           </div>
-          {/* 收貨標籤：文字行用灰條示意（畫面不出現可讀文字） */}
-          <div style={{ position: "absolute", left: c.label.x, top: c.label.y, width: c.label.w, height: c.label.h, background: "#FAFAFA", borderRadius: 2, boxShadow: "0 1px 2px rgba(0,0,0,0.2)" }}>
-            <div style={{ position: "absolute", left: 14, top: 10, width: 90, height: 8, background: "#9AA1A8" }} />
-            <div style={{ position: "absolute", left: 14, top: 64, width: 60, height: 6, background: "#B8BEC4" }} />
-            <div style={{ position: "absolute", left: 108, top: 82, width: 36, height: 6, background: "#B8BEC4" }} />
+          {/* 多條碼標籤：文字一律用灰條示意（畫面不出現可讀文字或真實資料） */}
+          <div style={{ position: "absolute", left: c.label.x, top: c.label.y, width: c.label.w, height: c.label.h, background: "#FAFAFA", borderRadius: 3, boxShadow: "0 1px 2px rgba(0,0,0,0.2)" }}>
+            <div style={{ position: "absolute", left: LABEL.pad, top: 9, width: 112, height: 4, background: "#8E959C" }} />
+            {LABEL.rows.map((r, i) => (
+              <div key={i}>
+                <div style={{ position: "absolute", left: LABEL.pad, top: r.y - 6, width: 34 + (i % 2) * 18, height: 3, background: "#A7AEB5" }} />
+                <div style={{ position: "absolute", left: LABEL.pad + 18, top: r.y + LABEL.barH + 2, width: r.w * 0.7, height: 3, background: "#A7AEB5" }} />
+              </div>
+            ))}
           </div>
         </div>
       ))}
       {codes.map((k) => (
-        <div key={k.id} style={{ position: "absolute", left: k.x, top: k.y, width: k.w, height: k.h, background: "#FFF", outline: k.type === "QR" ? "6px solid #FFF" : undefined }}>
-          {k.type === "1D" ? <Bars seed={k.id} w={k.w} h={k.h} /> : <QR seed={k.id} size={k.w} />}
+        <div key={k.id} style={{ position: "absolute", left: k.x, top: k.y, width: k.w, height: k.h, background: "#FFF" }}>
+          {k.type === "1D" ? <Bars seed={k.id} w={k.w} h={k.h} /> : <DM seed={k.id} size={k.w} />}
         </div>
       ))}
     </div>

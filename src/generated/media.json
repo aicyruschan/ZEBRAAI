@@ -7,6 +7,13 @@
     "products/tc501/3.jpg",
     "products/tc501/4.jpg"
   ],
+  "tc22": [
+    "products/tc22/1-back-cutout.png",
+    "products/tc22/1-back.jpg",
+    "products/tc22/2-front.jpg",
+    "products/tc22/3-front-right.jpg",
+    "products/tc22/4-front-left.jpg"
+  ],
   "logo": "brand/logo.png",
   "bgm": "audio/music/bgm.wav",
   "sfx": [

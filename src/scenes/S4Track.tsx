@@ -2,7 +2,7 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } fr
 import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
-import { CodeBox, LabelBox } from "../components/Overlays";
+import { CodeBox, LabelBox, LabelTick } from "../components/Overlays";
 import { PalletWorld } from "../components/PalletWorld";
 import { RealClip } from "../components/RealClip";
 import { RealScreen, hasRealScreen, trackedCount } from "../components/RealScreen";
@@ -42,7 +42,12 @@ export const S4Track: React.FC<SceneProps> = ({ c, ff, real }) => {
                 </RealScreen>
               ) : (
                 <CameraScreen vp={vp} ff={ff} status={status} cam={cam}>
-                  {(k) => codes.map((code) => <CodeBox key={code.id} code={code} cam={k} vp={vp} appear={1} />)}
+                  {(k) => (
+                    <>
+                      {codes.map((code) => <CodeBox key={code.id} code={code} cam={k} vp={vp} appear={1} />)}
+                      {cartons.map((ct) => <LabelTick key={ct.n} carton={ct} cam={k} vp={vp} appear={1} />)}
+                    </>
+                  )}
                 </CameraScreen>
               )}
               {list > 0 && <ResultList vp={vp} ff={ff} c={c} t={t - LIST_AT} progress={list} items={items} />}

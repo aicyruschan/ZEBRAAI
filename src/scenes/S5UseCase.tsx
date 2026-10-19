@@ -7,7 +7,7 @@ import {
 import { CameraScreen } from "../components/CameraScreen";
 import { DemoBadge } from "../components/DemoBadge";
 import { Device } from "../components/Device";
-import { CartonBox, CodeBox, LabelBox } from "../components/Overlays";
+import { CartonBox, CodeBox, LabelBox, LabelTick } from "../components/Overlays";
 import { PalletWorld } from "../components/PalletWorld";
 import { RealClip } from "../components/RealClip";
 import {
@@ -79,6 +79,10 @@ export const S5UseCase: React.FC<SceneProps> = ({ c, ff, real }) => {
                 <>
                   {codes.map((k) => (
                     <CodeBox key={k.id} code={k} cam={cam} vp={vp} appear={1} />
+                  ))}
+                  {/* 已讀取的標籤勾號；與收貨單對得上後由整箱綠色勾號取代 */}
+                  {matchOrder.map((k, i) => (
+                    <LabelTick key={`t${k.n}`} carton={k} cam={cam} vp={vp} appear={1 - interpolate(t - matchSec(i), [0, 0.2], [0, 1], clamp)} />
                   ))}
                   {matchOrder.map((k, i) => (
                     <CartonBox
