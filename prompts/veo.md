@@ -42,6 +42,29 @@ I will ask for five separate 8-second 16:9 video clips (R1 to R5). Generate one 
 
 ---
 
+## 第 0 步：人物設定圖（Gemini 圖片生成）→ `worker.png`
+先生成一張人物設定圖，作為 R1–R5 共用的人物參考，令五段都是同一個人。描述與每段 Veo Prompt 中的 "The worker" 完全一致。
+
+```
+Character reference sheet for a photorealistic corporate video. One single person shown in three views side by side on one image, left to right: full-body front view, full-body three-quarter view, full-body left side profile. Exactly the same person, outfit and proportions in all three views.
+The person: an East Asian man in his early 30s, average build, about 175 cm tall, short neat black hair, clean-shaven, friendly calm expression, natural skin texture.
+Outfit: plain dark grey work jacket with a zip front and matching dark grey work trousers, plain black crew-neck T-shirt underneath, black safety work shoes. No logos, no name badge, no text, no patterns on the clothing. Empty hands relaxed at his sides.
+Pose: standing naturally, feet slightly apart, looking straight ahead in each view (not at the camera in the side view).
+Background: plain seamless light grey studio background, soft even studio lighting, no shadows on the background, no props.
+Style: photorealistic, sharp focus, true-to-life colours, 16:9 landscape image, high resolution.
+Avoid: text, labels, watermarks, logos, extra people, different outfits between views, cartoon or illustration style, distorted hands, extra fingers.
+```
+**檢查重點**：
+- 三個角度是否同一個人：髮型、臉形、衣服顏色一致
+- 衣服上不可有任何標誌或文字
+- 雙手正常（五隻手指）
+
+滿意後下載，存為 `worker.png`，上傳到同一個 Gemini 筆記本。
+
+> 這是 AI 虛構的人物，不要以真人照片作參考，以免涉及肖像權。
+
+---
+
 ## 全片劇本（62 秒）
 | 場景 | 時間 | 旁白（普通話） | 實景片段（Veo） | 後期疊加（Remotion） |
 |---|---|---|---|---|
@@ -57,7 +80,7 @@ I will ask for five separate 8-second 16:9 video clips (R1 to R5). Generate one 
 
 ## 使用方法
 1. 先貼上方的「開場訊息」一次。之後每段只要**整塊複製下面的英文 Prompt**，人物、棧板和風格已經寫在每一段內，確保五段一致。Veo 對英文 Prompt 的理解一般較穩定。
-2. **人物要一致**：R1 生成後，截一張工作人員清楚的畫面，存為 `worker.png`，並上傳到同一個筆記本。R2–R5 的 Prompt 已寫明要參考它。
+2. **人物要一致**：先按「第 0 步」生成人物設定圖 `worker.png`，上傳到同一個筆記本。R1–R5 的 Prompt 都已寫明要參考它。
 3. 每段都選 **16:9、8 秒**。
 4. **生成後要檢查**：
    - TC501 和 TC22 的外觀是否與官方圖相符：鏡頭位置、側鍵顏色、ZEBRA 字樣
@@ -69,9 +92,9 @@ I will ask for five separate 8-second 16:9 video clips (R1 to R5). Generate one 
 ---
 
 ## R1 痛點（8 秒 → `r1.mp4`）
-**參考圖（2 張）**：`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`
+**參考圖（3 張）**：`worker.png`、`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
-Medium side shot, static camera. A warehouse worker stands in front of a pallet holding a Zebra TC22 handheld mobile computer (match the reference images tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, yellow side scan button). He scans the cartons one at a time: a thin red aiming line lights up a single barcode label, he presses the yellow side scan button, then bends and turns to the next carton. Repetitive, slightly tired movement.
+Medium side shot, static camera. The worker from worker.png stands in front of a pallet holding a Zebra TC22 handheld mobile computer (match the reference images tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, yellow side scan button). He scans the cartons one at a time: a thin red aiming line lights up a single barcode label, he presses the yellow side scan button, then bends and turns to the next carton. Repetitive, slightly tired movement.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, shallow depth of field, 16:9.
@@ -80,7 +103,7 @@ Avoid: readable text, subtitles, watermarks, extra logos, distorted hands, extra
 ```
 
 ## R2 登場（8 秒 → `r2.mp4`）
-**參考圖（3 張）**：`worker.png`（R1 截圖，需另行上傳）、`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`
+**參考圖（3 張）**：`worker.png`（第 0 步人物設定圖）、`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
 Slow gimbal pull-back. The same worker as in worker.png places a Zebra TC22 (match tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, yellow side scan button) on a small cart beside him, picks up a Zebra TC501 handheld mobile computer (match tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, green-accented side buttons), takes two steps back and raises it with both hands, rear camera aimed at the whole pallet, with a relaxed, confident expression. The worker and pallet occupy the left two-thirds of the frame; the right third is softly blurred racking.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
