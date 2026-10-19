@@ -1,5 +1,13 @@
 # Kling 3.0 Prompt：TC501 EP01 寫實版（R1–R5）
 
+> ⚠ **已停用（2026-10-19）**：本檔的 R1–R5 Prompt 不符合用戶訂立的三個原則：
+> - 沒有寫明 TC22 外形似手機、沒有槍柄
+> - 標籤只有單一條碼
+> - TC501 螢幕背向鏡頭
+>
+> 請改用 **`prompts/gemini-10s.md` 第 2 版**。本檔只保留作記錄（規格表及 Veo 限制說明仍然有效）。
+
+
 > 寫實版 Composition：`TC501-EP01-Real`（繁）、`TC501-EP01-Real-Hans`（簡）。
 > 生成後存為 `assets/clips/r1.mp4` … `r5.mp4`，然後執行 `npm run prep && npm run render:real`。缺少的片段會顯示灰色占位。
 > **批量生成**：`KLING_API_KEY=... npm run kling`（可加 `-- --only r3`）。設定在 `prompts/kling-shots.json`，那是唯一來源，本檔只作說明。腳本會：

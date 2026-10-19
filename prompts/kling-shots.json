@@ -1,5 +1,5 @@
 {
-  "_note": "Kling 批量生成設定（scripts/kling-generate.mjs 讀取）。prompt 末尾會自動附上 shared。refs 為參考圖（相對專案根目錄）。 Omni 參考圖上限據第三方資料為 7 張（未核實），R2 已控制在 4 張＋起始幀。",
+  "_note": "⚠ 已停用（2026-10-19）：不符合用戶三個原則（TC22 無槍柄外形、多條碼標籤、TC501 螢幕顯示綠框及勾號）。如重新啟用 Kling，請先按 prompts/gemini-10s.md 第 2 版改寫。Kling 批量生成設定（scripts/kling-generate.mjs 讀取）。prompt 末尾會自動附上 shared。refs 為參考圖（相對專案根目錄）。 Omni 參考圖上限據第三方資料為 7 張（未核實），R2 已控制在 4 張＋起始幀。",
   "model": "kling-v3-omni",
   "aspect_ratio": "16:9",
   "mode": "pro",
