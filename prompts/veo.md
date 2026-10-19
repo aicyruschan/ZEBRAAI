@@ -18,6 +18,28 @@
 
 **參考圖**：如果 Gemini App 只接受一張圖，請改用 Google Flow 的「以素材生成影片」（Ingredients），它最多支援 3 張參考圖。功能名稱以介面為準，我未能核實。
 
+## Gemini 筆記本中的官方參考圖（用戶已上傳，2026-10-19）
+| 機型 | 角度 | 檔名 |
+|---|---|---|
+| TC22 | 背面右傾 | `tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC22 | 正面 | `tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC22 | 左側 | `tc22-tc27-photography-product-left-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC22 | 右側 | `tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC501 | 背面左側 | `tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC501 | 正面 | `tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC501 | 左前 | `tc501-photography-website-render-utility-front-left-3x2-3600.jpg.imgw.1920.1920.jpg` |
+| TC501 | 右前 | `tc501-photography-website-render-utility-front-right-3x2-3600.jpg.imgw.1920.1920.jpg` |
+
+TC22 的官方檔名寫明是 `tc22-tc27`，即兩款共用同一組渲染圖，這解釋了為何正面圖螢幕上有 5G 圖示。
+
+### 開場訊息（第一次在筆記本生成前先貼上，讓 Gemini 記住檔案對照）
+```
+I have uploaded official Zebra product renders to this notebook. Please use them as visual references and match the devices exactly:
+- Zebra TC22 (black body, yellow side scan button): tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg, tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg, tc22-tc27-photography-product-left-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg, tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg
+- Zebra TC501 (black body, green-accented side buttons, ZEBRA wordmark under the screen): tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg, tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg, tc501-photography-website-render-utility-front-left-3x2-3600.jpg.imgw.1920.1920.jpg, tc501-photography-website-render-utility-front-right-3x2-3600.jpg.imgw.1920.1920.jpg
+I will ask for five separate 8-second 16:9 video clips (R1 to R5). Generate one clip per request, keep the same worker, pallet and warehouse across all clips, and never invent device details that are not in these renders.
+```
+
 ---
 
 ## 全片劇本（62 秒）
@@ -34,8 +56,8 @@
 ---
 
 ## 使用方法
-1. 每段只要**整塊複製下面的英文 Prompt**，人物、棧板和風格已經寫在每一段內，確保五段一致。Veo 對英文 Prompt 的理解一般較穩定。
-2. **人物要一致**：R1 生成後，截一張工作人員清楚的畫面，存為 `worker.png`。R2–R5 把它作為參考圖之一。
+1. 先貼上方的「開場訊息」一次。之後每段只要**整塊複製下面的英文 Prompt**，人物、棧板和風格已經寫在每一段內，確保五段一致。Veo 對英文 Prompt 的理解一般較穩定。
+2. **人物要一致**：R1 生成後，截一張工作人員清楚的畫面，存為 `worker.png`，並上傳到同一個筆記本。R2–R5 的 Prompt 已寫明要參考它。
 3. 每段都選 **16:9、8 秒**。
 4. **生成後要檢查**：
    - TC501 和 TC22 的外觀是否與官方圖相符：鏡頭位置、側鍵顏色、ZEBRA 字樣
@@ -47,9 +69,9 @@
 ---
 
 ## R1 痛點（8 秒 → `r1.mp4`）
-**參考圖（2 張）**：`assets/products/tc22/1-back.jpg`、`assets/products/tc22/3-front-right.jpg`
+**參考圖（2 張）**：`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
-Medium side shot, static camera. A warehouse worker stands in front of a pallet holding a Zebra TC22 handheld mobile computer (match the reference images exactly). He scans the cartons one at a time: a thin red aiming line lights up a single barcode label, he presses the yellow side scan button, then bends and turns to the next carton. Repetitive, slightly tired movement.
+Medium side shot, static camera. A warehouse worker stands in front of a pallet holding a Zebra TC22 handheld mobile computer (match the reference images tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, yellow side scan button). He scans the cartons one at a time: a thin red aiming line lights up a single barcode label, he presses the yellow side scan button, then bends and turns to the next carton. Repetitive, slightly tired movement.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, shallow depth of field, 16:9.
@@ -58,9 +80,9 @@ Avoid: readable text, subtitles, watermarks, extra logos, distorted hands, extra
 ```
 
 ## R2 登場（8 秒 → `r2.mp4`）
-**參考圖（3 張）**：`worker.png`（R1 截圖）、`assets/products/tc22/1-back.jpg`、`assets/products/tc501/2.jpg`
+**參考圖（3 張）**：`worker.png`（R1 截圖，需另行上傳）、`tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
-Slow gimbal pull-back. The same worker places the Zebra TC22 on a small cart beside him, picks up a Zebra TC501 handheld mobile computer (match the reference image exactly: black body, green-accented side buttons), takes two steps back and raises it with both hands, rear camera aimed at the whole pallet, with a relaxed, confident expression. The worker and pallet occupy the left two-thirds of the frame; the right third is softly blurred racking.
+Slow gimbal pull-back. The same worker as in worker.png places a Zebra TC22 (match tc22-tc27-photography-product-eight-pin-back-right-tilted-view-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, yellow side scan button) on a small cart beside him, picks up a Zebra TC501 handheld mobile computer (match tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg exactly: black body, green-accented side buttons), takes two steps back and raises it with both hands, rear camera aimed at the whole pallet, with a relaxed, confident expression. The worker and pallet occupy the left two-thirds of the frame; the right third is softly blurred racking.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, shallow depth of field, 16:9.
@@ -69,8 +91,9 @@ Avoid: readable text, subtitles, watermarks, extra logos, distorted hands, extra
 ```
 
 ## R3 同時讀取（8 秒 → `r3.mp4`，播放時放慢至 0.67 倍）
-**參考圖（3 張）**：`worker.png`、`assets/products/tc501/2.jpg`、`assets/products/tc501/1.jpg`
+**參考圖（3 張）**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
+The device is a Zebra TC501; match the reference images tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg and tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg exactly. The worker is the same person as in worker.png.
 Steady three-quarter rear view from slightly behind the worker's left shoulder, very slow push-in, almost no movement. The worker holds the Zebra TC501 at chest height with both hands, rear camera aimed at the pallet; the device screen faces away from the camera and is not visible. The pallet fills about 90% of the frame height and sits in the left two-thirds of the frame; every white label is clearly visible and in focus. The right third is softly blurred racking.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
@@ -80,8 +103,9 @@ Avoid: readable text, subtitles, watermarks, extra logos, distorted hands, extra
 ```
 
 ## R4 移動追蹤（8 秒 → `r4.mp4`，播放時放慢至 0.8 倍）
-**參考圖（3 張）**：`worker.png`、`assets/products/tc501/2.jpg`、`assets/products/tc501/1.jpg`
+**參考圖（3 張）**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
+The device is a Zebra TC501; match the reference images tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg and tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg exactly. The worker is the same person as in worker.png.
 Same framing as a three-quarter rear view from behind the worker's left shoulder. The worker slowly sweeps the Zebra TC501 from left to right across the pallet in one smooth motion, as if scanning the whole stack; the device screen faces away from the camera. The camera follows with a gentle, slow pan. The pallet fills about 90% of the frame height in the left two-thirds of the frame; every white label stays clearly visible.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
@@ -91,8 +115,9 @@ Avoid: readable text, subtitles, watermarks, extra logos, distorted hands, extra
 ```
 
 ## R5 收貨核對（8 秒 → `r5.mp4`，播放時放慢至 0.8 倍）
-**參考圖（3 張）**：`worker.png`、`assets/products/tc501/2.jpg`、`assets/products/tc501/1.jpg`
+**參考圖（3 張）**：`worker.png`、`tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
+The device is a Zebra TC501; match the reference images tc501-photography-website-render-utility-front-3x2-3600.jpg.imgw.1920.1920.jpg and tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg exactly. The worker is the same person as in worker.png.
 Locked-off camera on the same pallet. The worker looks down at the Zebra TC501 (screen angled away from the camera), gives a small satisfied nod, then lowers the device to his side. The pallet fills about 90% of the frame height in the left two-thirds of the frame; every white label stays clearly visible; the right third is clean, softly blurred racking.
 The worker: an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with 12 brown corrugated cartons, 3 across and 4 high. Each carton has one white shipping label showing barcodes only, no readable text, with clear space between the label and any other sticker.
