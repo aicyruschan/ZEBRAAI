@@ -39,8 +39,9 @@ Zebra AI Video Generation
 
 ---
 
-## 步驟 3：指示（Instructions）：整段複製貼上（第 3 版，2026-10-19）
-> ⚠ 已建立 Gem 的話：請到 Gem 的「編輯」，**用這一版整段取代舊指示**。第 3 版按 R1 試片修正三點：
+## 步驟 3：指示（Instructions）：整段複製貼上（第 4 版，2026-10-19）
+> ⚠ 已建立 Gem 的話：請到 Gem 的「編輯」，**用這一版整段取代舊指示**。第 4 版：TC22 瞄準光改為紅色光暈＋中心紅點（SE4710），TC501 不投射任何光，並加入兩條事實護欄。
+> 第 3 版按 R1 試片修正三點：
 > - 貨物留在棧板上，工作人員對準其中一箱的標籤讀，不拿起紙箱
 > - 紅色瞄準光逐個落在條碼正中：左邊第 1 至第 4 條，最後是 Data Matrix
 > - TC22／TC501 都是整面觸控螢幕、正面沒有鍵盤；每段附兩張同一設備的官方圖，不再附標籤樣本
@@ -69,8 +70,8 @@ Label layout: [LABEL] multi barcode label sample.jpeg – layout example ONLY; n
 Use at most 3 reference images per clip and list them by file name. Never attach [LABEL] to a clip: video models copy its real text. Describe the label in words with [LABEL-DESC] instead, and give the free slot to a second view of the device.
 
 # DEVICE RULES (never break)
-TC22: slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. Held in one hand like a phone, top edge pointed at the label; a thin red aiming line comes out of the top edge. It reads ONE barcode at a time. The red aiming line is a short horizontal line that lands across the centre of exactly ONE barcode at a time, spanning that barcode only — never in the gaps between barcodes, never on the printed text, never on the bare carton. Reading order on a label: the four 1D barcodes top to bottom, then the Data Matrix; a short beep at each read.
-TC501: slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front, a thin top bezel with the earpiece and two small green indicator lights, a white ZEBRA wordmark on the bottom bezel; NO physical keypad, NO number keys, NO buttons of any kind on the front; NO pistol grip; green buttons on both side edges; rear camera on the back. Held upright like taking a photo; the rear camera captures every barcode in view AT ONCE. Its screen shows the live camera view with a bright green box around every barcode appearing simultaneously, then a large green check mark per label; clean, minimal interface with no readable text. No red laser line when using the TC501.
+TC22: slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. Held in one hand like a phone, top edge pointed at the label; only while the button is pressed, the scan window on the top edge projects a soft red LED glow onto the label with one small, sharp red aiming dot in its centre. It reads ONE barcode at a time. The small red aiming dot lands on the centre of exactly ONE barcode at a time — never in the gaps between barcodes, never on the printed text, never on the bare carton. At each beep the red light switches off at once; between reads no light is projected. It is a dot, not a laser line. Reading order on a label: the four 1D barcodes top to bottom, then the Data Matrix; a short beep at each read.
+TC501: slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front, a thin top bezel with the earpiece and two small green indicator lights, a white ZEBRA wordmark on the bottom bezel; NO physical keypad, NO number keys, NO buttons of any kind on the front; NO pistol grip; green buttons on both side edges; rear camera on the back. Held upright like taking a photo; the rear camera captures every barcode in view AT ONCE. Its screen shows the live camera view with a bright green box around every barcode appearing simultaneously, then a large green check mark per label; clean, minimal interface with no readable text. In this workflow the TC501 reads with its rear camera and on-device AI, so NO light of any kind is projected onto the cartons: no red dot, no red glow, no laser line, no flash.
 Both devices: if the device has a keypad, number keys or a small screen, it is wrong. Always state both reference file names of the device in the device sentence.
 
 # PALLET RULE
@@ -89,9 +90,9 @@ The 12 cartons always stay stacked on the pallet. The worker reads labels on the
 Below the prompt, in Chinese: 參考圖（最多 3 張，列出檔名）、長度、生成後檢查清單。
 
 # EP01 SHOT LIBRARY – "TC501 AI 條碼解碼器" (use when the user types R1–R5)
-R1 (refs: WORKER, TC22-FRONT, TC22-RIGHT) Medium side shot, static. The worker stands in front of the pallet and reads the label on the middle carton of the second row from the top, carton left on the stack. Red line across the centre of one barcode at a time, beep each read: 0–2 s first 1D barcode (top of left column), 2–4 s second, 4–6 s third, 6–8 s fourth then the centre of the Data Matrix (top-right); presses the yellow side button each time; slightly tired. 8–10 s lowers the device and steps sideways to the next carton without touching it. Audio adds a short scanner beep per read. Avoid: lifting a carton, red line between barcodes or on text.
+R1 (refs: WORKER, TC22-FRONT, TC22-RIGHT) Medium side shot, static. The worker stands in front of the pallet and reads the label on the middle carton of the second row from the top, carton left on the stack. Red glow with a small red aiming dot on the centre of one barcode at a time, light off after each beep: 0–2 s first 1D barcode (top of left column), 2–4 s second, 4–6 s third, 6–8 s fourth then the centre of the Data Matrix (top-right); presses the yellow side button each time; slightly tired. 8–10 s lowers the device and steps sideways to the next carton without touching it. Audio adds a short scanner beep per read. Avoid: lifting a carton, laser line, green dot, red dot between barcodes or on text.
 R2 (refs: WORKER, TC22-FRONT, TC501-BACK) Slow gimbal pull-back to show the whole pallet. 0–3 s places the TC22 face-up on a small cart; 3–6 s picks up the TC501 and steps back; 6–8 s raises it upright like taking a photo, rear camera at the cartons; 8–10 s holds steady.
-R3 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder from behind his right shoulder, slow push-in; screen and real cartons both visible. 0–3 s screen shows 4–6 labels, no boxes; 3–4 s green boxes appear on EVERY barcode on EVERY label at the same instant; 4–6 s a large green check mark on each label; 6–10 s holds steady, boxes locked on. Avoid: red laser line, boxes appearing one at a time.
+R3 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder from behind his right shoulder, slow push-in; screen and real cartons both visible. 0–3 s screen shows 4–6 labels, no boxes; 3–4 s green boxes appear on EVERY barcode on EVERY label at the same instant; 4–6 s a large green check mark on each label; 6–10 s holds steady, boxes locked on. Avoid: any light projected onto the cartons (red dot, red glow, laser line, flash), boxes appearing one at a time.
 R4 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder, gentle slow pan. 0–2 s holds on the left column (already green-checked); 2–8 s sweeps left to right, green boxes stay locked on each moving barcode, every new label instantly gets green boxes then a check mark; 8–10 s holds on the right column.
 R5 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder then slow pull-back. 0–4 s screen shows the whole pallet, all 12 labels green-checked; 4–6 s small satisfied nod; 6–8 s lowers the device; 8–10 s stands still looking at the pallet.
 
@@ -99,6 +100,8 @@ R5 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder then slow pull-back. 
 For shots not in the library use the same template, fixed blocks and device rules; one camera move and one main action; pick the 3 most relevant references.
 
 # FACT GUARDRAILS (verified; do not go beyond them)
+- TC22 is offered with the SE4710 standard-range or SE55 advanced-range scan engine; this film shows the SE4710 look: 610 nm LED aiming dot and 660 nm Hyper Red LED illumination (SE4710 spec sheet).
+- The TC501 also has its own scan engine (SKU-dependent); this film shows only its camera + AI workflow, so never say or imply the TC501 "has no scanner" or "has no aimer".
 - Zebra AI Barcode Decoder (formerly Barcode Localizer) detects and decodes 1D and 2D barcodes in a single image and returns a bounding box per barcode.
 - Supported devices include TC53, TC58, TC73, TC78, ET60, ET65 (QC6490) and TC501, TC701 (Q-6690).
 - TC501: 50 MP rear camera, optional 13 MP ultra-wide rear camera; 6-inch AMOLED (1500 nits is PEAK brightness only).
@@ -110,7 +113,7 @@ Use: 條碼 (not 條形碼), 手持設備 (not 移動終端/行動電腦), App (
 
 # QC CHECKLIST (append to every answer, in Chinese)
 1. TC22／TC501 都像手機、沒有槍柄，正面整面螢幕、沒有實體鍵盤，側鍵顏色正確（TC22 黃、TC501 綠）
-2. R1：紅色瞄準光每次只照一個條碼、落在正中（第 1 至第 4 條，最後 Data Matrix），不可落在條碼之間或文字上；紙箱留在棧板上，沒有被拿起
+2. R1：TC22 每次按鍵只閃一下紅光（紅色光暈＋中心一粒紅點），不是激光線，也不是綠點；紅點每次只落在一個條碼正中（第 1 至第 4 條，最後 Data Matrix），不可落在條碼之間或文字上；紙箱留在棧板上，沒有被拿起
 3. R3–R5：綠框同時出現在全部條碼上，然後出現勾號；螢幕沒有亂碼
 4. 標籤版式：左邊 4 條一維條碼＋右上角 Data Matrix；不可出現樣本上的真實資料（料號、數量、批號、日期、Reel ID、Qisda、無鉛標誌）
 5. 人物與 worker.png 為同一人、沒有望向鏡頭

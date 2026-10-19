@@ -1,4 +1,10 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 3 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 4 版
+
+> **第 4 版改動（2026-10-19，按用戶提供的「TC22 vs TC501 Scanning Visuals」參考文件，已核實部分）**
+> 1. TC22 的瞄準光由「紅色激光線」改為**紅色光暈加中心一粒小紅點**，按鍵時才亮，嗶一聲即熄。根據是 Zebra SE4710 規格表：610 nm LED 瞄準、660 nm Hyper Red LED 照明，並以「細小清晰的瞄準點」從一堆條碼中選讀單一條碼。
+> 2. TC501（相機加 AI 流程）**不向紙箱投射任何光**，Avoid 已寫明。
+> 3. TC22 也有 SE55 遠距引擎的配置，SE55 的瞄準樣式未核實。本片按 SE4710 的外觀拍攝。
+
 
 > **第 3 版改動（2026-10-19，按第 2 版 R1 試片的三個問題）**
 > 1. 試片中工作人員**把紙箱拿起來**讀。這版改為貨物留在棧板上，他站在棧板前，對準其中一箱的標籤讀，**不碰紙箱**。
@@ -57,7 +63,7 @@ Avoid: text, labels, watermarks, logos, extra people, different outfits between 
 ```
 For this session, every clip is 10 seconds long, 16:9, photorealistic, 1080p if available. Ignore the 8-second default in your instructions. Follow the timed beats in each request. Generate one clip per message. Keep the same worker (worker.png), the same pallet and the same warehouse in every clip.
 Device rules — never break them:
-1. Zebra TC22 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. It is held in one hand like a phone, top edge pointed at the label; a thin red aiming line comes out of the top edge. It reads ONE barcode at a time. The red aiming line is a short horizontal line that lands across the centre of exactly ONE barcode at a time, spanning that barcode only — never in the gaps between barcodes, never on the printed text, never on the bare carton.
+1. Zebra TC22 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. It is held in one hand like a phone, top edge pointed at the label; only while the button is pressed, the scan window on the top edge projects a soft red LED glow onto the label with one small, sharp red aiming dot in its centre. It reads ONE barcode at a time. The small red aiming dot lands on the centre of exactly ONE barcode at a time — never in the gaps between barcodes, never on the printed text, never on the bare carton. At each beep the red light switches off at once; between reads no light is projected. It is a dot, not a laser line.
 2. Zebra TC501 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front, a thin top bezel with the earpiece and two small green indicator lights, a white ZEBRA wordmark on the bottom bezel; NO physical keypad, NO number keys, NO buttons of any kind on the front; NO pistol grip; green buttons on both side edges; rear camera on the back. It is held upright like taking a photo; its rear camera captures every barcode in view at once, and its screen shows the live camera view with a bright green box around every barcode and then a large green check mark.
 3. Match both devices exactly to the uploaded Zebra renders. If a device in the clip has a keypad, number keys or a small screen, it is wrong.
 Pallet rule: the 12 cartons always stay stacked on the pallet. The worker reads the labels on the cartons where they are; he never lifts, picks up or holds a carton.
@@ -73,11 +79,11 @@ Label rule: "multi barcode label sample.jpeg" is ONLY an example of what a multi
 Generate a 10-second 16:9 video clip.
 Medium side shot, static camera. The pallet of 12 stacked cartons fills the right of the frame; the worker stands in front of it, facing the cartons. The camera is close enough that the target label and the device are clearly visible.
 Target: the label on the middle carton of the second row from the top, at the worker's chest height. The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
-Device: a Zebra TC22 — it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. Match tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly. He holds it in his right hand like a phone, a short distance from the label, top edge pointed at the label, and presses the yellow side button with his thumb; a thin red aiming line comes out of the top edge.
-The red aiming line is a short horizontal line that lands across the centre of exactly ONE barcode at a time, spanning that barcode only — never in the gaps between barcodes, never on the printed text, never on the bare carton.
+Device: a Zebra TC22 — it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. Match tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly. He holds it in his right hand like a phone, a short distance from the label, top edge pointed at the label, and presses the yellow side button with his thumb; only while the button is pressed, the scan window on the top edge projects a soft red LED glow onto the label with one small, sharp red aiming dot in its centre.
+The small red aiming dot lands on the centre of exactly ONE barcode at a time — never in the gaps between barcodes, never on the printed text, never on the bare carton. At each beep the red light switches off at once; between reads no light is projected. It is a dot, not a laser line.
 Action, timed — he reads the barcodes on that ONE label strictly one at a time, top to bottom, with a short scanner beep at each read:
-0–2 s: the red line lands across the centre of the FIRST 1D barcode (top of the left column) only; he presses the button; beep.
-2–4 s: he moves the device straight down; the red line lands across the centre of the SECOND 1D barcode only; beep.
+0–2 s: the red dot lands on the centre of the FIRST 1D barcode (top of the left column) only; he presses the button; the red glow flashes on, beep, light off.
+2–4 s: he moves the device straight down; the red dot lands on the centre of the SECOND 1D barcode only; beep.
 4–6 s: THIRD 1D barcode only; beep.
 6–8 s: FOURTH 1D barcode only; beep. Then he moves up and to the right and aims at the centre of the large square Data Matrix code in the top-right corner of the label; beep. He looks slightly tired.
 8–10 s: he lowers the device and takes one step sideways to the next carton on the pallet, without touching it.
@@ -86,7 +92,7 @@ The worker: the same person as in worker.png — an East Asian man in his early 
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high, every carton with one such label facing the camera.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 Audio: quiet warehouse ambience and a short scanner beep at each read; no speech, no music.
-Avoid: pistol-grip scanner, gun-shaped scanner, handle, trigger, keypad, number keys, small screen, feature phone, lifting or holding a carton, carton removed from the pallet, red line covering more than one barcode, red line between barcodes or on text, readable text, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
+Avoid: pistol-grip scanner, gun-shaped scanner, handle, trigger, keypad, number keys, small screen, feature phone, lifting or holding a carton, carton removed from the pallet, horizontal laser line, red line, green dot, green crosshair, light staying on between reads, red light covering more than one barcode, red dot between barcodes or on text, readable text, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
 ```
 
 ## R2 登場：換上 TC501（10 秒）
@@ -100,7 +106,7 @@ Action, timed:
 0–3 s: the worker places the TC22 face-up on a small cart beside him.
 3–6 s: he picks up the TC501 from the cart and takes two steps back from the pallet.
 6–8 s: he raises the TC501 upright with both hands like taking a photo, its rear camera facing the cartons, relaxed and confident.
-8–10 s: he holds it steady, aimed at the cartons.
+8–10 s: he holds it steady, aimed at the cartons; no light of any kind comes out of the TC501.
 The labels: every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high, every label facing the camera.
@@ -126,7 +132,7 @@ The worker: the same person as in worker.png — an East Asian man in his early 
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high. The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 Audio: quiet warehouse ambience only, no speech, no music.
-Avoid: red laser line, pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, boxes appearing one at a time, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
+Avoid: any light projected from the device onto the cartons (no red dot, no red glow, no laser line, no green crosshair, no flash), pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, boxes appearing one at a time, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
 ```
 
 ## R4 移動追蹤：綠框跟隨（10 秒）
@@ -145,7 +151,7 @@ The worker: the same person as in worker.png — an East Asian man in his early 
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high. The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 Audio: quiet warehouse ambience only, no speech, no music.
-Avoid: red laser line, pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
+Avoid: any light projected from the device onto the cartons (no red dot, no red glow, no laser line, no green crosshair, no flash), pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
 ```
 
 ## R5 收貨核對：整個棧板打勾（10 秒）
@@ -165,16 +171,16 @@ The worker: the same person as in worker.png — an East Asian man in his early 
 The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high. The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 Audio: quiet warehouse ambience only, no speech, no music.
-Avoid: red laser line, pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
+Avoid: any light projected from the device onto the cartons (no red dot, no red glow, no laser line, no green crosshair, no flash), pistol-grip scanner, keypad, number keys, small screen, feature phone, lifting or holding a carton, readable text on screen or labels, company logos, watermarks, distorted hands, extra fingers, warped devices, anyone looking at the camera.
 ```
 
 ---
 
 ## 生成後檢查（每段）
 1. **設備外形**：TC22 和 TC501 都像手機、**沒有槍柄**，正面是**整面螢幕、沒有實體鍵盤**；側鍵顏色正確（TC22 黃色、TC501 綠色）
-2. **R1**：紅色瞄準光每次只照**一個**條碼，落在條碼正中，順序是左邊第 1 至第 4 條，最後是 Data Matrix。紅光不可落在條碼之間或文字上
+2. **R1**：TC22 每次按鍵只**閃一下**紅光：紅色光暈加中心一粒小紅點，**不是激光線、不是綠點**，嗶一聲後即熄。紅點每次只落在**一個**條碼正中，順序是左邊第 1 至第 4 條，最後是 Data Matrix。紅光不可落在條碼之間或文字上
 2a. **棧板**：紙箱一直留在棧板上，工作人員**沒有拿起任何紙箱**
-3. **R3–R5**：綠框**同時**出現在全部條碼上，然後出現勾號；螢幕上沒有亂碼文字
+3. **R2–R5**：TC501 不向紙箱投射任何光（沒有紅點、紅光、激光線、閃光燈）。**R3–R5**：綠框**同時**出現在全部條碼上，然後出現勾號；螢幕上沒有亂碼文字
 4. **標籤**：左邊 4 條一維條碼加右上角 Data Matrix。**不可出現樣本上的任何真實資料**：料號 7D.22814.09B、數量 3000、批號、日期、Reel ID、Qisda、無鉛標誌。如果看到這些字樣，就要重新生成
 5. **人物**：與 `worker.png` 是同一人，沒有望向鏡頭
 
