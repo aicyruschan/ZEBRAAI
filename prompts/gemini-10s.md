@@ -95,9 +95,9 @@ He keeps the same grip as in the image: the phone in his right hand, held the wa
 His target is ONE label: the white label on the middle carton of the top row, the label just above and slightly to the left of the phone in the image. Before every press he turns the phone a little to the left and up, so that its top edge points straight into that white label. Every red dot lands inside the white area of that label, right on the black bars of the barcode being read.
 He reads that label one barcode at a time, slowly and carefully, in this order:
 0–2 s: first 1D barcode, the top barcode in the label's left column — the red dot sits on its black bars.
-2–4 s: second 1D barcode, directly below it.
+2–4 s: second 1D barcode, directly below it — the red dot sits on its black bars.
 4–6 s: third 1D barcode, the third barcode from the top in the left column — the red dot sits on its black bars.
-6–8 s: fourth 1D barcode, at the bottom of the left column.
+6–8 s: fourth 1D barcode, at the bottom of the left column — the red dot sits on its black bars.
 8–10 s: the square Data Matrix code in the label's top-right corner. Then he takes his thumb off the yellow button and looks at the screen.
 Each read is the same small sequence: he aims, holds still for a moment, then his thumb presses the yellow side button; a small red dot with a soft red glow appears on the black bars of that one barcode, inside the white label, and stays there for half a second; a short beep; the red light goes out; a new line of grey text appears at the top of the list in the app on the phone screen; he moves the phone a few centimetres to aim at the next barcode. The red dot appears only during a thumb press and only on that top-middle label.
 The phone screen shows a simple white list app with a coloured title bar.
