@@ -1,4 +1,4 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 10 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 11 版
 
 > 2026-10-20 重寫。**R1 以用戶認可的首格圖 `assets/frames/r1-first-frame.jpg` 為準**，包括拍攝角度、棧板、箱數、標籤位置和 TC22 握法。R2–R5 沿用同一個棧板。舊版改動紀錄見文末。
 
@@ -11,6 +11,7 @@
 | TC22 讀碼 | **只有按黃色側鍵才會讀碼**：工人不用手指按螢幕；紅光和嗶聲只在按側鍵、機頂指著目標標籤時出現。按側鍵時，機頂射出紅色光暈加中心一粒紅點，落在**一個**條碼正中，嗶一聲即熄。機身和螢幕不發紅光。只可在指著條碼時按鍵，不可讀空氣 |
 | TC501 讀碼 | 用後相機加 Zebra AI 讀碼，**不投射任何光**。綠框和勾號**只出現在 TC501 螢幕上**；箱上的標籤永遠是黑白的，不會自己變色或出勾號 |
 | 寫實 | 不是科幻片：每段一個連續鏡頭，不換場景；每個動作都有原因和目的 |
+| 寫 Prompt | **不要點名不想出現的東西**，連「no」、「never」、「avoid」句子也不要寫，只正面描述想要的樣子。R1 不可出現 check mark、green、tick 等字 |
 | 品牌 | Zebra Logo（右上角）和字幕（右下角）用 `scripts/overlay-brand.sh` 後期疊加，不交給 AI 畫 |
 
 用法：在 Gem「Zebra AI Video Generation」先貼「開場訊息」一次。R1 用「相片轉影片」；R2–R5 逐段貼上，並附上該段列出的參考圖。
@@ -65,30 +66,41 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 ---
 
 ## R1 痛點：TC22 逐個讀同一張標籤（10 秒）
-**做法**：在 Gemini 選「影片」，上傳 `assets/frames/r1-first-frame.jpg` 作為**第一格**，再貼上以下 Prompt。
+**做法（第 11 版改）**：
+1. 開一個**普通 Gemini 對話**，**不要用 Gem**。原因見下面「為甚麼標籤會出綠勾」第 3 點。
+2. 在工具選「影片」，上傳 `assets/frames/r1-first-frame.jpg`，看到圖片預覽後才貼 Prompt。
+3. 生成後先看**第一格**，應該與 `r1-first-frame.jpg` 一模一樣。
 
-⚠ **生成後先檢查第一格**：影片的第一格應該與 `r1-first-frame.jpg` 一模一樣。2026-10-20 的試片第一格並不是這張圖：棧板變成 4 層，右邊一列沒有標籤。如果第一格不同，就是那張圖沒有成功作為第一格，請重新上傳後再生成。這張圖已經合格，**不要修改，也不要重新生成**。
+這張首格圖已經合格，**不要修改，也不要重新生成**。
 
-**要讀的標籤**：最上一層、中間那一箱的標籤。原因是：
-- 機頂正向它斜指
-- 整張標籤沒有被手和機遮住，觀眾看得清楚紅點逐個移動
+**要讀的標籤**：最上一層、中間那一箱（已確認）。
 
-中間一層、中間那一箱的標籤被機遮住了一部分，所以不讀它。
+### 為甚麼標籤會出綠勾（2026-10-20 第 7 次試片）
+試片中，每張標籤的**右下角**陸續出現綠色勾號。我在 Prompt 裡找到四個原因：
+1. **Prompt 裡寫了「勾號」**：第 10 版 R1 Prompt 三次提到 green check 或 check marks。其中一句是「labels never show check marks」，把「標籤」和「勾號」放在同一句。影片模型不太理解「never」、「no」這類否定字，反而把「標籤 + 勾號」畫了出來。多份第三方 Veo 教學都提到這個現象，我未能讀到 Google 官方原文核實。之前反覆出現的鍵盤、QR 碼，很可能也是 Avoid 清單點名所致。
+2. **標籤描述留了一個空位**：Gem 的標籤描述寫明「右下角留空」。模型就用勾號填滿這個空位，所以勾號都出現在右下角。
+3. **Gem 的指示混入了 TC501 的效果**：Gem 指示裡有 R3「每張標籤出一個大綠勾」（指 TC501 螢幕）。在 Gem 內生成時，這些字全部是背景資料，Gemini 改寫 Prompt 時可能把它帶進 R1。這一點是推斷，未經證實。
+4. **第一格又不是 `r1-first-frame.jpg`**：背景變成捲閘門。沒有首格圖鎖定畫面，模型便自由發揮。
+
+**改法**：
+- R1 Prompt 完全不提勾號、綠色、顏色變化，也不再列出不要的東西。只用正面描述想要的樣子，例如「標籤是普通印刷紙，每一格都一模一樣」。
+- 標籤右下角改為「一小段灰色細字」，不留空位。
+- App 每讀一次只「多一行灰字」，不用綠勾。綠勾只屬於 TC501 的片段。
+- 不經 Gem 生成。
+
 ```
-Animate this image as ONE continuous 10-second shot. The camera stays exactly where it is. Keep the same worker, pallet, cartons, labels and lighting. The only things that change are his hand movement, the red scan light and the phone screen.
-All 9 cartons on the front face carry the SAME label, an identical copy in the same position: four 1D barcodes in the left column and one square Data Matrix (not a QR code) in the top-right corner. No carton is without a label. The cartons have no printed symbols or arrows.
-He keeps exactly the same grip as in the image: the phone held in his right hand the way a person reads a phone, tilted back, screen facing him, top edge angled forward toward the cartons.
-He reads the barcodes on ONE label only — the label on the middle carton of the TOP row — in order, one at a time, slowly and carefully. This method is deliberately slow and a little tedious. Between reads he moves the phone only a few centimetres.
-Only the yellow side button scans. He uses ONLY his thumb on the yellow side button and never touches the screen with his other hand or a finger. The red light and the beep happen ONLY at the moment he presses the yellow side button while the top edge points at the top-middle label; at no other moment is there any red light or beep.
-Each read: he presses the yellow side button; a soft red glow with one small sharp red dot appears ON THAT LABEL, on the centre of one barcode only; a short beep; the light switches off at once; one new row with a small green check appears in the app on the phone screen; he glances at the screen, then aims at the next barcode.
-0–2 s: the first 1D barcode (top of the label's left column).
-2–4 s: the second 1D barcode, directly below.
-4–6 s: the third 1D barcode.
-6–8 s: the fourth 1D barcode (bottom of the left column).
-8–10 s: the square Data Matrix in the label's top-right corner. Then he releases the button and looks at the screen. He does not press the button again.
-The red dot never leaves this one label: never on another carton, never between barcodes, never on text or cardboard. The phone body and screen never show red light. The labels on the cartons never change colour and never show check marks; the check marks appear only in the app on the phone screen. No cuts, no new objects, no graphics in the scene.
-Avoid: tapping or touching the screen, red light or beep without pressing the side button, red light on any other carton, cartons without labels, labels that differ, QR codes, arrows or symbols printed on cartons, changing the camera angle or the pallet.
-Audio: quiet warehouse ambience and one short scanner beep per read; no speech, no music.
+Animate this image as one continuous 10-second shot. The camera stays exactly where it is, and the worker, pallet, cartons, labels and lighting stay exactly as in the image.
+The labels are ordinary printed paper shipping labels: black ink on white paper. They look exactly the same in every frame from the first to the last. Each label has a short line of fine text at the top, four black 1D barcodes stacked in its left column, one black square Data Matrix code in its top-right corner, and a small block of fine grey text in its bottom-right corner.
+He keeps the same grip as in the image: the phone in his right hand, held the way a person reads a phone, tilted back, screen facing him, top edge angled toward the cartons. His left hand stays relaxed at his side. His right thumb rests on the yellow button on the side of the phone.
+He reads the label on the middle carton of the top row, one barcode at a time, slowly and carefully, in this order:
+0–2 s: first 1D barcode, at the top of the label's left column.
+2–4 s: second 1D barcode, directly below it.
+4–6 s: third 1D barcode.
+6–8 s: fourth 1D barcode, at the bottom of the left column.
+8–10 s: the square Data Matrix code in the label's top-right corner. Then he takes his thumb off the yellow button and looks at the screen.
+Each read is the same small sequence: his thumb presses the yellow side button; a small red dot with a soft red glow appears on that one barcode; a short beep; the red light goes out; a new line of grey text appears at the top of the list in the app on the phone screen; he moves the phone a few centimetres to aim at the next barcode. The red dot appears only during a thumb press and only on that top-middle label.
+The phone screen shows a simple white list app with a coloured title bar.
+Audio: quiet warehouse ambience and one short scanner beep per read.
 ```
 **後期**：`scripts/overlay-brand.sh r1.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
 
@@ -108,7 +120,7 @@ Action, timed:
 3–6 s: he picks up the TC501 from the cart and takes two steps back from the pallet.
 6–8 s: he raises the TC501 upright with both hands like taking a photo, its rear camera facing the cartons, relaxed and confident.
 8–10 s: he holds it steady, aimed at the cartons; no light of any kind comes out of the TC501.
-The labels: every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
+The labels: every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and a small block of fine grey text in the bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 18 plain brown corrugated cartons: 3 across, 3 high and 2 deep, so the front face shows 9 cartons (the same pallet as in r1-first-frame.jpg), every label facing the camera.
 Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -129,7 +141,7 @@ Action, timed:
 3–4 s: at the same instant, a bright green rectangle appears around EVERY barcode on EVERY label in view — all four 1D barcodes and the square 2D code on each label, all together, not one by one.
 4–6 s: a large green check mark appears on each label on the screen.
 6–10 s: he keeps holding steady; the green boxes and check marks stay locked on the barcodes.
-The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and a small block of fine grey text in the bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 18 plain brown corrugated cartons: 3 across, 3 high and 2 deep, so the front face shows 9 cartons (the same pallet as in r1-first-frame.jpg). The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -149,7 +161,7 @@ Action, timed:
 0–2 s: he holds the device on the left column of cartons; all their labels already show green boxes and check marks.
 2–8 s: he slowly moves the device from left to right across the pallet in one smooth motion; on the screen the green boxes stay locked onto each barcode as it moves, and every new label entering the view instantly gets green boxes on all its barcodes and then a check mark.
 8–10 s: he holds steady on the right column; every label on screen shows green boxes and a check mark.
-The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and a small block of fine grey text in the bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 18 plain brown corrugated cartons: 3 across, 3 high and 2 deep, so the front face shows 9 cartons (the same pallet as in r1-first-frame.jpg). The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -170,7 +182,7 @@ Action, timed:
 4–6 s: he looks at the screen and gives a small, satisfied nod.
 6–8 s: he slowly lowers the device to his side.
 8–10 s: he looks calmly at the pallet, standing still.
-The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
+The labels: large white multi-barcode labels, each using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner, and a small block of fine grey text in the bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns. Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols).
 The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven, dark grey work jacket and matching trousers.
 The pallet: a black plastic pallet stacked with exactly 18 plain brown corrugated cartons: 3 across, 3 high and 2 deep, so the front face shows 9 cartons (the same pallet as in r1-first-frame.jpg). The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 Photorealistic corporate product film. Modern warehouse receiving area, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
@@ -190,7 +202,8 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
    - 機身沒有紅光
    - 只用拇指按黃色側鍵；沒有用手指按螢幕；不按側鍵時沒有紅光、沒有嗶聲
    - 第一格與 `r1-first-frame.jpg` 相同；正面 9 箱全部有同一款標籤
-   - 每讀一個，螢幕多一行勾號
+   - 每讀一個，螢幕 App 多一行灰字（R1 不用綠勾）
+   - **標籤由頭到尾沒有任何變化**：沒有勾號、沒有顏色
    - 讀完最後一個就鬆開按鍵看螢幕，沒有再按
 4. **R2–R5**：TC501 不投射任何光；綠框同時出現，再出勾號，**只在螢幕上**；箱上標籤沒有變色
 5. **人物**：與 `worker.png` 同一人，沒有鬚，沒有望鏡頭
@@ -201,6 +214,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 ---
 
 ## 版本紀錄
+- 第 11 版（2026-10-20）：找出標籤出綠勾的原因（Prompt 提及勾號、否定句、標籤右下角留空、Gem 混入 TC501 效果、首格圖未生效）；R1 改為只用正面描述，不提勾號，不列 Avoid；標籤右下角改為灰色細字；R1 不經 Gem 生成
 - 第 10 版（2026-10-20）：只有按黃色側鍵才讀碼，不用手指按螢幕，不按側鍵時沒有紅光和嗶聲；正面 9 箱全部貼同一款標籤；檢查第一格是否就是首格圖
 - 第 9 版（2026-10-20）：以 `r1-first-frame.jpg` 為準重寫。R1 改為相片轉影片，只讀最上一層中間那箱的標籤；棧板改為 3×3×2；寫明綠框和勾號只在 TC501 螢幕上
 - 第 8 版：TC22 握法改為像看手機一樣（用戶確認），取消「平放、像遙控器」

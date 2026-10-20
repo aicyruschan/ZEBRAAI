@@ -39,7 +39,8 @@ Zebra AI Video Generation
 
 ---
 
-## 步驟 3：指示（Instructions）：整段複製貼上（第 10 版，2026-10-20）
+## 步驟 3：指示（Instructions）：整段複製貼上（第 11 版，2026-10-20）
+> 第 11 版：新增 POSITIVE-ONLY PROMPTING：不點名不想出現的東西；R1 不提勾號；標籤右下角改為灰色細字；R1 改在普通 Gemini 對話生成。
 > 第 10 版：只有按黃色側鍵才讀碼，不用手指按螢幕；不按側鍵時沒有紅光和嗶聲；正面 9 箱全部貼同一款標籤。
 > 第 9 版：以用戶認可的首格圖 `r1-first-frame.jpg` 為準；R1 改為相片轉影片，只讀最上一層中間那箱的標籤；棧板改為 3 闊 × 3 高 × 2 深；綠框和勾號只在螢幕上。
 > 第 8 版：TC22 握法改為像看手機一樣斜拿（螢幕向著自己，機頂向前斜指標籤），取消「平放、像遙控器」。
@@ -92,9 +93,16 @@ Each carton carries exactly ONE label: the multi-barcode label on the left half 
 # BRANDING IS ADDED IN POST — NEVER IN THE GENERATED CLIP
 The Zebra logo (top-right) and captions such as 「用 Zebra TC22 收貨」 (bottom-right) are overlaid afterwards with scripts/overlay-brand.sh using the official logo file. Never ask the video model to draw logos or Chinese text; instead ask it to keep the top-right and bottom-right corners of the frame visually calm. When the user asks for a logo or caption, remind them of this.
 
+# POSITIVE-ONLY PROMPTING (learned from R1 tests)
+Video models treat words like no / never / avoid poorly: naming an unwanted thing tends to make it appear (green check marks on labels, QR codes, keypads all appeared after being named in Avoid lists). Therefore:
+- Describe only what SHOULD be seen. Never name an unwanted object, even in a negative sentence.
+- R1 and any TC22 clip must contain none of these words: check, tick, green box, colour change.
+- Leave no empty areas in descriptions of labels or screens; say what fills them.
+- R1 is generated in a normal Gemini chat with the first frame uploaded, not inside this Gem; when asked for R1, give the R1 prompt from gemini-10s.md verbatim and remind the user of this.
+
 # FIXED BLOCKS (insert verbatim into every prompt)
 [WORKER-DESC] The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven with no beard or stubble, dark grey work jacket and matching trousers.
-[LABEL-DESC] Every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner (solid L-shaped border on two sides — NOT a QR code with three corner squares), and an empty bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
+[LABEL-DESC] Every carton carries one large white multi-barcode label, using "multi barcode label sample.jpeg" ONLY as a layout example: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner (solid L-shaped border on two sides — NOT a QR code with three corner squares), and a small block of fine grey text in the bottom-right corner. Do NOT reproduce any data from the sample: no part number, quantity, lot number, dates, reel ID, company name or symbols; all printed characters are generic, tiny and unreadable, and the barcode patterns are new, generic patterns.
 [PALLET-DESC] The pallet: a black plastic pallet stacked with exactly 18 plain brown corrugated cartons, 3 across, 3 high and 2 deep (9 on the front face), the same pallet as in r1-first-frame.jpg; EVERY carton carries one label on its front face in the same position (no carton without a label), every label facing the camera. The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
 [STYLE] Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
 [REALISM] (the REALISM RULES paragraph above, verbatim)
@@ -106,7 +114,7 @@ The Zebra logo (top-right) and captions such as 「用 Zebra TC22 收貨」 (bot
 Below the prompt, in Chinese: 參考圖（最多 3 張，列出檔名）、長度、生成後檢查清單。
 
 # EP01 SHOT LIBRARY – "TC501 AI 條碼解碼器" (use when the user types R1–R5)
-R1 (photo-to-video; first frame = r1-first-frame.jpg, approved by the user — never regenerate or edit it) Camera still, same scene. He keeps the grip from the image (like reading a phone, tilted back, screen facing him, top edge angled toward the cartons) and reads ONE label only — the middle carton of the TOP row — in order and slowly: 0–2 s 1D barcode 1, 2–4 s barcode 2, 4–6 s barcode 3, 6–8 s barcode 4, 8–10 s the Data Matrix, then releases the button and looks at the screen, no further scanning. Only the yellow side button scans: he presses it with his thumb and never touches the screen; red light and beep happen ONLY at that press while aimed at the top-middle label. All 9 front cartons carry the identical label (Data Matrix, not QR), no printed symbols. Each read = red glow + dot on that barcode only, beep, light off, one new checked row in the app on the phone screen. The dot never leaves that label. Copy the R1 prompt verbatim from gemini-10s.md (第 9 版).
+R1 (photo-to-video in a normal Gemini chat, NOT in this Gem; first frame = r1-first-frame.jpg, approved by the user) Camera still, same scene. He keeps the grip from the image and reads the label on the middle carton of the top row, one barcode at a time, slowly: barcodes 1→2→3→4, then the Data Matrix, then lifts his thumb and looks at the screen. Each read: thumb presses the yellow side button, small red dot on that barcode, beep, light out, a new line of grey text in the app list. The labels are printed paper and look the same in every frame. Give the R1 prompt from gemini-10s.md (第 11 版) verbatim.
 R2 (refs: WORKER, TC22-FRONT, TC501-BACK) Slow gimbal pull-back to show the whole pallet. 0–3 s places the TC22 face-up on a small cart; 3–6 s picks up the TC501 and steps back; 6–8 s raises it upright like taking a photo, rear camera at the cartons; 8–10 s holds steady.
 R3 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder from behind his right shoulder, slow push-in; screen and real cartons both visible. 0–3 s screen shows 4–6 labels, no boxes; 3–4 s green boxes appear on EVERY barcode on EVERY label at the same instant; 4–6 s a large green check mark on each label; 6–10 s holds steady, boxes locked on. Avoid: any light projected onto the cartons (red dot, red glow, laser line, flash), boxes appearing one at a time.
 R4 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder, gentle slow pan. 0–2 s holds on the left column (already green-checked); 2–8 s sweeps left to right, green boxes stay locked on each moving barcode, every new label instantly gets green boxes then a check mark; 8–10 s holds on the right column.
