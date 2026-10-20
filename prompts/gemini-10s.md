@@ -1,4 +1,11 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 6 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 7 版
+
+> **第 7 版改動（2026-10-20，按 R1 第四次試片）**
+> 1. **全部箱貼同一款標籤**：同一批貨，每箱的標籤一模一樣，位置相同，大小相同
+> 2. **R1 只讀同一箱同一張標籤**：依次讀第 1 至第 4 條一維條碼，最後讀 Data Matrix，節奏刻意放慢
+> 3. **R1 改為兩步**：先做首格圖（R1-A），再用相片轉影片（R1-B）
+> 4. **紙箱不印任何符號**：試片的箱印了向上箭咀和雨傘等搬運符號，令畫面雜亂
+
 
 > **第 6 版改動（2026-10-20，按 R1 第三次試片）**
 > 1. 每箱只貼**一張**多條碼標籤，在正面左半邊；刪除旁邊另貼的二維碼貼紙
@@ -104,34 +111,60 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 
 ---
 
-## R1 痛點：TC22 逐個讀（10 秒）· 第 6 版
-**附上參考圖**：`worker.png`、`tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`
-（兩張都是 TC22：正面圖說明「整面螢幕、沒有鍵盤」，右側圖說明黃色掃描鍵的位置。不附標籤樣本，以免抄到真實資料）
+## R1 痛點：TC22 逐個讀（10 秒）· 第 7 版：先做首格圖，再生成影片
 
-**後期才加（不要叫 AI 畫）**：右上角 Zebra Logo、右下角字幕「用 Zebra TC22 收貨」。AI 畫 Logo 和中文字會變形，所以生成後用以下指令疊加：
-`scripts/overlay-brand.sh r1.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
-這條指令用官方 Logo 檔 `assets/brand/logo.png`，Logo 轉為白色加陰影；字幕是白字配半透明黑底。
+> **為甚麼改做法**：第 3、4 次試片都出現同樣三個問題。模型每次都把機直立拿著，紅光就沒有來源；紅光在不同紙箱之間亂跳；有些箱沒有標籤。原因是 Prompt 要同時顧及太多東西：整個棧板、App、紅光和節拍。
+>
+> 第 7 版分兩步做：
+> 1. **R1-A**：先用 Gemini 圖片生成一張「首格圖」，把握法、標籤、設備全部固定。靜態圖改錯很便宜，不合格就重做。
+> 2. **R1-B**：用 Gemini 的「相片轉影片」功能，把 R1-A 的圖作為**第一格**，Prompt 只描述動作。
+>
+> 鏡頭也收窄了：只拍一箱的標籤加工人的手和機，旁邊只露出部分箱。在這個鏡頭裡，紅點沿同一張標籤由上至下移動，觀眾看得清楚，「逐個讀、很慢」的效果也更明顯。整個棧板的全景交給 R2 的拉遠鏡頭。
+
+### R1-A 首格圖（Gemini 圖片生成）
+**附上參考圖**：`worker.png`、`tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`
 ```
-Generate a 10-second 16:9 video clip.
-Camera: three-quarter view from behind and slightly to the right of the worker, at shoulder height, static. In the foreground, the TC22 screen in his hand is clearly visible and readable as an app layout; in the background, the whole front of the pallet is in frame, top row to bottom row, with every label visible. Leave the top-right corner and the bottom-right corner of the frame visually calm (plain racking or floor), with nothing important there.
-The pallet: a black plastic pallet stacked with exactly 12 brown corrugated cartons, 3 across and 4 high. EVERY one of the 12 cartons carries a label (no carton without one). Each carton carries exactly ONE label: the multi-barcode label on the left half of its front face. No second sticker, no separate QR or Data Matrix sticker beside it, nothing on the side or top faces, and no certification or recycling marks (no EAC, CE or recycling symbols). The cartons stay stacked on the pallet the whole time: he never lifts, picks up, holds, pulls out or touches any carton.
-Device: a Zebra TC22 — a compact phone-sized rugged handheld with a 6-inch screen, the size of an ordinary smartphone: it fits entirely inside his palm and is no longer than his hand. It looks like a modern all-touchscreen smartphone in a rugged black case: one touchscreen covers almost the entire front, with a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. Match tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg and tc22-tc27-photography-product-right-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg exactly.
-How he holds it — this matters: the scan window is on the TOP EDGE of the device. He holds the TC22 like a TV remote control pointed at the label: the device is roughly horizontal in his right hand at chest height, the screen facing UP toward his eyes, and the TOP EDGE aims straight at the barcode. To check the screen he only tilts his head down; he never turns the device upright and the screen never faces the label.
-Scan light: only while he presses the yellow side button, a soft red LED glow comes out of the TOP EDGE and lands exactly where the top edge points — on the barcode — with one small, sharp red aiming dot in its centre. The red dot lands on the centre of exactly ONE barcode at a time — never between barcodes, never on text, never on the bare carton. At each beep the light switches off at once. The screen and the device body never show any red light; the red light is visible only on the label. It is a dot, not a laser line.
-Screen content: a simple Android receiving app in light mode — a coloured app bar at the top, below it a list of rows, each row a small barcode icon and a short grey text bar, and a thin progress bar at the bottom. Each time a barcode is read, one new row slides in at the top of the list with a small green check mark and the progress bar grows one step. All on-screen text is tiny and unreadable. No keyboard, no dial pad, no camera view on the screen.
-Action, timed — he reads the barcodes on ONE label (the middle carton of the second row from the top) strictly one at a time, top to bottom, a short beep at each read:
-0–2 s: red dot on the centre of the FIRST 1D barcode (top of the label's left column); beep; one new row with a green check appears on the screen.
-2–4 s: he tilts the device slightly so the top edge points lower; red dot on the SECOND 1D barcode; beep; new row.
-4–6 s: THIRD 1D barcode; beep; new row.
-6–8 s: FOURTH 1D barcode; beep; new row. Then he points the top edge up and to the right at the centre of the square Data Matrix code in the label's top-right corner; beep; new row. He looks slightly tired.
-8–10 s: he releases the button, lowers the device to waist height, screen still facing up, and looks at the list of checked rows on the screen. He does not press the button again and does not point at anything else.
-The labels: large white multi-barcode labels, laid out like a typical component reel label: a small caption line at the top, four horizontal 1D barcodes stacked on the left half (each with a tiny caption above and a tiny human-readable line below), one large square 2D Data Matrix code in the top-right corner (a Data Matrix has a solid L-shaped border on two sides — it is NOT a QR code with three corner squares), and an empty bottom-right corner. All printed characters are tiny, generic and unreadable; no words, no brand names, no model names on the labels.
-The worker: the same person as in worker.png — an East Asian man in his early 30s, short black hair, clean-shaven with no beard or stubble, dark grey work jacket and matching trousers.
-Photorealistic corporate product film. Modern warehouse receiving area, grey concrete floor with yellow safety lines, tidy metal racking softly blurred in the background. Clean LED light mixed with daylight, neutral colour grade, 16:9.
-Realism rules — this is a real product film, not science fiction: ONE continuous shot, no cuts, no change of location, camera angle, pallet, lighting or worker. The physical world never changes by itself: real labels and cartons never glow, change colour or show check marks, icons, frames or corner brackets; no holograms, no floating graphics, no AR overlays in the real scene. Green boxes and check marks exist ONLY on the device screen. The device screen and body never show a red light. Every action has a real cause and purpose: the scan button is pressed only while the top edge is pointed at a barcode — never scanning empty air, never a pointless gesture.
-Audio: quiet warehouse ambience and a short scanner beep at each read; no speech, no music.
-Avoid: cartons without labels, oversized device, tablet, device larger than a phone, screen facing the label, holding the device upright like a camera, red glow on the screen, light coming from the back or the screen, QR codes, readable words on labels, the words "Zebra" or "TC22" on labels, keyboard or dial pad on screen, pistol-grip scanner, gun-shaped scanner, handle, trigger, physical keypad, number keys, feature phone, lifting, holding or touching a carton, horizontal laser line, red line, green dot, light staying on between reads, red dot between barcodes or on text or on bare cardboard, logos or text anywhere in the frame, watermarks, distorted hands, extra fingers, warped devices, labels changing colour or showing check marks, corner brackets or frames on labels, floating graphics, cuts or scene changes, a second sticker or separate QR code beside the label, EAC, CE or recycling marks, red light on the device, pressing the scan button while not pointing at a barcode, beard or stubble, walking out of frame, anyone looking at the camera.
+Photorealistic 16:9 still frame from a corporate product film.
+Camera: high over-the-shoulder view from behind the worker's right shoulder, looking down past his right hand toward one carton. The carton's label fills the right half of the frame and is sharp; parts of the neighbouring cartons on the same pallet are visible around it.
+The worker: the same person as in worker.png — East Asian man in his early 30s, short black hair, clean-shaven with no beard or stubble, dark grey work jacket. Only his right shoulder, arm, hand and the side of his head are visible.
+The device: a Zebra TC22, matching the two TC22 reference images exactly — a phone-sized rugged handheld with a 6-inch all-touchscreen front, no keypad, no buttons on the front, no pistol grip, a small yellow scan button on the side. It is the size of an ordinary smartphone, no longer than his hand.
+The grip — most important: he holds the TC22 like a TV remote control pointed at the label. The device lies roughly HORIZONTAL in his right hand, about 30 cm in front of the label, screen facing UP toward the camera, and the TOP EDGE of the device points straight at the label. The screen is clearly visible from this camera angle.
+The screen: a simple Android receiving app in light mode — coloured app bar, an empty list area, a thin empty progress bar. All text tiny and unreadable.
+The labels: every carton is the same product from the same shipment, so EVERY visible carton carries an IDENTICAL copy of the same white label, in the same position (left half of the front face) and the same size. The label: a small caption line at the top, four horizontal 1D barcodes stacked in the left column (each with a tiny caption above and a tiny line of digits below), one square Data Matrix code in the top-right corner (solid L-shaped border on two sides, not a QR code), empty bottom-right corner. All characters tiny, generic and unreadable. Exactly one label per carton, no other stickers, no printed symbols on the cartons, plain brown cardboard.
+No light is on yet: no red glow, no red dot.
+Setting: modern warehouse receiving area, grey concrete floor, metal racking softly blurred far behind. Clean LED light mixed with daylight, neutral colour grade. Top-right and bottom-right corners of the frame visually calm.
+Avoid: device held upright, screen facing the label, oversized device, keypad, pistol grip, cartons without labels, labels that differ from each other, QR codes, readable words, logos, EAC or CE marks, printed symbols on cartons, beard or stubble, distorted hands, extra fingers.
 ```
+**R1-A 合格條件（要全部做到才進 R1-B）**：
+- 機是**橫放**的，螢幕向上、看得見，機頂指着標籤
+- 機的大小與普通手機一樣，正面沒有鍵盤
+- 看得見的每箱都有**一模一樣**的標籤，每箱只有一張
+- 沒有紅光，沒有可讀文字
+- 人沒有鬚
+
+### R1-B 影片（Gemini「相片轉影片」：附上 R1-A 的圖作為第一格）
+```
+Animate this image as ONE continuous 10-second shot. The camera stays still. Nothing in the scene changes except his hand, the red scan light and the phone screen.
+He reads the barcodes on THIS ONE label only, in order, one at a time, slowly and carefully — this method is deliberately slow and a little tedious. The device stays horizontal, screen up, top edge pointed at the label; he moves it only a few centimetres between reads.
+Each read: he presses the yellow side button; a soft red glow with one small sharp red dot appears ON THE LABEL, exactly where the top edge points, on the centre of that barcode only; a short beep; the light switches off at once; one new row with a small green check appears on the phone screen; he glances down at the screen, then re-aims.
+0–2 s: first barcode (top of the label's left column).
+2–4 s: second barcode, directly below.
+4–6 s: third barcode.
+6–8 s: fourth barcode (bottom of the left column).
+8–10 s: the square Data Matrix in the label's top-right corner; then he releases the button and looks down at the five checked rows on the screen. He does not scan again.
+The red dot never leaves this label, never lands between barcodes, on text or on cardboard, and never goes to another carton. The phone itself never shows a red light. Real labels never change colour or show check marks; the check marks exist only on the phone screen. No cuts, no new objects, no graphics in the scene.
+Audio: quiet warehouse ambience and one short scanner beep per read; no speech, no music.
+```
+**R1-B 檢查**：
+- 紅點順序：第 1 → 2 → 3 → 4 條 → Data Matrix，全部在同一張標籤上
+- 每讀一個，螢幕多一行勾號
+- 機一直橫放
+- 沒有換鏡頭
+- 最後沒有再按鍵
+
+**長度注意**：Google 2025 年 7 月公布的「相片轉影片」每段約 **8 秒**。如果你用的介面只出 8 秒，就把節拍改為每個條碼 1.5 秒，或者在後期把影片放慢至 0.8 倍。
+
+**後期**：`scripts/overlay-brand.sh r1.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
 
 ## R2 登場：換上 TC501（10 秒）
 **附上參考圖**：`worker.png`、`tc22-tc27-photography-product-front-facing-with-shadow-3x2-3600.jpg.imgw.1920.1920.jpg`、`tc501-photography-website-render-utility-back-left-3x2-3600.jpg.imgw.1920.1920.jpg`
@@ -221,7 +254,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 ## 生成後檢查（每段）
 1. **設備外形**：TC22 和 TC501 都像手機、**沒有槍柄**，正面是**整面螢幕、沒有實體鍵盤**；側鍵顏色正確（TC22 黃色、TC501 綠色）
 2. **R1**：TC22 每次按鍵只**閃一下**紅光：紅色光暈加中心一粒小紅點，**不是激光線、不是綠點**，嗶一聲後即熄。紅點每次只落在**一個**條碼正中，順序是左邊第 1 至第 4 條，最後是 Data Matrix。紅光不可落在條碼之間或文字上
-2a. **棧板**：12 箱**全部有標籤**；紙箱一直留在棧板上，工作人員**沒有拿起或觸碰任何紙箱**
+2a. **棧板**：每箱都貼**同一款**標籤，位置和大小相同；12 箱**全部有標籤**；紙箱一直留在棧板上，工作人員**沒有拿起或觸碰任何紙箱**
 2b. **R1 握法**：機和普通手機一樣大；螢幕向上對著他，**機頂**指向條碼；紅光只從機頂射出，螢幕不發紅光；螢幕顯示收貨 App，每讀一個多一行勾號
 2c. **標籤**：二維碼是 Data Matrix（L 形邊框），不是 QR；標籤上沒有可讀文字（例如「Zebra」、「TC22」）
 2e. **寫實**：全片一個鏡頭、沒有換場景；實物標籤沒有變色、勾號或取景框；沒有讀空氣或無意義動作；工人沒有鬚；每箱只有一張標籤，沒有 EAC 等認證標誌
