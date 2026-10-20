@@ -1,4 +1,4 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 11 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 12 版
 
 > 2026-10-20 重寫。**R1 以用戶認可的首格圖 `assets/frames/r1-first-frame.jpg` 為準**，包括拍攝角度、棧板、箱數、標籤位置和 TC22 握法。R2–R5 沿用同一個棧板。舊版改動紀錄見文末。
 
@@ -92,13 +92,14 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 Animate this image as one continuous 10-second shot. The camera stays exactly where it is, and the worker, pallet, cartons, labels and lighting stay exactly as in the image.
 The labels are ordinary printed paper shipping labels: black ink on white paper. They look exactly the same in every frame from the first to the last. Each label has a short line of fine text at the top, four black 1D barcodes stacked in its left column, one black square Data Matrix code in its top-right corner, and a small block of fine grey text in its bottom-right corner.
 He keeps the same grip as in the image: the phone in his right hand, held the way a person reads a phone, tilted back, screen facing him, top edge angled toward the cartons. His left hand stays relaxed at his side. His right thumb rests on the yellow button on the side of the phone.
-He reads the label on the middle carton of the top row, one barcode at a time, slowly and carefully, in this order:
-0–2 s: first 1D barcode, at the top of the label's left column.
+His target is ONE label: the white label on the middle carton of the top row, the label just above and slightly to the left of the phone in the image. Before every press he turns the phone a little to the left and up, so that its top edge points straight into that white label. Every red dot lands inside the white area of that label, right on the black bars of the barcode being read.
+He reads that label one barcode at a time, slowly and carefully, in this order:
+0–2 s: first 1D barcode, the top barcode in the label's left column — the red dot sits on its black bars.
 2–4 s: second 1D barcode, directly below it.
-4–6 s: third 1D barcode.
+4–6 s: third 1D barcode, the third barcode from the top in the left column — the red dot sits on its black bars.
 6–8 s: fourth 1D barcode, at the bottom of the left column.
 8–10 s: the square Data Matrix code in the label's top-right corner. Then he takes his thumb off the yellow button and looks at the screen.
-Each read is the same small sequence: his thumb presses the yellow side button; a small red dot with a soft red glow appears on that one barcode; a short beep; the red light goes out; a new line of grey text appears at the top of the list in the app on the phone screen; he moves the phone a few centimetres to aim at the next barcode. The red dot appears only during a thumb press and only on that top-middle label.
+Each read is the same small sequence: he aims, holds still for a moment, then his thumb presses the yellow side button; a small red dot with a soft red glow appears on the black bars of that one barcode, inside the white label, and stays there for half a second; a short beep; the red light goes out; a new line of grey text appears at the top of the list in the app on the phone screen; he moves the phone a few centimetres to aim at the next barcode. The red dot appears only during a thumb press and only on that top-middle label.
 The phone screen shows a simple white list app with a coloured title bar.
 Audio: quiet warehouse ambience and one short scanner beep per read.
 ```
@@ -200,6 +201,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
    - 握法一直像看手機一樣（斜拿、螢幕向著自己），正面沒有鍵盤
    - 紅點只落在最上一層、中間那一箱的標籤，次序是第 1、2、3、4 條一維條碼，最後是 Data Matrix
    - 機身沒有紅光
+   - **每一次**紅點都落在白色標籤內、條碼的黑線上（第 8 次試片第 1、3 次落在標籤外）
    - 只用拇指按黃色側鍵；沒有用手指按螢幕；不按側鍵時沒有紅光、沒有嗶聲
    - 第一格與 `r1-first-frame.jpg` 相同；正面 9 箱全部有同一款標籤
    - 每讀一個，螢幕 App 多一行灰字（R1 不用綠勾）
@@ -214,6 +216,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 ---
 
 ## 版本紀錄
+- 第 12 版（2026-10-20）：第 8 次試片的第 1、3 次讀碼紅點落在標籤外的紙皮上。R1 寫明目標是「圖中機上方偏左那張白色標籤」、每次按鍵前先把機頂轉向標籤、紅點落在條碼的黑線上並停半秒
 - 第 11 版（2026-10-20）：找出標籤出綠勾的原因（Prompt 提及勾號、否定句、標籤右下角留空、Gem 混入 TC501 效果、首格圖未生效）；R1 改為只用正面描述，不提勾號，不列 Avoid；標籤右下角改為灰色細字；R1 不經 Gem 生成
 - 第 10 版（2026-10-20）：只有按黃色側鍵才讀碼，不用手指按螢幕，不按側鍵時沒有紅光和嗶聲；正面 9 箱全部貼同一款標籤；檢查第一格是否就是首格圖
 - 第 9 版（2026-10-20）：以 `r1-first-frame.jpg` 為準重寫。R1 改為相片轉影片，只讀最上一層中間那箱的標籤；棧板改為 3×3×2；寫明綠框和勾號只在 TC501 螢幕上
