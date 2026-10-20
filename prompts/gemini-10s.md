@@ -1,4 +1,4 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 9 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 10 版
 
 > 2026-10-20 重寫。**R1 以用戶認可的首格圖 `assets/frames/r1-first-frame.jpg` 為準**，包括拍攝角度、棧板、箱數、標籤位置和 TC22 握法。R2–R5 沿用同一個棧板。舊版改動紀錄見文末。
 
@@ -6,9 +6,9 @@
 | 項目 | 規則 |
 |---|---|
 | 場景 | 與 `r1-first-frame.jpg` 相同：從工人右肩後方高位拍；黑色膠卡板上放素色啡紙箱，3 箱闊、3 層高、2 箱深（正面 9 箱） |
-| 標籤 | 同一批貨，**每箱貼一模一樣的標籤**，在正面左半邊，每箱只有一張：頂部一行細字、左邊 4 條一維條碼、右上角 1 個 Data Matrix。不可另貼其他貼紙，不可有認證標誌，不可有可讀文字 |
+| 標籤 | 同一批貨，**正面 9 箱全部貼一模一樣的標籤**（不可有無標籤的箱）；紙箱不印箭咀或任何符號；二維碼是 Data Matrix 不是 QR。，在正面左半邊，每箱只有一張：頂部一行細字、左邊 4 條一維條碼、右上角 1 個 Data Matrix。不可另貼其他貼紙，不可有認證標誌，不可有可讀文字 |
 | TC22 握法 | **像看手機一樣**：單手拿，機向後斜約 45 度，螢幕向著自己，機頂向前斜指標籤。正面整面螢幕，**沒有鍵盤** |
-| TC22 讀碼 | 按黃色側鍵時，機頂射出紅色光暈加中心一粒紅點，落在**一個**條碼正中，嗶一聲即熄。機身和螢幕不發紅光。只可在指著條碼時按鍵，不可讀空氣 |
+| TC22 讀碼 | **只有按黃色側鍵才會讀碼**：工人不用手指按螢幕；紅光和嗶聲只在按側鍵、機頂指著目標標籤時出現。按側鍵時，機頂射出紅色光暈加中心一粒紅點，落在**一個**條碼正中，嗶一聲即熄。機身和螢幕不發紅光。只可在指著條碼時按鍵，不可讀空氣 |
 | TC501 讀碼 | 用後相機加 Zebra AI 讀碼，**不投射任何光**。綠框和勾號**只出現在 TC501 螢幕上**；箱上的標籤永遠是黑白的，不會自己變色或出勾號 |
 | 寫實 | 不是科幻片：每段一個連續鏡頭，不換場景；每個動作都有原因和目的 |
 | 品牌 | Zebra Logo（右上角）和字幕（右下角）用 `scripts/overlay-brand.sh` 後期疊加，不交給 AI 畫 |
@@ -65,7 +65,9 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 ---
 
 ## R1 痛點：TC22 逐個讀同一張標籤（10 秒）
-**做法**：在 Gemini 選「影片」，上傳 `assets/frames/r1-first-frame.jpg` 作為**第一格**，再貼上以下 Prompt。這張圖已經合格，**不要修改，也不要重新生成**。
+**做法**：在 Gemini 選「影片」，上傳 `assets/frames/r1-first-frame.jpg` 作為**第一格**，再貼上以下 Prompt。
+
+⚠ **生成後先檢查第一格**：影片的第一格應該與 `r1-first-frame.jpg` 一模一樣。2026-10-20 的試片第一格並不是這張圖：棧板變成 4 層，右邊一列沒有標籤。如果第一格不同，就是那張圖沒有成功作為第一格，請重新上傳後再生成。這張圖已經合格，**不要修改，也不要重新生成**。
 
 **要讀的標籤**：最上一層、中間那一箱的標籤。原因是：
 - 機頂正向它斜指
@@ -74,8 +76,10 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 中間一層、中間那一箱的標籤被機遮住了一部分，所以不讀它。
 ```
 Animate this image as ONE continuous 10-second shot. The camera stays exactly where it is. Keep the same worker, pallet, cartons, labels and lighting. The only things that change are his hand movement, the red scan light and the phone screen.
+All 9 cartons on the front face carry the SAME label, an identical copy in the same position: four 1D barcodes in the left column and one square Data Matrix (not a QR code) in the top-right corner. No carton is without a label. The cartons have no printed symbols or arrows.
 He keeps exactly the same grip as in the image: the phone held in his right hand the way a person reads a phone, tilted back, screen facing him, top edge angled forward toward the cartons.
 He reads the barcodes on ONE label only — the label on the middle carton of the TOP row — in order, one at a time, slowly and carefully. This method is deliberately slow and a little tedious. Between reads he moves the phone only a few centimetres.
+Only the yellow side button scans. He uses ONLY his thumb on the yellow side button and never touches the screen with his other hand or a finger. The red light and the beep happen ONLY at the moment he presses the yellow side button while the top edge points at the top-middle label; at no other moment is there any red light or beep.
 Each read: he presses the yellow side button; a soft red glow with one small sharp red dot appears ON THAT LABEL, on the centre of one barcode only; a short beep; the light switches off at once; one new row with a small green check appears in the app on the phone screen; he glances at the screen, then aims at the next barcode.
 0–2 s: the first 1D barcode (top of the label's left column).
 2–4 s: the second 1D barcode, directly below.
@@ -83,6 +87,7 @@ Each read: he presses the yellow side button; a soft red glow with one small sha
 6–8 s: the fourth 1D barcode (bottom of the left column).
 8–10 s: the square Data Matrix in the label's top-right corner. Then he releases the button and looks at the screen. He does not press the button again.
 The red dot never leaves this one label: never on another carton, never between barcodes, never on text or cardboard. The phone body and screen never show red light. The labels on the cartons never change colour and never show check marks; the check marks appear only in the app on the phone screen. No cuts, no new objects, no graphics in the scene.
+Avoid: tapping or touching the screen, red light or beep without pressing the side button, red light on any other carton, cartons without labels, labels that differ, QR codes, arrows or symbols printed on cartons, changing the camera angle or the pallet.
 Audio: quiet warehouse ambience and one short scanner beep per read; no speech, no music.
 ```
 **後期**：`scripts/overlay-brand.sh r1.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
@@ -183,6 +188,8 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
    - 握法一直像看手機一樣（斜拿、螢幕向著自己），正面沒有鍵盤
    - 紅點只落在最上一層、中間那一箱的標籤，次序是第 1、2、3、4 條一維條碼，最後是 Data Matrix
    - 機身沒有紅光
+   - 只用拇指按黃色側鍵；沒有用手指按螢幕；不按側鍵時沒有紅光、沒有嗶聲
+   - 第一格與 `r1-first-frame.jpg` 相同；正面 9 箱全部有同一款標籤
    - 每讀一個，螢幕多一行勾號
    - 讀完最後一個就鬆開按鍵看螢幕，沒有再按
 4. **R2–R5**：TC501 不投射任何光；綠框同時出現，再出勾號，**只在螢幕上**；箱上標籤沒有變色
@@ -194,6 +201,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 ---
 
 ## 版本紀錄
+- 第 10 版（2026-10-20）：只有按黃色側鍵才讀碼，不用手指按螢幕，不按側鍵時沒有紅光和嗶聲；正面 9 箱全部貼同一款標籤；檢查第一格是否就是首格圖
 - 第 9 版（2026-10-20）：以 `r1-first-frame.jpg` 為準重寫。R1 改為相片轉影片，只讀最上一層中間那箱的標籤；棧板改為 3×3×2；寫明綠框和勾號只在 TC501 螢幕上
 - 第 8 版：TC22 握法改為像看手機一樣（用戶確認），取消「平放、像遙控器」
 - 第 7 版：所有箱同一款標籤；R1 分為首格圖和相片轉影片兩步
