@@ -1,4 +1,7 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 7 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 8 版
+
+> **第 8 版改動（2026-10-20，用戶確認）**：TC22 的握法改為**像看手機一樣**：機向後斜約 45 度，螢幕向著自己，機頂向前斜指標籤。取消第 5–7 版「平放、像電視遙控器」的規則，因為那是我判斷錯誤。正面沒有鍵盤的規則不變。第一張 R1-A 的握法就是正確的握法。
+
 
 > **第 7 版改動（2026-10-20，按 R1 第四次試片）**
 > 1. **全部箱貼同一款標籤**：同一批貨，每箱的標籤一模一樣，位置相同，大小相同
@@ -12,7 +15,7 @@
 > 2. 機身和螢幕**不可出現紅燈**，紅光只會出現在標籤上
 > 3. **新增「寫實規則」，R1–R5 全部適用**：這不是科幻片。實物標籤不會自己變綠、出勾號或出框；綠框和勾號只可在螢幕上出現；全片一個鏡頭，中途不可換場景；按掃描鍵時機頂一定要指着條碼，不可讀空氣，也不可有無意義的動作
 > 4. R1 最後 2 秒改為：放鬆按鍵，把機放低看螢幕上的紀錄，不再按鍵
-> 5. 握法改為「像拿電視遙控器指向標籤」：試片中機是直立的，機頂朝天，紅光卻落在紙箱上，物理上不可能
+> 5. ~~握法改為「像拿電視遙控器指向標籤」~~（第 8 版取消：用戶確認這個握法不正確）
 > 6. 其他試片問題，全部已寫入 Avoid：
 >    - 第 7 秒突然換場景
 >    - 工人有鬚，與 worker.png 不符
@@ -25,7 +28,7 @@
 > **第 5 版改動（2026-10-19，按 R1 第二次試片）**：只改 R1
 > 1. **12 箱全部貼標籤**：試片只有左邊一列有標籤
 > 2. **設備縮小到普通手機大小**：試片的機太大
-> 3. **握法改正**：掃描窗在機頂。機要差不多平放，螢幕向上對著他，機頂指向條碼。試片是螢幕對著標籤，紅光從螢幕射出，最後還像相機一樣直舉
+> 3. **握法改正**：試片是螢幕對著標籤，紅光從螢幕射出，最後還像相機一樣直舉。~~機要差不多平放~~（第 8 版取消，見上）
 > 4. **螢幕顯示 Android 收貨 App**：每讀一個條碼就多一行綠色勾號，進度條前進一格
 > 5. **Zebra Logo（右上）和字幕「用 Zebra TC22 收貨」（右下）改為後期疊加**：用 `scripts/overlay-brand.sh`，不交給 AI 畫
 > 6. **其他試片問題**：
@@ -113,7 +116,7 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 
 ## R1 痛點：TC22 逐個讀（10 秒）· 第 7 版：先做首格圖，再生成影片
 
-> **為甚麼改做法**：第 3、4 次試片都出現同樣三個問題。模型每次都把機直立拿著，紅光就沒有來源；紅光在不同紙箱之間亂跳；有些箱沒有標籤。原因是 Prompt 要同時顧及太多東西：整個棧板、App、紅光和節拍。
+> **為甚麼改做法**：第 3、4 次試片都出現同樣三個問題。（握法一項是我判斷錯誤，第 8 版已改正，見下）；紅光在不同紙箱之間亂跳；有些箱沒有標籤。原因是 Prompt 要同時顧及太多東西：整個棧板、App、紅光和節拍。
 >
 > 第 7 版分兩步做：
 > 1. **R1-A**：先用 Gemini 圖片生成一張「首格圖」，把握法、標籤、設備全部固定。靜態圖改錯很便宜，不合格就重做。
@@ -128,41 +131,39 @@ Photorealistic 16:9 still frame from a corporate product film.
 Camera: high over-the-shoulder view from behind the worker's right shoulder, looking down past his right hand toward one carton. The carton's label fills the right half of the frame and is sharp; parts of the neighbouring cartons on the same pallet are visible around it.
 The worker: the same person as in worker.png — East Asian man in his early 30s, short black hair, clean-shaven with no beard or stubble, dark grey work jacket. Only his right shoulder, arm, hand and the side of his head are visible.
 The device: a Zebra TC22, matching the two TC22 reference images exactly — a phone-sized rugged handheld with a 6-inch all-touchscreen front, no keypad, no buttons on the front, no pistol grip, a small yellow scan button on the side. It is the size of an ordinary smartphone, no longer than his hand.
-The grip — most important: he holds the TC22 like a TV remote control pointed at the label. The device lies roughly HORIZONTAL in his right hand, about 30 cm in front of the label, screen facing UP toward the camera, and the TOP EDGE of the device points straight at the label. The screen is clearly visible from this camera angle.
+The grip — most important: he holds the TC22 in his right hand the way a person reads a phone: tilted back about 45 degrees, between upright and flat, screen facing him so he can read it, and the TOP EDGE angled forward toward the label. The screen is clearly visible from this camera angle. The screen never faces the label.
 The screen: a simple Android receiving app in light mode — coloured app bar, an empty list area, a thin empty progress bar. All text tiny and unreadable.
 The labels: every carton is the same product from the same shipment, so EVERY visible carton carries an IDENTICAL copy of the same white label, in the same position (left half of the front face) and the same size. The label: a small caption line at the top, four horizontal 1D barcodes stacked in the left column (each with a tiny caption above and a tiny line of digits below), one square Data Matrix code in the top-right corner (solid L-shaped border on two sides, not a QR code), empty bottom-right corner. All characters tiny, generic and unreadable. Exactly one label per carton, no other stickers, no printed symbols on the cartons, plain brown cardboard.
 No light is on yet: no red glow, no red dot.
 Setting: modern warehouse receiving area, grey concrete floor, metal racking softly blurred far behind. Clean LED light mixed with daylight, neutral colour grade. Top-right and bottom-right corners of the frame visually calm.
-Avoid: device held upright, screen facing the label, oversized device, keypad, pistol grip, cartons without labels, labels that differ from each other, QR codes, readable words, logos, EAC or CE marks, printed symbols on cartons, beard or stubble, distorted hands, extra fingers.
+Avoid: device lying flat or horizontal, held like a remote control, screen facing the label, oversized device, keypad, pistol grip, cartons without labels, labels that differ from each other, QR codes, readable words, logos, EAC or CE marks, printed symbols on cartons, beard or stubble, distorted hands, extra fingers.
 ```
 **R1-A 合格條件（要全部做到才進 R1-B）**：
-- 機是**橫放**的，螢幕向上、看得見，機頂指着標籤
+- 握法：**像看手機一樣**，機向後斜約 45 度，螢幕向著自己、看得見，機頂向前斜指標籤（2026-10-20 第一張 R1-A 的握法正確）
 - 機的大小與普通手機一樣，正面沒有鍵盤
 - 看得見的每箱都有**一模一樣**的標籤，每箱只有一張
 - 沒有紅光，沒有可讀文字
 - 人沒有鬚
 
 ### R1-A 修圖（首格圖不合格時，在同一個對話直接要求 Gemini 修改）
-2026-10-20 第一張 R1-A 有三個問題：
-- 機直立，機頂朝天
+2026-10-20 第一張 R1-A：**握法正確**（用戶確認），正面沒有鍵盤也正確。尚待修改：
+- 底邊框多了 ZEBRA 字樣和實體導航鍵：官方 TC22 正面圖的底邊框是空的，導航鍵在螢幕內
+- 各箱標籤的條碼數目不一致，有幾張右下角多了 L 形角線
 - 鏡頭太遠
-- 底邊框多了 ZEBRA 字樣和實體導航鍵；官方 TC22 正面圖的底邊框是空的，導航鍵在螢幕內
 
-另外，各箱標籤的條碼數目不一致，有幾張標籤右下角多了 L 形角線。
-
-以下修圖 Prompt 每次只改一樣東西，改完一張確認合格，才貼下一段。
+修圖 Prompt 每次只改一樣，改完確認合格，才貼下一段。**不要改握法。**
 ```
-Edit this image. Keep the same worker, warehouse, pallet, labels, lighting and camera position. Change ONLY the phone and his hand: the phone is tilted forward until it is almost horizontal, like a TV remote control pointed at the label of the middle carton in the second row from the top. The TOP EDGE of the phone points straight at that label from about 30 cm away; the screen faces up and is seen at an angle from this camera position. His fingers hold it from below. The bottom bezel of the phone is plain black with no logo and no buttons; the Android navigation buttons are on the screen.
+Edit this image. Keep everything exactly the same, including how he holds the phone. Change ONLY the bottom bezel of the phone: plain black with no logo and no buttons; the Android navigation buttons are on the screen.
 ```
 ```
-Edit this image. Keep everything else exactly the same. Make every label on every carton an identical copy of the same label: four 1D barcodes stacked in the left column and one square Data Matrix in the top-right corner, same size and same position on each carton. Remove the L-shaped corner marks from the labels.
+Edit this image. Keep everything else exactly the same, including how he holds the phone. Make every label on every carton an identical copy of the same label: four 1D barcodes stacked in the left column and one square Data Matrix in the top-right corner, same size and same position on each carton. Remove the L-shaped corner marks from the labels.
 ```
-鏡頭太遠不用重新生成：機的角度改好後，把圖傳給我，我直接裁成以中間那箱標籤為主的 16:9 畫面。
+鏡頭太遠不用重新生成：把改好的圖傳給我，我裁成以中間那箱標籤為主的 16:9 畫面。
 
 ### R1-B 影片（Gemini「相片轉影片」：附上 R1-A 的圖作為第一格）
 ```
 Animate this image as ONE continuous 10-second shot. The camera stays still. Nothing in the scene changes except his hand, the red scan light and the phone screen.
-He reads the barcodes on THIS ONE label only, in order, one at a time, slowly and carefully — this method is deliberately slow and a little tedious. The device stays horizontal, screen up, top edge pointed at the label; he moves it only a few centimetres between reads.
+He reads the barcodes on THIS ONE label only, in order, one at a time, slowly and carefully — this method is deliberately slow and a little tedious. He keeps exactly the same grip as in the image — tilted like reading a phone, screen facing him, top edge angled toward the label; he moves it only a few centimetres between reads.
 Each read: he presses the yellow side button; a soft red glow with one small sharp red dot appears ON THE LABEL, exactly where the top edge points, on the centre of that barcode only; a short beep; the light switches off at once; one new row with a small green check appears on the phone screen; he glances down at the screen, then re-aims.
 0–2 s: first barcode (top of the label's left column).
 2–4 s: second barcode, directly below.
@@ -175,7 +176,7 @@ Audio: quiet warehouse ambience and one short scanner beep per read; no speech, 
 **R1-B 檢查**：
 - 紅點順序：第 1 → 2 → 3 → 4 條 → Data Matrix，全部在同一張標籤上
 - 每讀一個，螢幕多一行勾號
-- 機一直橫放
+- 握法一直與首格圖相同，機沒有變成平放或橫放
 - 沒有換鏡頭
 - 最後沒有再按鍵
 
