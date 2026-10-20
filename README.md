@@ -65,6 +65,7 @@ npm run render:hans   # 簡體版
 ## 改畫面
 - **貨物及收貨單**：編輯 `src/data/pallet.ts`（`COLS`、`TIERS`、`ORDER`）。條碼數和箱數會自動反映在畫面計數上。
 - **讀碼規則**：S1 的 TC22 逐個條碼讀（`S1Pain.tsx` 的 `READS`）；S3 的 TC501 全部條碼同一刻出綠框（`READ_AT`），再出勾號（`TICK_AT`）。
+- **寫實規則（所有片段，AI 生成及 Remotion 都適用）**：這不是科幻片。實物標籤和紙箱不會自己發光、變色或出勾號；綠框和勾號只可在設備螢幕上出現；每個 AI 片段是一個連續鏡頭；按掃描鍵時機頂一定指着條碼，不可讀空氣，也不可有無意義的動作；每箱只貼一張多條碼標籤。詳見 `prompts/gemini-gem.md` 的 REALISM RULES。
 - **鏡頭**：`CLOSE`（S1 特寫，對準 `TARGET_CARTON` 的標籤）、`SPLIT`（S2–S5 左側實景）、`screenCam`（TC501 螢幕內畫面）。
 - **TC501 去背圖**：`assets/products/tc501/2-cutout.png` 由 `2.jpg` 以 flood fill 去白底生成。
 
