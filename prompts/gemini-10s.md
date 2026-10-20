@@ -142,6 +142,23 @@ Avoid: device held upright, screen facing the label, oversized device, keypad, p
 - 沒有紅光，沒有可讀文字
 - 人沒有鬚
 
+### R1-A 修圖（首格圖不合格時，在同一個對話直接要求 Gemini 修改）
+2026-10-20 第一張 R1-A 有三個問題：
+- 機直立，機頂朝天
+- 鏡頭太遠
+- 底邊框多了 ZEBRA 字樣和實體導航鍵；官方 TC22 正面圖的底邊框是空的，導航鍵在螢幕內
+
+另外，各箱標籤的條碼數目不一致，有幾張標籤右下角多了 L 形角線。
+
+以下修圖 Prompt 每次只改一樣東西，改完一張確認合格，才貼下一段。
+```
+Edit this image. Keep the same worker, warehouse, pallet, labels, lighting and camera position. Change ONLY the phone and his hand: the phone is tilted forward until it is almost horizontal, like a TV remote control pointed at the label of the middle carton in the second row from the top. The TOP EDGE of the phone points straight at that label from about 30 cm away; the screen faces up and is seen at an angle from this camera position. His fingers hold it from below. The bottom bezel of the phone is plain black with no logo and no buttons; the Android navigation buttons are on the screen.
+```
+```
+Edit this image. Keep everything else exactly the same. Make every label on every carton an identical copy of the same label: four 1D barcodes stacked in the left column and one square Data Matrix in the top-right corner, same size and same position on each carton. Remove the L-shaped corner marks from the labels.
+```
+鏡頭太遠不用重新生成：機的角度改好後，把圖傳給我，我直接裁成以中間那箱標籤為主的 16:9 畫面。
+
 ### R1-B 影片（Gemini「相片轉影片」：附上 R1-A 的圖作為第一格）
 ```
 Animate this image as ONE continuous 10-second shot. The camera stays still. Nothing in the scene changes except his hand, the red scan light and the phone screen.
