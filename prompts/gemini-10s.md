@@ -1,14 +1,15 @@
-# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 13 版
+# TC501 EP01：Gemini 影片生成 Prompt（每段 10 秒）· 第 14 版
 
 > 2026-10-20 重寫。**R1 以用戶認可的首格圖 `assets/frames/r1-first-frame.jpg` 為準**，包括拍攝角度、棧板、箱數、標籤位置和 TC22 握法。R2–R5 沿用同一個棧板。舊版改動紀錄見文末。
 
 ## 核心規則（所有片段都適用）
 | 項目 | 規則 |
 |---|---|
+| ⭐ **第一規則（最重要）** | **TC22 的紅色瞄準點和嗶聲，一定要落在正在讀的那個條碼上**，不可以讓客戶看到讀碼位置不準。AI 影片模型做不到準確定位（第 1 至第 9 次試片都有讀空氣），所以：**AI 片段不出紅光、不出嗶聲**，只拍手和機的動作；紅點、光暈和嗶聲一律在後期用 `scripts/add-scan-dots.py` 按條碼的實際座標疊加 |
 | 場景 | 與 `r1-first-frame.jpg` 相同：從工人右肩後方高位拍；黑色膠卡板上放素色啡紙箱，3 箱闊、3 層高、2 箱深（正面 9 箱） |
 | 標籤 | 同一批貨，**正面 9 箱全部貼一模一樣的標籤**（不可有無標籤的箱）；紙箱不印箭咀或任何符號；二維碼是 Data Matrix 不是 QR。，在正面左半邊，每箱只有一張：頂部一行細字、左邊 4 條一維條碼、右上角 1 個 Data Matrix。不可另貼其他貼紙，不可有認證標誌，不可有可讀文字 |
 | TC22 握法 | **像看手機一樣**：單手拿，機向後斜約 45 度，螢幕向著自己，機頂向前斜指標籤。正面整面螢幕，**沒有鍵盤** |
-| TC22 讀碼 | **只有按黃色側鍵才會讀碼**：工人不用手指按螢幕；紅光和嗶聲只在按側鍵、機頂指著目標標籤時出現。按側鍵時，機頂射出紅色光暈加中心一粒紅點，落在**一個**條碼正中，嗶一聲即熄。機身和螢幕不發紅光。只可在指著條碼時按鍵，不可讀空氣 |
+| TC22 讀碼 | 只有拇指按黃色側鍵才算讀碼；不用手指按螢幕。每次按鍵前機頂先對準目標標籤，停一停才按。紅點和嗶聲由後期加（見第一規則） |
 | TC501 讀碼 | 用後相機加 Zebra AI 讀碼，**不投射任何光**。綠框和勾號**只出現在 TC501 螢幕上**；箱上的標籤永遠是黑白的，不會自己變色或出勾號 |
 | 寫實 | 不是科幻片：每段一個連續鏡頭，不換場景；每個動作都有原因和目的 |
 | 寫 Prompt | **畫面合理最優先**。可以使用 NO／never／Avoid 等負面描述，用來排除不合理的畫面。描述標籤和螢幕時不留空位 |
@@ -55,7 +56,7 @@ Avoid: text, labels, watermarks, logos, extra people, different outfits between 
 ```
 For this session, every clip is 10 seconds long, 16:9, photorealistic, 1080p if available. Ignore the 8-second default in your instructions. Follow the timed beats in each request. Generate one clip per message. Keep the same worker (worker.png), the same pallet and the same warehouse in every clip.
 Device rules — never break them:
-1. Zebra TC22 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. He holds it in one hand the way a person reads a phone: tilted back about 45 degrees, screen facing him, TOP EDGE angled forward toward the label. only while the button is pressed, the scan window on the top edge projects a soft red LED glow onto the label with one small, sharp red aiming dot in its centre. It reads ONE barcode at a time. The small red aiming dot lands on the centre of exactly ONE barcode at a time — never in the gaps between barcodes, never on the printed text, never on the bare carton. At each beep the red light switches off at once; between reads no light is projected. It is a dot, not a laser line.
+1. Zebra TC22 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front face, with only a thin bezel and an earpiece slot at the top; NO physical keypad, NO number keys, NO navigation keys, NO buttons of any kind on the front; NO pistol grip, NO handle, NO trigger. The only colour accent is a small yellow scan button on the side edge. The scan window is on the top edge. He holds it in one hand the way a person reads a phone: tilted back about 45 degrees, screen facing him, TOP EDGE angled forward toward the label. It reads ONE barcode at a time. In every generated clip there is NO red light, NO laser, NO glow and NO beep from the TC22: the scan light and beep are added later in editing at the exact barcode positions.
 2. Zebra TC501 = a slim rugged handheld mobile computer; it looks like a modern all-touchscreen smartphone in a rugged black case: one large touchscreen covers almost the entire front, a thin top bezel with the earpiece and two small green indicator lights, a white ZEBRA wordmark on the bottom bezel; NO physical keypad, NO number keys, NO buttons of any kind on the front; NO pistol grip; green buttons on both side edges; rear camera on the back. It is held upright like taking a photo; its rear camera captures every barcode in view at once, and its screen shows the live camera view with a bright green box around every barcode and then a large green check mark.
 3. Match both devices exactly to the uploaded Zebra renders. If a device in the clip has a keypad, number keys or a small screen, it is wrong.
 Pallet rule: the pallet is the one in r1-first-frame.jpg — 3 cartons across, 3 high, 2 deep, every carton with an identical label. The cartons always stay stacked on the pallet. The worker reads the labels on the cartons where they are; he never lifts, picks up or holds a carton.
@@ -93,18 +94,24 @@ Label rule: one label per carton only, on the left half of the front face; no ex
 Animate this image as one continuous 10-second shot. The camera stays exactly where it is, and the worker, pallet, cartons, labels and lighting stay exactly as in the image.
 The labels are ordinary printed paper shipping labels: black ink on white paper. They look exactly the same in every frame from the first to the last. Each label has a short line of fine text at the top, four black 1D barcodes stacked in its left column, one black square Data Matrix code in its top-right corner, and a small block of fine grey text in its bottom-right corner.
 He keeps the same grip as in the image: the phone in his right hand, held the way a person reads a phone, tilted back, screen facing him, top edge angled toward the cartons. His left hand stays relaxed at his side. His right thumb rests on the yellow button on the side of the phone.
-His target is ONE label: the white label on the middle carton of the top row, the label just above and slightly to the left of the phone in the image. Before every press he turns the phone a little to the left and up, so that its top edge points straight into that white label. Every red dot lands inside the white area of that label, right on the black bars of the barcode being read.
-He reads that label one barcode at a time, slowly and carefully, in this order:
-0–2 s: first 1D barcode, the top barcode in the label's left column — the red dot sits on its black bars.
-2–4 s: second 1D barcode, directly below it — the red dot sits on its black bars.
-4–6 s: third 1D barcode, the third barcode from the top in the left column — the red dot sits on its black bars.
-6–8 s: fourth 1D barcode, at the bottom of the left column — the red dot sits on its black bars.
+His target is ONE label: the white label on the middle carton of the top row, the label just above and slightly to the left of the phone in the image. Before every press he turns the phone a little to the left and up, so that its top edge points straight into that white label.
+IMPORTANT: there is NO visible scan light in this clip — no red dot, no red glow, no laser, no light of any kind from the phone onto the cartons — and NO beep. The scan light and beep will be added later in editing.
+He reads that label one barcode at a time, slowly and carefully, pressing the yellow side button once for each barcode, in this order:
+0–2 s: first 1D barcode, the top barcode in the label's left column.
+2–4 s: second 1D barcode, directly below it.
+4–6 s: third 1D barcode, the third barcode from the top in the left column.
+6–8 s: fourth 1D barcode, at the bottom of the left column.
 8–10 s: the square Data Matrix code in the label's top-right corner. Then he takes his thumb off the yellow button and looks at the screen.
-Each read is the same small sequence: he aims, holds still for a moment, then his thumb presses the yellow side button; a small red dot with a soft red glow appears on the black bars of that one barcode, inside the white label, and stays there for half a second; a short beep; the red light goes out; a new line of grey text appears at the top of the list in the app on the phone screen; he moves the phone a few centimetres to aim at the next barcode. The red dot appears only during a thumb press and only on that top-middle label.
+Each read is the same small sequence, at a steady rhythm of one read every 2 seconds: he moves the phone a few centimetres to aim at the next barcode, holds the phone completely still for about one second, presses the yellow side button with his thumb at the start of that still moment, and a new line of grey text appears at the top of the list in the app on the phone screen.
 The phone screen shows a simple white list app with a coloured title bar.
-Audio: quiet warehouse ambience and one short scanner beep per read.
+Audio: quiet warehouse ambience only. No beeps, no speech, no music.
 ```
-**後期**：`scripts/overlay-brand.sh r1.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
+**後期（按次序做）**：
+1. **加紅點和嗶聲（第一規則）**：把 `r1.mp4` 傳給我。我逐格找出每次按鍵的時間和每個條碼的中心座標，寫入 `prompts/scan-dots/r1.json`（格式見 `r1.example.json`），然後執行：
+   `python3 -I scripts/add-scan-dots.py r1.mp4 prompts/scan-dots/r1.json r1-dots.mp4`
+   這個工具用模板匹配逐格追蹤標籤位置，鏡頭輕微移動時，紅點也會跟著標籤走。
+2. **逐格核對**：每次紅點都在對應的條碼上，才可以進入下一步。
+3. **加 Logo 和字幕**：`scripts/overlay-brand.sh r1-dots.mp4 r1-branded.mp4 "用 Zebra TC22 收貨"`
 
 **長度**：據 Google 2025 年 7 月公布，「相片轉影片」每段約 8 秒。如果只出 8 秒，就把每個條碼改為 1.6 秒（0–1.6、1.6–3.2、3.2–4.8、4.8–6.4、6.4–8 秒）。
 
@@ -201,8 +208,8 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 3. **R1**：
    - 握法一直像看手機一樣（斜拿、螢幕向著自己），正面沒有鍵盤
    - 紅點只落在最上一層、中間那一箱的標籤，次序是第 1、2、3、4 條一維條碼，最後是 Data Matrix
-   - 機身沒有紅光
-   - **每一次**紅點都落在白色標籤內、條碼的黑線上（第 8 次試片第 1、3 次落在標籤外）
+   - **AI 片段本身沒有任何紅光或嗶聲**（有的話要重新生成，因為後期不能刪除）
+   - **加紅點後，每一次紅點都落在對應條碼的黑線上**（第一規則；用 `add-scan-dots.py` 疊加後逐格核對）
    - 只用拇指按黃色側鍵；沒有用手指按螢幕；不按側鍵時沒有紅光、沒有嗶聲
    - 第一格與 `r1-first-frame.jpg` 相同；正面 9 箱全部有同一款標籤
    - 每讀一個，螢幕 App 多一行灰字（R1 不用綠勾）
@@ -217,6 +224,7 @@ Avoid: any light projected from the device onto the cartons (no red dot, no red 
 ---
 
 ## 版本紀錄
+- 第 14 版（2026-10-21）：**第一規則：紅點和嗶聲一定落在條碼上**。第 9 次試片仍然讀空氣，所以 AI 片段改為不出紅光和嗶聲，紅點、光暈和嗶聲改由 `scripts/add-scan-dots.py` 按條碼座標在後期疊加；示範片 `out/preview/r1-dots-demo.mp4` 的 5 次紅點全部落在對應條碼上
 - 第 13 版（2026-10-21）：按用戶決定取消 POSITIVE-ONLY PROMPTING，以畫面合理為最優先；R2–R5 保留現有的 NO 描述和 Avoid 清單；Gem 與本檔版本號統一為第 13 版
 - 第 12 版（2026-10-20）：第 8 次試片的第 1、3 次讀碼紅點落在標籤外的紙皮上。R1 寫明目標是「圖中機上方偏左那張白色標籤」、每次按鍵前先把機頂轉向標籤、紅點落在條碼的黑線上並停半秒
 - 第 11 版（2026-10-20）：找出標籤出綠勾的原因（Prompt 提及勾號、否定句、標籤右下角留空、Gem 混入 TC501 效果、首格圖未生效）；R1 改為只用正面描述，不提勾號，不列 Avoid；標籤右下角改為灰色細字；R1 不經 Gem 生成
