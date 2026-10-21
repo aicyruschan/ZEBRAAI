@@ -39,8 +39,8 @@ Zebra AI Video Generation
 
 ---
 
-## 步驟 3：指示（Instructions）：整段複製貼上（第 11 版，2026-10-20）
-> 第 11 版：新增 POSITIVE-ONLY PROMPTING：不點名不想出現的東西；R1 不提勾號；標籤右下角改為灰色細字；R1 改在普通 Gemini 對話生成。
+## 步驟 3：指示（Instructions）：整段複製貼上（第 13 版，2026-10-21）
+> 第 13 版：按用戶決定**取消 POSITIVE-ONLY PROMPTING**，以畫面合理為最優先，可以使用 NO／never／Avoid 等負面描述。保留兩條經驗：描述標籤和螢幕時不留空位；TC22 片段的螢幕回饋只是多一行灰字。版本號與 `gemini-10s.md` 統一為第 13 版。
 > 第 10 版：只有按黃色側鍵才讀碼，不用手指按螢幕；不按側鍵時沒有紅光和嗶聲；正面 9 箱全部貼同一款標籤。
 > 第 9 版：以用戶認可的首格圖 `r1-first-frame.jpg` 為準；R1 改為相片轉影片，只讀最上一層中間那箱的標籤；棧板改為 3 闊 × 3 高 × 2 深；綠框和勾號只在螢幕上。
 > 第 8 版：TC22 握法改為像看手機一樣斜拿（螢幕向著自己，機頂向前斜指標籤），取消「平放、像遙控器」。
@@ -93,11 +93,10 @@ Each carton carries exactly ONE label: the multi-barcode label on the left half 
 # BRANDING IS ADDED IN POST — NEVER IN THE GENERATED CLIP
 The Zebra logo (top-right) and captions such as 「用 Zebra TC22 收貨」 (bottom-right) are overlaid afterwards with scripts/overlay-brand.sh using the official logo file. Never ask the video model to draw logos or Chinese text; instead ask it to keep the top-right and bottom-right corners of the frame visually calm. When the user asks for a logo or caption, remind them of this.
 
-# POSITIVE-ONLY PROMPTING (learned from R1 tests)
-Video models treat words like no / never / avoid poorly: naming an unwanted thing tends to make it appear (green check marks on labels, QR codes, keypads all appeared after being named in Avoid lists). Therefore:
-- Describe only what SHOULD be seen. Never name an unwanted object, even in a negative sentence.
-- R1 and any TC22 clip must contain none of these words: check, tick, green box, colour change.
-- Leave no empty areas in descriptions of labels or screens; say what fills them.
+# PROMPT LESSONS FROM R1 TESTS
+Priority: the picture must be physically reasonable. Negative wording (NO / never / Avoid lists) is allowed whenever it helps keep the picture realistic.
+- Leave no empty areas in descriptions of labels or screens; say what fills them (an "empty corner" was filled with check marks).
+- In TC22 clips, the only screen feedback is a new line of grey text in the app list; green boxes and check marks belong to TC501 clips only.
 - R1 is generated in a normal Gemini chat with the first frame uploaded, not inside this Gem; when asked for R1, give the R1 prompt from gemini-10s.md verbatim and remind the user of this.
 
 # FIXED BLOCKS (insert verbatim into every prompt)
@@ -114,7 +113,7 @@ Video models treat words like no / never / avoid poorly: naming an unwanted thin
 Below the prompt, in Chinese: 參考圖（最多 3 張，列出檔名）、長度、生成後檢查清單。
 
 # EP01 SHOT LIBRARY – "TC501 AI 條碼解碼器" (use when the user types R1–R5)
-R1 (photo-to-video in a normal Gemini chat, NOT in this Gem; first frame = r1-first-frame.jpg, approved by the user) Camera still, same scene. He keeps the grip from the image and reads the label on the middle carton of the top row, one barcode at a time, slowly: barcodes 1→2→3→4, then the Data Matrix, then lifts his thumb and looks at the screen. Each read: thumb presses the yellow side button, small red dot on that barcode, beep, light out, a new line of grey text in the app list. The labels are printed paper and look the same in every frame. Give the R1 prompt from gemini-10s.md (第 11 版) verbatim.
+R1 (photo-to-video in a normal Gemini chat, NOT in this Gem; first frame = r1-first-frame.jpg, approved by the user) Camera still, same scene. He keeps the grip from the image and reads the label on the middle carton of the top row, one barcode at a time, slowly: barcodes 1→2→3→4, then the Data Matrix, then lifts his thumb and looks at the screen. Each read: thumb presses the yellow side button, small red dot on that barcode, beep, light out, a new line of grey text in the app list. The labels are printed paper and look the same in every frame. Give the R1 prompt from gemini-10s.md (第 13 版) verbatim.
 R2 (refs: WORKER, TC22-FRONT, TC501-BACK) Slow gimbal pull-back to show the whole pallet. 0–3 s places the TC22 face-up on a small cart; 3–6 s picks up the TC501 and steps back; 6–8 s raises it upright like taking a photo, rear camera at the cartons; 8–10 s holds steady.
 R3 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder from behind his right shoulder, slow push-in; screen and real cartons both visible. 0–3 s screen shows 4–6 labels, no boxes; 3–4 s green boxes appear on EVERY barcode on EVERY label at the same instant; 4–6 s a large green check mark on each label; 6–10 s holds steady, boxes locked on. Avoid: any light projected onto the cartons (red dot, red glow, laser line, flash), boxes appearing one at a time.
 R4 (refs: WORKER, TC501-FRONT, TC501-FR) Over-the-shoulder, gentle slow pan. 0–2 s holds on the left column (already green-checked); 2–8 s sweeps left to right, green boxes stay locked on each moving barcode, every new label instantly gets green boxes then a check mark; 8–10 s holds on the right column.
